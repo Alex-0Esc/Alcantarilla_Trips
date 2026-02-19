@@ -13,8 +13,9 @@ Esta app se ha desarrollado con **Kotlin y Jetpack Compose**, garantizando una e
 ## 🔥 Características Principales
 
 - **Planificación de Itinerarios** - Organiza tus viajes y visualiza tus rutas en segundos. 📅
-- **Búsqueda de Lugares Cercanos** - Encuentra basureros, cocinas y más. 🏝️
+- **Búsqueda de Lugares Cercanos** - Encuentra basureros, cocinas y más. 🧀
 - **Almacenamiento de Imágenes** - Guarda recuerdos de tus viajes.
+- **Filtros de riesgo avanzados** - Evalúa riesgo de humanos malhumorados en las zonas. 💀
 - **Personalizar preferencias de usuario ⚙️**
 - **Soporte para múltiples idiomas 🌎**
 ---
