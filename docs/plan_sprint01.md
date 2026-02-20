@@ -7,7 +7,7 @@
 
 | ID   | Tarea | Responsable  | Estimación (h) | Prioridad |
 |------|-------|--------------|----------------|-----------|
-| T1.0 | Project setup | Alex, Samuel | 6 | Alta |
+| T1.0 | Project setup | Alex, Samuel | 7 | Alta |
 | T1.1 | Crear nombre del producto | Samuel       | 1 | Alta |
 | T1.2 | Desarrollo del logo | Alex         | 3 | Media |
 | T1.2.1 | Diseñar logo a mano| Alex         | 0.5 | Baja |
@@ -26,7 +26,7 @@
 | T2.8 | Push del código inicial | Alex         | 0.5 | Alta |
 | T2.9 | Crear primer release (v0.1.0) | Samuel       | 1 | Alta |
 | T3.0 | Implementación del Core | Alex, Samuel | 10 | Alta |
-| T3.1 | Implementar pantallas core | Samuel       | 6 | Alta |
+| T3.1 | Implementar pantallas core | Samuel       | 4 | Alta |
 | T3.2 | Implementar navegación entre pantallas | Alex       | 2 | Alta |
 | T3.3 | Documentar modelo de datos (Mermaid) | Samuel       | 2 | Media |
 | T3.4 | Crear modelo de clases (estructura) | Alex         | 2 | Media |
