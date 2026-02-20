@@ -10,8 +10,8 @@
 | T1.0 | Project setup | Alex, Samuel | 6 | Alta |
 | T1.1 | Crear nombre del producto | Samuel       | 1 | Alta |
 | T1.2 | Generar logo | Alex         | 3 | Media |
-| T1.2.1 | Dibujar logo a mano | Alex         | 1 | Media |
-| T1.2.2 | Digitalizar logo con IA | Alex         | 2 | Media |
+| T1.2.1 | Dibujar logo a mano | Alex         | 0.5 | Media |
+| T1.2.2 | Digitalizar logo | Alex         | 2.5 | Media |
 | T1.3 | Acordar versión de Android | Alex, Samuel | 1 | Alta |
 | T1.4 | Configurar versión de Kotlin | Alex         | 1 | Alta |
 | T1.5 | Inicializar proyecto en Android Studio | Alex, Samuel | 2 | Alta |
