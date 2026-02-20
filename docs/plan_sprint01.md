@@ -15,7 +15,7 @@
 | T1.3 | Acordar versión de Android | Alex, Samuel | 1 | Alta |
 | T1.4 | Configurar versión de Kotlin | Alex         | 1 | Alta |
 | T1.5 | Inicializar proyecto en Android Studio | Alex, Samuel | 2 | Alta |
-| T2.0 | Control de versiones | Alex, Samuel | 5 | Alta |
+| T2.0 | Control de versiones | Alex, Samuel | 7 | Alta |
 | T2.1 | Crear repositorio en GitHub | Alex         | 0.3 | Alta |
 | T2.2 | Añadir licencia | Alex         | 0.2 | Media |
 | T2.3 | Crear archivo CONTRIBUTING.md | Samuel       | 0.5 | Baja |
