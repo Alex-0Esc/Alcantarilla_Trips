@@ -9,28 +9,28 @@
 |------|-------|--------------|----------------|-----------|
 | T1.0 | Project setup | Alex, Samuel | 6 | Alta |
 | T1.1 | Crear nombre del producto | Samuel       | 1 | Alta |
-| T1.2 | Generar logo | Alex         | 3 | Media |
-| T1.2.1 | Dibujar logo a mano | Alex         | 0.5 | Media |
+| T1.2 | Desarrollo del logo | Alex         | 3 | Media |
+| T1.2.1 | Diseñar logo a mano| Alex         | 0.5 | Baja |
 | T1.2.2 | Digitalizar logo | Alex         | 2.5 | Media |
 | T1.3 | Acordar versión de Android | Alex, Samuel | 1 | Alta |
 | T1.4 | Configurar versión de Kotlin | Alex         | 1 | Alta |
 | T1.5 | Inicializar proyecto en Android Studio | Alex, Samuel | 2 | Alta |
-| T2.0 | Control de versiones | Alex, Samuel | 6 | Alta |
-| T2.1 | Crear repositorio en GitHub | Alex         | 1 | Alta |
-| T2.2 | Añadir licencia | Alex         | 1 | Media |
-| T2.3 | Crear archivo CONTRIBUTING.md | Samuel       | 1 | Baja |
-| T2.4 | Crear README.md | Alex         | 2 | Alta |
+| T2.0 | Control de versiones | Alex, Samuel | 5 | Alta |
+| T2.1 | Crear repositorio en GitHub | Alex         | 0.3 | Alta |
+| T2.2 | Añadir licencia | Alex         | 0.2 | Media |
+| T2.3 | Crear archivo CONTRIBUTING.md | Samuel       | 0.5 | Baja |
+| T2.4 | Crear README.md | Alex         | 1 | Alta |
 | T2.5 | Crear carpeta /docs | Alex         | 0.5 | Media |
-| T2.6 | Crear design.md | Samuel       | 2 | Media |
+| T2.6 | Crear design.md | Samuel       | 1.5 | Media |
 | T2.7 | Preparar ramas remotas y locales | Samuel       | 1.5 | Alta |
 | T2.8 | Push del código inicial | Alex         | 0.5 | Alta |
 | T2.9 | Crear primer release (v0.1.0) | Samuel       | 1 | Alta |
 | T3.0 | Implementación del Core | Alex, Samuel | 10 | Alta |
 | T3.1 | Implementar pantallas core | Samuel       | 6 | Alta |
-| T3.2 | Implementar navegación entre pantallas | Samuel       | 2 | Alta |
+| T3.2 | Implementar navegación entre pantallas | Alex       | 2 | Alta |
 | T3.3 | Documentar modelo de datos (Mermaid) | Samuel       | 2 | Media |
 | T3.4 | Crear modelo de clases (estructura) | Alex         | 2 | Media |
-| T4.0 | Personalización de la app | Samuel       | 6 | Media |
+| T4.0 | Personalización de la app | Samuel, Alex   | 6 | Media |
 | T4.1 | Crear Splash Screen con logo | Samuel       | 2 | Media |
 | T4.2 | Implementar About Page | Alex         | 1.5 | Baja |
 | T4.3 | Añadir términos y condiciones | Alex         | 1 | Baja |
