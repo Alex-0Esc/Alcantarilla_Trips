@@ -1,28 +1,23 @@
-# DAM_105025_sprints_structure
-Esta es la carpeta de estructura de ejemplo para un sprint
+# 🐀 Alcantarilla Trips
 
-
-# 🌍 Travel Planner 
-
-Bienvenido a **Travel Planner**, la app diseñada para que explorar el mundo sea más fácil y emocionante. 🌎✈️ Ya sea que estés planeando un gran viaje o una escapada de fin de semana, Travel Planner te ayuda a organizar tus itinerarios, encontrar lugares increíbles y disfrutar de cada momento sin preocupaciones.
+¿Cansado de cientos de apps para que seres humanos planifiquen sus viajes, mientras que tu colonia tiene que depender de papel de váter para hacer los apuntes? ¡Pues no más, **Alcantarilla Trips** es una app de viajes diseñada para roedores, planifica tus viajes subterráneos por los alcantarillados más populares y no te pierdas nunca más buscando queso con tu camada!
 
 ## 📖 Sobre el Proyecto
 
-Travel Planner nació con la idea de ayudar a los viajeros a planificar sus rutas de forma sencilla y personalizada. Queríamos crear algo que **nosotros mismos usaríamos**, una herramienta intuitiva que eliminara el caos de organizar un viaje.
+Alcantarilla Trips nació con la idea de ayudar a ratas viajeras a planificar sus expediciones de forma sencilla y personalizada. El objetivo era crear algo único, en un mercado con mucha demanda, pero muy poca oferta.
 
-Esta app está construida con **Kotlin + Jetpack Compose**, asegurando una experiencia fluida y moderna. Además, incorpora **navegación intuitiva**, gestión de preferencias y muchas más funciones para facilitar tu aventura.
+Esta app se ha desarrollado con **Kotlin y Jetpack Compose**, garantizando una experiencia suave y actual. Incluye **navegación intuitiva**, manejo eficiente de preferencias y un sinfín de funciones para hacer tus expediciones mas sencillas.
 
 ---
 
 ## 🔥 Características Principales
 
-✅ **Planificación de Itinerarios** - Organiza tus viajes y visualiza tus rutas en segundos. 📅  
-✅ **Búsqueda de Lugares Cercanos** - Encuentra restaurantes, atracciones y más. 🏝️  
-✅ **Almacenamiento de Imágenes** - Guarda recuerdos de tus viajes.  
-✅ **Recomendaciones con IA** - Descubre destinos que te encantarán.  
-✅ **Personalizar preferencias de usuario ⚙️**  
-✅ **Soporte para múltiples idiomas 🌎**  
-
+- **Planificación de Itinerarios** - Organiza tus viajes y visualiza tus rutas en segundos. 📅
+- **Búsqueda de Lugares Cercanos** - Encuentra basureros, cocinas y más. 🧀
+- **Almacenamiento de Imágenes** - Guarda recuerdos de tus viajes.
+- **Filtros de riesgo avanzados** - Evalúa riesgo de humanos malhumorados en las zonas. 💀
+- **Personalizar preferencias de usuario ⚙️**
+- **Soporte para múltiples idiomas 🌎**
 ---
 
 ## 📲 Tecnologías Usadas
@@ -37,5 +32,5 @@ Esta app está construida con **Kotlin + Jetpack Compose**, asegurando una exper
 ---
 
 ## 👥 Equipo de Desarrollo
-- Juan Pepito
-- Ana Pepita test a
+- Àlex Escofet Presedo
+- Samuel Gomà Atehortua
