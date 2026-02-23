@@ -24,7 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun Nuevo_viaje(navController: NavController) {
     Column(
         modifier = Modifier.fillMaxSize(), // Ocupa toda la pantalla
         horizontalAlignment = Alignment.CenterHorizontally, // Centra de izquierda a derecha

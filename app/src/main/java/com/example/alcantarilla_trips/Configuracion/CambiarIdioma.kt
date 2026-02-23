@@ -1,4 +1,4 @@
-package com.example.alcantarilla_trips
+package com.example.alcantarilla_trips.Configuracion
 import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,27 +24,33 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun CambiarIdioma(navController: NavController) {
     Column(
         modifier = Modifier.fillMaxSize(), // Ocupa toda la pantalla
         horizontalAlignment = Alignment.CenterHorizontally, // Centra de izquierda a derecha
         verticalArrangement = Arrangement.Top // Los mantiene arriba
     ) {
         Spacer(modifier = Modifier.padding(50.dp)) // Espacio superior
-        Text("¡Bienvenido Roedor!", style = MaterialTheme.typography.headlineLarge, textAlign = TextAlign.Center)
+        Text("Selecciona el idioma de la app", style = MaterialTheme.typography.headlineLarge, textAlign = TextAlign.Center)
         Spacer(modifier = Modifier.padding(25.dp))
-        Text(text = "Qué quieres hacer hoy?", style = MaterialTheme.typography.headlineMedium, textAlign = TextAlign.Center)
-        Spacer(modifier = Modifier.padding(20.dp))
-        Button(onClick = { }, modifier = Modifier.fillMaxWidth(0.8f)) {
-            Text("Agendar nuevo viaje")
+        Button(onClick = { /*Acción para ver los viajes pendientes*/ }, modifier = Modifier.fillMaxWidth(0.8f)) {
+            Text("Español")
         }
         Spacer(modifier = Modifier.padding(10.dp))
-        Button(onClick = { navController.navigate("agenda")}, modifier = Modifier.fillMaxWidth(0.8f)) {
-            Text("Ver viajes agendados")
+        Button(onClick = { /*Acción para ver los viajes pendientes*/ }, modifier = Modifier.fillMaxWidth(0.8f)) {
+            Text("Catalan")
         }
         Spacer(modifier = Modifier.padding(10.dp))
-        Button(onClick = {navController.navigate("configuracion")}, modifier = Modifier.fillMaxWidth(0.8f)) {
-            Text("Configuración")
+        Button(onClick = { /*Acción para ver los viajes pendientes*/ }, modifier = Modifier.fillMaxWidth(0.8f)) {
+            Text("English")
+        }
+        Spacer(modifier = Modifier.padding(10.dp))
+        Button(onClick = { navController.navigate("configuracion")}, modifier = Modifier.fillMaxWidth(0.8f)) {
+            Text("Volver a configuracion")
+        }
+        Spacer(modifier = Modifier.padding(10.dp))
+        Button(onClick = {navController.navigate("home")}, modifier = Modifier.fillMaxWidth(0.8f)) {
+            Text("Volver a la pantalla principal")
         }
     }
 }
