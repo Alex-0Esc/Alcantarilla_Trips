@@ -2,8 +2,6 @@
 
 ## 🎨 Paleta de Colores
 
-Inspirada en el logo de la app (rata sobre fondo dorado) y la temática de alcantarillas urbanas.
-
 | Nombre | Hex | Uso |
 |---|---|---|
 | CheeseYellow | `#FFCA28` | Primary (tema oscuro) |
