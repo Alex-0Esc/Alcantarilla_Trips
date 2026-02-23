@@ -5,13 +5,21 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.alcantarilla_trips.Configuracion
 import com.example.alcantarilla_trips.Configuracion.CambiarIdioma
+
 @Composable
 fun NavGraph() {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = "home"
+        startDestination = "splash" // <-- cambiado
     ) {
+        composable("splash") {
+            SplashScreen(onFinished = {
+                navController.navigate("home") {
+                    popUpTo("splash") { inclusive = true }
+                }
+            })
+        }
         composable("home") {
             HomeScreen(navController = navController)
         }
