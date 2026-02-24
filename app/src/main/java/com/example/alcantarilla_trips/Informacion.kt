@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun Informacion(navController: NavController) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -21,20 +21,18 @@ fun HomeScreen(navController: NavController) {
             verticalArrangement = Arrangement.Top
         ) {
             Spacer(modifier = Modifier.padding(50.dp))
-            Text("¡Bienvenido Roedor!", style = MaterialTheme.typography.headlineLarge, textAlign = TextAlign.Center)
+            Text("Información", style = MaterialTheme.typography.headlineLarge, textAlign = TextAlign.Center)
             Spacer(modifier = Modifier.padding(25.dp))
-            Text(text = "Qué quieres hacer hoy?", style = MaterialTheme.typography.headlineMedium, textAlign = TextAlign.Center)
-            Spacer(modifier = Modifier.padding(20.dp))
-            Button(onClick = { }, modifier = Modifier.fillMaxWidth(0.8f)) {
-                Text("Agendar nuevo viaje")
+            Button(onClick = { navController.navigate("terminos") }, modifier = Modifier.fillMaxWidth(0.8f)) {
+                Text("Términos y condiciones")
             }
             Spacer(modifier = Modifier.padding(10.dp))
-            Button(onClick = { navController.navigate("agenda") }, modifier = Modifier.fillMaxWidth(0.8f)) {
-                Text("Ver viajes agendados")
+            Button(onClick = { navController.navigate("about") }, modifier = Modifier.fillMaxWidth(0.8f)) {
+                Text("Sobre la app")
             }
             Spacer(modifier = Modifier.padding(10.dp))
-            Button(onClick = { navController.navigate("configuracion") }, modifier = Modifier.fillMaxWidth(0.8f)) {
-                Text("Configuración")
+            Button(onClick = { navController.navigateUp() }, modifier = Modifier.fillMaxWidth(0.8f)) {
+                Text("Volver")
             }
         }
     }
