@@ -50,6 +50,10 @@ fun Configuracion(navController: NavController, themeViewModel: ThemeViewModel) 
             Button(onClick = { navController.navigate("home") }, modifier = Modifier.fillMaxWidth(0.8f)) {
                 Text("Volver")
             }
+            Spacer(modifier = Modifier.padding(10.dp))
+            Button(onClick = { navController.navigate("login") }, modifier = Modifier.fillMaxWidth(0.8f)) {
+                Text("Cerrar Sesion")
+            }
         }
     }
 }

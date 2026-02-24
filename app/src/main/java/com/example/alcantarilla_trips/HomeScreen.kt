@@ -25,12 +25,12 @@ fun HomeScreen(navController: NavController) {
             Spacer(modifier = Modifier.padding(25.dp))
             Text(text = "Qué quieres hacer hoy?", style = MaterialTheme.typography.headlineMedium, textAlign = TextAlign.Center)
             Spacer(modifier = Modifier.padding(20.dp))
-            Button(onClick = { }, modifier = Modifier.fillMaxWidth(0.8f)) {
+            Button(onClick = { navController.navigate("create_trip") }, modifier = Modifier.fillMaxWidth(0.8f)) {
                 Text("Agendar nuevo viaje")
             }
             Spacer(modifier = Modifier.padding(10.dp))
-            Button(onClick = { navController.navigate("agenda") }, modifier = Modifier.fillMaxWidth(0.8f)) {
-                Text("Ver viajes agendados")
+            Button(onClick = { navController.navigate("mis_viajes") }, modifier = Modifier.fillMaxWidth(0.8f)) {
+                Text("Ver mis viajes")
             }
             Spacer(modifier = Modifier.padding(10.dp))
             Button(onClick = { navController.navigate("configuracion") }, modifier = Modifier.fillMaxWidth(0.8f)) {
