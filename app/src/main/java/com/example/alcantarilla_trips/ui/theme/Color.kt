@@ -2,10 +2,21 @@ package com.example.alcantarilla_trips.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+// Dorados/amarillos
+val CheeseYellow = Color(0xFFFFCA28)
+val CheeseYellowDark = Color(0xFFF9A825)
+val CheeseYellowDim = Color(0xFFFFE082)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+// Grises
+val RatGrey = Color(0xFF757575)
+val RatGreyDark = Color(0xFF424242)
+val RatGreyLight = Color(0xFFBDBDBD)
+
+// Rosa
+val TailPink = Color(0xFFF48FB1)
+val TailPinkDark = Color(0xFFC2185B)
+
+// Fondos
+val SewerDark = Color(0xFF1A1A2E)   // azul oscuro alcantarilla
+val SewerSurface = Color(0xFF23233A)
+val SewerLight = Color(0xFFF5F0E8)  // crema papel de váter 🧻

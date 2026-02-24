@@ -24,27 +24,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun Configuracion(navController: NavController) {
     Column(
         modifier = Modifier.fillMaxSize(), // Ocupa toda la pantalla
         horizontalAlignment = Alignment.CenterHorizontally, // Centra de izquierda a derecha
         verticalArrangement = Arrangement.Top // Los mantiene arriba
     ) {
         Spacer(modifier = Modifier.padding(50.dp)) // Espacio superior
-        Text("¡Bienvenido Roedor!", style = MaterialTheme.typography.headlineLarge, textAlign = TextAlign.Center)
+        Text("Configuracion", style = MaterialTheme.typography.headlineLarge, textAlign = TextAlign.Center)
         Spacer(modifier = Modifier.padding(25.dp))
-        Text(text = "Qué quieres hacer hoy?", style = MaterialTheme.typography.headlineMedium, textAlign = TextAlign.Center)
-        Spacer(modifier = Modifier.padding(20.dp))
-        Button(onClick = { }, modifier = Modifier.fillMaxWidth(0.8f)) {
-            Text("Agendar nuevo viaje")
+        Button(onClick = {navController.navigate("cambiar_idioma")}, modifier = Modifier.fillMaxWidth(0.8f)) {
+            Text("Cambiar idioma")
         }
         Spacer(modifier = Modifier.padding(10.dp))
-        Button(onClick = { navController.navigate("agenda")}, modifier = Modifier.fillMaxWidth(0.8f)) {
-            Text("Ver viajes agendados")
-        }
-        Spacer(modifier = Modifier.padding(10.dp))
-        Button(onClick = {navController.navigate("configuracion")}, modifier = Modifier.fillMaxWidth(0.8f)) {
-            Text("Configuración")
+        Button(onClick = {navController.navigate("home")}, modifier = Modifier.fillMaxWidth(0.8f)) {
+            Text("Volver")
         }
     }
 }
