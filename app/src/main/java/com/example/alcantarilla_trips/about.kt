@@ -52,6 +52,8 @@ fun About(navController: NavController) {
 
 📍 VERSIÓN
 Alcantarilla Trips 1.0.0
+
+Este programa utiliza "THE BEER-WARE LICENSE" (Revision 43)
                 """.trimIndent()
             )
             Spacer(modifier = Modifier.padding(20.dp))
