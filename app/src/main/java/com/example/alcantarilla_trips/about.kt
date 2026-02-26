@@ -39,16 +39,19 @@ fun About(navController: NavController) {
 ¡Pues no más! Alcantarilla Trips es la primera app de viajes diseñada exclusivamente para roedores. Planifica tus expediciones subterráneas por los alcantarillados más populares, descubre nuevas rutas de queso y no te pierdas nunca más con tu camada.
 
 🧀 CARACTERÍSTICAS
-- Agenda tus viajes subterráneos
-- Explora rutas por los mejores alcantarillados
-- Disponible en varios idiomas (Español, Català, English)
-- Modo oscuro para visión nocturna optimizada
+- **Planificación de Itinerarios** - Organiza tus viajes y visualiza tus rutas en segundos. 📅
+- **Búsqueda de Lugares Cercanos** - Encuentra basureros, cocinas y más. 🧀
+- **Almacenamiento de Imágenes** - Guarda recuerdos de tus viajes.
+- **Filtros de riesgo avanzados** - Evalúa riesgo de humanos malhumorados en las zonas. 💀
+- **Personalizar preferencias de usuario ⚙️**
+- **Soporte para múltiples idiomas 🌎**
 
 👥 EQUIPO
-Desarrollado con amor (y olor a humedad) por un equipo de roedores apasionados de la tecnología móvil.
+- Àlex Escofet Presedo
+- Samuel Gomà Atehortua
 
 📍 VERSIÓN
-Alcantarilla Trips 1.0 — Primera expedición estable.
+Alcantarilla Trips 1.0.0
                 """.trimIndent()
             )
             Spacer(modifier = Modifier.padding(20.dp))
