@@ -18,9 +18,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -32,6 +34,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 
 @Composable
 fun RegisterScreen(navController: NavController) {
@@ -109,12 +112,29 @@ fun RegisterScreen(navController: NavController) {
                 // ── Logo ────────────────────────────────────────────
                 Box(
                     modifier = Modifier
-                        .size(90.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.primaryContainer),
+                        .size(110.dp)
+                        .shadow(
+                            elevation = 16.dp,
+                            shape = RoundedCornerShape(28.dp),
+                            ambientColor = RatTravelColors.YellowPrimary.copy(alpha = 0.4f),
+                            spotColor = RatTravelColors.YellowPrimary.copy(alpha = 0.6f)
+                        )
+                        .clip(RoundedCornerShape(28.dp))
+                        .background(
+                            brush = Brush.linearGradient(
+                                colors = listOf(RatTravelColors.YellowLight, RatTravelColors.YellowDark)
+                            )
+                        ),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("🐭", fontSize = 44.sp)
+                    AsyncImage(
+                        model = R.drawable.logo_animation,
+                        contentDescription = "Logo",
+                        modifier = Modifier
+                            .size(90.dp)
+                            .clip(RoundedCornerShape(20.dp)),
+                        contentScale = ContentScale.Fit
+                    )
                 }
 
                 Spacer(Modifier.height(16.dp))

@@ -5,6 +5,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -23,7 +24,7 @@ fun Configuracion(navController: NavController, themeViewModel: ThemeViewModel) 
             verticalArrangement = Arrangement.Top
         ) {
             Spacer(modifier = Modifier.padding(50.dp))
-            Text("Configuracion", style = MaterialTheme.typography.headlineLarge, textAlign = TextAlign.Center)
+            Text(stringResource(R.string.configuracion_titulo), style = MaterialTheme.typography.headlineLarge, textAlign = TextAlign.Center)
             Spacer(modifier = Modifier.padding(25.dp))
 
             Row(
@@ -31,7 +32,7 @@ fun Configuracion(navController: NavController, themeViewModel: ThemeViewModel) 
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("Modo oscuro", style = MaterialTheme.typography.bodyLarge)
+                Text(stringResource(R.string.configuracion_modo_oscuro), style = MaterialTheme.typography.bodyLarge)
                 Switch(
                     checked = isDark,
                     onCheckedChange = { themeViewModel.toggleTheme() }
@@ -40,19 +41,19 @@ fun Configuracion(navController: NavController, themeViewModel: ThemeViewModel) 
 
             Spacer(modifier = Modifier.padding(10.dp))
             Button(onClick = { navController.navigate("cambiar_idioma") }, modifier = Modifier.fillMaxWidth(0.8f)) {
-                Text("Cambiar idioma")
+                Text(stringResource(R.string.configuracion_cambiar_idioma))
             }
             Spacer(modifier = Modifier.padding(10.dp))
             Button(onClick = { navController.navigate("informacion") }, modifier = Modifier.fillMaxWidth(0.8f)) {
-                Text("Información")
+                Text(stringResource(R.string.configuracion_informacion))
             }
             Spacer(modifier = Modifier.padding(10.dp))
             Button(onClick = { navController.navigate("home") }, modifier = Modifier.fillMaxWidth(0.8f)) {
-                Text("Volver")
+                Text(stringResource(R.string.btn_volver))
             }
             Spacer(modifier = Modifier.padding(10.dp))
             Button(onClick = { navController.navigate("login") }, modifier = Modifier.fillMaxWidth(0.8f)) {
-                Text("Cerrar Sesion")
+                Text(stringResource(R.string.configuracion_cerrar_sesion))
             }
         }
     }

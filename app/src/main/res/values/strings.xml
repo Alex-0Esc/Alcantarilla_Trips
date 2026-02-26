@@ -1,3 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Alcantarilla_Trips</string>
+    <string name="app_name">Alcantarilla Trips</string>
+    <string name="about_title">Sobre la app</string>
+    <string name="btn_volver">Volver</string>
+    <string name="about_body">
+        🐀 Alcantarilla Trips v1.0\n
+        ¿Cansado de cientos de apps para que seres humanos planifiquen sus viajes,
+        mientras que tu colonia tiene que depender de papel de váter para hacer los apuntes?\n
+        ¡Pues no más! Alcantarilla Trips es la primera app de viajes diseñada exclusivamente
+        para roedores. Planifica tus expediciones subterráneas por los alcantarillados más
+        populares, descubre nuevas rutas de queso y no te pierdas nunca más con tu camada.\n
+        🧀 CARACTERÍSTICAS\n
+        - Planificación de Itinerarios - Organiza tus viajes y visualiza tus rutas en segundos. 📅\n
+        - Búsqueda de Lugares Cercanos - Encuentra basureros, cocinas y más. 🧀\n
+        - Almacenamiento de Imágenes - Guarda recuerdos de tus viajes.\n
+        - Filtros de riesgo avanzados - Evalúa riesgo de humanos malhumorados en las zonas. 💀\n
+        - Personalizar preferencias de usuario ⚙️\n
+        - Soporte para múltiples idiomas 🌎\n
+        👥 EQUIPO\n
+        - Àlex Escofet Presedo\n
+        - Samuel Gomà Atehortua\n
+        📍 VERSIÓN\n
+        Alcantarilla Trips 1.0.0\n
+        Este programa utiliza \"THE BEER-WARE LICENSE\" (Revision 43)
+    </string>
+    <string name="cambiar_idioma_titulo">Selecciona el idioma de la app</string>
+    <string name="idioma_espanol">Español</string>
+    <string name="idioma_catalan">Català</string>
+    <string name="idioma_ingles">English</string>
+    <string name="btn_volver_configuracion">Volver a configuración</string>
+    <string name="btn_volver_home">Volver a la pantalla principal</string>
+
+    <string name="configuracion_titulo">Configuración</string>
+    <string name="configuracion_modo_oscuro">Modo oscuro</string>
+    <string name="configuracion_cambiar_idioma">Cambiar idioma</string>
+    <string name="configuracion_informacion">Información</string>
+    <string name="configuracion_cerrar_sesion">Cerrar sesión</string>
+
+    <string name="create_trip_titulo">Nuevo Viaje 🗺️</string>
+    <string name="create_trip_volver">Volver</string>
+    <string name="create_trip_atras">Atrás</string>
+    <string name="create_trip_exito_titulo">¡Viaje creado!</string>
+    <string name="create_trip_exito_boton">¡Vamos!</string>
+    <string name="create_trip_exito_texto">Tu aventura a %1$s está lista.\n¡Que disfrutes el viaje, pequeño explorador! 🐭</string>
+    <string name="step_destino">Destino</string>
+    <string name="step_vuelo">Vuelo</string>
+    <string name="step_hotel">Hotel</string>
+    <string name="step_fin">Fin</string>
+    <string name="destino_de_donde">¿De dónde salimos?</string>
+    <string name="destino_a_donde">¿A dónde vamos?</string>
+    <string name="destino_ciudad_origen">Ciudad de origen</string>
+    <string name="destino_ciudad_origen_placeholder">Ej: Madrid</string>
+    <string name="destino_ciudad_destino">Ciudad de destino</string>
+    <string name="destino_ciudad_destino_placeholder">Ej: París, Roma, Tokio…</string>
+    <string name="destino_error_origen">Indica la ciudad de origen</string>
+    <string name="destino_error_destino">Indica la ciudad de destino</string>
+    <string name="destino_buscar_vuelos">Buscar vuelos 🛫</string>
+    <string name="mapa_titulo">Mapa interactivo</string>
+    <string name="mapa_subtitulo">Añade maps-compose en build.gradle para activarlo</string>
+    <string name="mapa_integrar">Integrar Google Maps</string>
+    <string name="vuelo_titulo">Elige tu vuelo</string>
+    <string name="vuelo_opciones">%1$d opciones encontradas</string>
+    <string name="vuelo_continuar">Continuar con este vuelo ✈️</string>
+    <string name="vuelo_por_rata">por rata</string>
+    <string name="hotel_titulo">Elige tu hotel</string>
+    <string name="hotel_continuar">Continuar con este hotel 🏨</string>
+    <string name="hotel_por_noche">por noche</string>
+    <string name="resumen_titulo">Resumen del viaje</string>
+    <string name="resumen_ruta">Ruta</string>
+    <string name="resumen_hotel">Hotel</string>
+    <string name="resumen_precio">💰 Precio estimado</string>
+    <string name="resumen_confirmar">¡Confirmar viaje! 🐭✈️</string>
+
+    <string name="home_bienvenido">¡Bienvenido Roedor!</string>
+    <string name="home_que_hacer">¿Qué quieres hacer hoy?</string>
+    <string name="home_agendar_viaje">Agendar nuevo viaje</string>
+    <string name="home_ver_viajes">Ver mis viajes</string>
+    <string name="home_configuracion">Configuración</string>
+
+    <string name="informacion_titulo">Información</string>
+    <string name="informacion_terminos">Términos y condiciones</string>
+    <string name="informacion_about">Sobre la app</string>
+
+    <string name="login_logo_desc">Logo</string>
+    <string name="login_subtitulo">El mundo es tuyo, pequeño explorador</string>
+    <string name="login_titulo">Iniciar sesión</string>
+    <string name="login_email">Correo electrónico</string>
+    <string name="login_password">Contraseña</string>
+    <string name="login_mostrar_password">Mostrar/ocultar contraseña</string>
+    <string name="login_error_email">Ingresa un email válido</string>
+    <string name="login_error_password">Mínimo 6 caracteres</string>
+    <string name="login_boton_entrar">Entrar al mundo 🐾</string>
+    <string name="login_nuevo_usuario">¿Eres nuevo por aquí?</string>
+    <string name="login_boton_registro">Crear cuenta nueva 🧳</string>
+    <string name="login_footer_aceptar">Al continuar aceptas nuestros </string>
+    <string name="login_footer_terminos">Términos y Condiciones</string>
+    <string name="login_footer_aprender">. Aprende más en </string>
+    <string name="login_footer_sobre">Sobre Nosotros</string>
+
+    <string name="register_titulo">Crea tu cuenta</string>
+    <string name="register_subtitulo">Únete a la comunidad de ratas viajeras</string>
+    <string name="register_datos_acceso">Datos de acceso</string>
+    <string name="register_confirmar_password">Confirmar contraseña</string>
+    <string name="register_password_debil">Débil</string>
+    <string name="register_password_media">Media</string>
+    <string name="register_password_fuerte">Fuerte</string>
+    <string name="register_password_fortaleza">Contraseña %1$s</string>
+    <string name="register_acepto">Acepto los </string>
+    <string name="register_error_confirm">Las contraseñas no coinciden</string>
+    <string name="register_error_terminos">Debes aceptar los términos para continuar</string>
+    <string name="register_boton_crear">Crear cuenta 🐾</string>
+    <string name="register_ya_tengo_cuenta">¿Ya tienes cuenta?</string>
+    <string name="register_iniciar_sesion">Inicia sesión</string>
+
+    <string name="splash_desc">Splash</string>
+
+    <string name="terminos_titulo">Términos y Condiciones</string>
+
+    <string name="terminos_contenido">
+    Al utilizar Alcantarilla Trips, el usuario (en adelante "el Roedor") acepta los siguientes términos:
+
+    1. USO DE LA APP
+    Alcantarilla Trips está diseñada exclusivamente para la planificación de viajes subterráneos. Cualquier uso en superficie queda bajo responsabilidad del Roedor.
+
+    2. RESPONSABILIDAD
+    No nos hacemos responsables de pérdidas de queso, encuentros con desagradables bípedos, ni de corrientes de agua inesperadas durante los viajes planificados con esta app.
+
+    3. PRIVACIDAD
+    Los datos de tus rutas de alcantarilla son estrictamente confidenciales y jamás serán compartidos con exteriores, gatos, ni autoridades sanitarias.
+
+    4. MODIFICACIONES
+    Alcantarilla Trips se reserva el derecho de modificar estas condiciones en cualquier momento. Los cambios serán comunicados mediante arañazos en las paredes del túnel principal.
+
+    5. ACEPTACIÓN
+    El simple hecho de olfatear esta pantalla implica la aceptación total de estos términos.
+    </string>
+
+    <string name="volver">Volver</string>
+
+
 </resources>

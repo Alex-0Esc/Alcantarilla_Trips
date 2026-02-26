@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.ImageLoader
 import coil.compose.AsyncImage
@@ -24,7 +25,7 @@ fun SplashScreen(onFinished: () -> Unit) {
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
-        delay(3000L) // ajusta según duración de tu GIF
+        delay(3000L)
         onFinished()
     }
 
@@ -41,15 +42,15 @@ fun SplashScreen(onFinished: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black), // cambia el color de fondo
+            .background(Color.Black),
         contentAlignment = Alignment.Center
     ) {
         AsyncImage(
             model = ImageRequest.Builder(context)
-                .data(R.drawable.logo_animation) // pon el nombre exacto de tu gif
+                .data(R.drawable.logo_animation)
                 .build(),
             imageLoader = imageLoader,
-            contentDescription = "Splash",
+            contentDescription = stringResource(R.string.splash_desc),
             modifier = Modifier.size(200.dp)
         )
     }
