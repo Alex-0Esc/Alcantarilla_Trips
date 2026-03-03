@@ -48,12 +48,12 @@ fun Configuracion(navController: NavController, themeViewModel: ThemeViewModel) 
                 Text(stringResource(R.string.configuracion_informacion))
             }
             Spacer(modifier = Modifier.padding(10.dp))
-            Button(onClick = { navController.navigate("home") }, modifier = Modifier.fillMaxWidth(0.8f)) {
-                Text(stringResource(R.string.btn_volver))
-            }
-            Spacer(modifier = Modifier.padding(10.dp))
             Button(onClick = { navController.navigate("login") }, modifier = Modifier.fillMaxWidth(0.8f)) {
                 Text(stringResource(R.string.configuracion_cerrar_sesion))
+            }
+            Spacer(modifier = Modifier.padding(10.dp))
+            Button(onClick = { navController.navigate("mis_viajes") }, modifier = Modifier.fillMaxWidth(0.8f)) {
+                Text(stringResource(R.string.btn_volver))
             }
         }
     }

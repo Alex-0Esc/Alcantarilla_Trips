@@ -28,14 +28,17 @@ fun NavGraph(themeViewModel: ThemeViewModel) {
         composable("registro") {
             RegisterScreen(navController = navController)
         }
-        composable("home") {
-            HomeScreen(navController = navController)
-        }
         composable("configuracion") {
             Configuracion(navController = navController, themeViewModel = themeViewModel)
         }
         composable("cambiar_idioma") {
             CambiarIdioma(navController = navController)
+        }
+        composable("album") {
+            PhotoAlbumScreen(navController = navController)
+        }
+        composable ("itinerario"){
+            ItineraryScreen(navController = navController)
         }
         composable("informacion") {
             Informacion(navController = navController)

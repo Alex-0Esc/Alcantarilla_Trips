@@ -71,7 +71,7 @@ fun LoginScreen(navController: NavController) {
         passwordError = if (password.length < 6) errorPasswordCorta else null
         if (emailError == null && passwordError == null) {
             isLoading = true
-            navController.navigate("home") {
+            navController.navigate("mis_viajes") {
                 popUpTo("login") { inclusive = true }
             }
         }
