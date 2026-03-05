@@ -17,13 +17,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
-// ─── Modelos de itinerario ────────────────────────────────────────────
 enum class ActivityType { FLIGHT, HOTEL, ACTIVITY, FOOD, TRANSPORT }
 
 data class ItineraryActivity(
@@ -43,10 +43,8 @@ data class ItineraryDay(
     val activities: List<ItineraryActivity>
 )
 
-// ─── Datos de muestra ────────────────────────────────────────────────
 val sampleItinerary = listOf(
-    ItineraryDay(
-        dayNumber = 1, date = "20 Nov 2025", city = "Nueva York", emoji = "🗽",
+    ItineraryDay(dayNumber = 1, date = "20 Nov 2025", city = "Nueva York", emoji = "🗽",
         activities = listOf(
             ItineraryActivity("08:00", "Vuelo IB0091", "Valencia → Nueva York (JFK)", ActivityType.FLIGHT, "9h 30m"),
             ItineraryActivity("18:30", "Llegada a JFK", "Recogida de equipaje - Terminal 4", ActivityType.TRANSPORT, "45m"),
@@ -54,8 +52,7 @@ val sampleItinerary = listOf(
             ItineraryActivity("21:30", "Cena en Times Square", "Junior's Restaurant", ActivityType.FOOD, "1h 30m"),
         )
     ),
-    ItineraryDay(
-        dayNumber = 2, date = "21 Nov 2025", city = "Nueva York", emoji = "🌆",
+    ItineraryDay(dayNumber = 2, date = "21 Nov 2025", city = "Nueva York", emoji = "🌆",
         activities = listOf(
             ItineraryActivity("09:00", "Desayuno en el hotel", "Buffet incluido", ActivityType.FOOD, "45m"),
             ItineraryActivity("10:30", "Empire State Building", "Subida al observatorio", ActivityType.ACTIVITY, "2h", "Entradas ya compradas"),
@@ -65,8 +62,7 @@ val sampleItinerary = listOf(
             ItineraryActivity("21:00", "Cena en DUMBO", "Time Out Market Brooklyn", ActivityType.FOOD, "1h 30m"),
         )
     ),
-    ItineraryDay(
-        dayNumber = 3, date = "22 Nov 2025", city = "Nueva York", emoji = "🗺️",
+    ItineraryDay(dayNumber = 3, date = "22 Nov 2025", city = "Nueva York", emoji = "🗺️",
         activities = listOf(
             ItineraryActivity("09:30", "Museo MoMA", "Arte moderno y contemporáneo", ActivityType.ACTIVITY, "3h", "Reserva de 10:00 confirmada"),
             ItineraryActivity("13:00", "Almuerzo en Chelsea", "The High Line Food Market", ActivityType.FOOD, "1h"),
@@ -76,8 +72,7 @@ val sampleItinerary = listOf(
             ItineraryActivity("23:00", "Check-out preparación", "Maletas listas para mañana", ActivityType.HOTEL),
         )
     ),
-    ItineraryDay(
-        dayNumber = 4, date = "23 Nov 2025", city = "Regreso", emoji = "🏠",
+    ItineraryDay(dayNumber = 4, date = "23 Nov 2025", city = "Regreso", emoji = "🏠",
         activities = listOf(
             ItineraryActivity("06:00", "Check-out hotel", "Recepción abierta 24h", ActivityType.HOTEL),
             ItineraryActivity("07:30", "Transfer al aeropuerto", "Taxi a JFK Terminal 4", ActivityType.TRANSPORT, "1h"),
@@ -87,11 +82,9 @@ val sampleItinerary = listOf(
     )
 )
 
-// ─── Pantalla de itinerario ───────────────────────────────────────────
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ItineraryScreen(navController: NavController) {
-
     var expandedDay by remember { mutableIntStateOf(0) }
 
     Scaffold(
@@ -99,50 +92,24 @@ fun ItineraryScreen(navController: NavController) {
             TopAppBar(
                 title = {
                     Column {
-                        Text(
-                            "Itinerario",
-                            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
-                        )
-                        Text(
-                            "Nueva York · Nov 2025",
-                            style = MaterialTheme.typography.labelSmall.copy(
-                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-                            )
-                        )
-                    }
-                },
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, "Volver", tint = MaterialTheme.colorScheme.primary)
+                        Text(stringResource(R.string.itinerary_titulo), style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold))
+                        Text(stringResource(R.string.itinerary_subtitulo), style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)))
                     }
                 },
                 actions = {
-                    IconButton(onClick = { /* TODO: compartir */ }) {
-                        Icon(Icons.Default.Share, "Compartir", tint = MaterialTheme.colorScheme.primary)
+                    IconButton(onClick = { }) {
+                        Icon(Icons.Default.Share, stringResource(R.string.itinerary_compartir), tint = MaterialTheme.colorScheme.primary)
                     }
                 }
             )
-        },
-        bottomBar = { ItineraryBottomNav(navController) }
+        }
     ) { paddingValues ->
-
         LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .background(MaterialTheme.colorScheme.background),
-            contentPadding = PaddingValues(
-                start = 16.dp, end = 16.dp, top = 16.dp, bottom = 32.dp
-            ),
+            modifier = Modifier.fillMaxSize().padding(paddingValues).background(MaterialTheme.colorScheme.background),
+            contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 32.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-
-            // Cabecera resumen del viaje
-            item {
-                TripSummaryCard()
-            }
-
-            // Días del itinerario
+            item { TripSummaryCard() }
             itemsIndexed(sampleItinerary) { index, day ->
                 ItineraryDayCard(
                     day = day,
@@ -155,37 +122,17 @@ fun ItineraryScreen(navController: NavController) {
     }
 }
 
-// ─── Tarjeta resumen del viaje ────────────────────────────────────────
 @Composable
 fun TripSummaryCard() {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            SummaryItem(icon = "🗓️", value = "4", label = "Días")
-            VerticalDivider(
-                modifier = Modifier.height(40.dp),
-                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.2f)
-            )
-            SummaryItem(icon = "🏙️", value = "1", label = "Ciudad")
-            VerticalDivider(
-                modifier = Modifier.height(40.dp),
-                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.2f)
-            )
-            SummaryItem(icon = "✈️", value = "IB0091", label = "Vuelo")
-            VerticalDivider(
-                modifier = Modifier.height(40.dp),
-                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.2f)
-            )
-            SummaryItem(icon = "🏨", value = "NYC Inn", label = "Hotel")
+    Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(20.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer), elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)) {
+        Row(modifier = Modifier.fillMaxWidth().padding(16.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
+            SummaryItem(icon = "🗓️", value = "4",      label = stringResource(R.string.itinerary_summary_dias))
+            VerticalDivider(modifier = Modifier.height(40.dp), color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.2f))
+            SummaryItem(icon = "🏙️", value = "1",      label = stringResource(R.string.itinerary_summary_ciudad))
+            VerticalDivider(modifier = Modifier.height(40.dp), color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.2f))
+            SummaryItem(icon = "✈️", value = "IB0091", label = stringResource(R.string.itinerary_summary_vuelo))
+            VerticalDivider(modifier = Modifier.height(40.dp), color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.2f))
+            SummaryItem(icon = "🏨", value = "NYC Inn", label = stringResource(R.string.itinerary_summary_hotel))
         }
     }
 }
@@ -195,126 +142,52 @@ fun SummaryItem(icon: String, value: String, label: String) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(icon, fontSize = 18.sp)
         Spacer(Modifier.height(2.dp))
-        Text(
-            value,
-            style = MaterialTheme.typography.labelLarge.copy(
-                fontWeight = FontWeight.Black,
-                color = MaterialTheme.colorScheme.primary
-            ),
-            maxLines = 1
-        )
-        Text(
-            label,
-            style = MaterialTheme.typography.labelSmall.copy(
-                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.6f)
-            )
-        )
+        Text(value, style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Black, color = MaterialTheme.colorScheme.primary), maxLines = 1)
+        Text(label, style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.6f)))
     }
 }
 
-// ─── Tarjeta de día con acordeón ─────────────────────────────────────
 @Composable
-fun ItineraryDayCard(
-    day: ItineraryDay,
-    isExpanded: Boolean,
-    isLast: Boolean,
-    onToggle: () -> Unit
-) {
+fun ItineraryDayCard(day: ItineraryDay, isExpanded: Boolean, isLast: Boolean, onToggle: () -> Unit) {
     Card(
         onClick = onToggle,
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = if (isExpanded) MaterialTheme.colorScheme.surface
-            else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f)
-        ),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = if (isExpanded) 4.dp else 1.dp
-        )
+        colors = CardDefaults.cardColors(containerColor = if (isExpanded) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f)),
+        elevation = CardDefaults.cardElevation(defaultElevation = if (isExpanded) 4.dp else 1.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-
-            // Cabecera del día
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                // Número del día
+            Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Box(
-                    modifier = Modifier
-                        .size(44.dp)
-                        .clip(CircleShape)
-                        .background(
-                            if (isExpanded) MaterialTheme.colorScheme.primary
-                            else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f)
-                        ),
+                    modifier = Modifier.size(44.dp).clip(CircleShape).background(if (isExpanded) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f)),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(
-                        "D${day.dayNumber}",
-                        style = MaterialTheme.typography.labelLarge.copy(
-                            fontWeight = FontWeight.Black,
-                            color = if (isExpanded) MaterialTheme.colorScheme.onPrimary
-                            else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-                        )
-                    )
+                    Text("D${day.dayNumber}", style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Black, color = if (isExpanded) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)))
                 }
-
                 Spacer(Modifier.width(12.dp))
-
                 Column(modifier = Modifier.weight(1f)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(day.emoji, fontSize = 16.sp)
                         Spacer(Modifier.width(6.dp))
-                        Text(
-                            day.city,
-                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
-                        )
+                        Text(day.city, style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold))
                     }
-                    Text(
-                        day.date,
-                        style = MaterialTheme.typography.bodySmall.copy(
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    )
+                    Text(day.date, style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant))
                 }
-
-                // Chip con nº actividades
-                Surface(
-                    shape = RoundedCornerShape(20.dp),
-                    color = MaterialTheme.colorScheme.primaryContainer
-                ) {
+                Surface(shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.primaryContainer) {
                     Text(
-                        "${day.activities.size} actividades",
+                        stringResource(R.string.itinerary_actividades, day.activities.size),
                         modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
-                        style = MaterialTheme.typography.labelSmall.copy(
-                            color = MaterialTheme.colorScheme.primary,
-                            fontWeight = FontWeight.Bold
-                        )
+                        style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold)
                     )
                 }
-
                 Spacer(Modifier.width(8.dp))
-
-                Icon(
-                    imageVector = if (isExpanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                Icon(imageVector = if (isExpanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
             }
 
-            // Lista de actividades (expandible)
-            AnimatedVisibility(
-                visible = isExpanded,
-                enter = expandVertically(tween(300)) + fadeIn(tween(300)),
-                exit  = shrinkVertically(tween(250)) + fadeOut(tween(200))
-            ) {
+            AnimatedVisibility(visible = isExpanded, enter = expandVertically(tween(300)) + fadeIn(tween(300)), exit = shrinkVertically(tween(250)) + fadeOut(tween(200))) {
                 Column(modifier = Modifier.padding(top = 16.dp)) {
                     day.activities.forEachIndexed { index, activity ->
-                        ActivityRow(
-                            activity = activity,
-                            isLast = index == day.activities.lastIndex
-                        )
+                        ActivityRow(activity = activity, isLast = index == day.activities.lastIndex)
                     }
                 }
             }
@@ -322,87 +195,28 @@ fun ItineraryDayCard(
     }
 }
 
-// ─── Fila de actividad con línea de tiempo ────────────────────────────
 @Composable
 fun ActivityRow(activity: ItineraryActivity, isLast: Boolean) {
     val (iconVector, iconColor) = activityIcon(activity.type)
-
     Row(modifier = Modifier.fillMaxWidth()) {
-
-        // Línea de tiempo
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Box(
-                modifier = Modifier
-                    .size(32.dp)
-                    .clip(CircleShape)
-                    .background(iconColor.copy(alpha = 0.15f)),
-                contentAlignment = Alignment.Center
-            ) {
+            Box(modifier = Modifier.size(32.dp).clip(CircleShape).background(iconColor.copy(alpha = 0.15f)), contentAlignment = Alignment.Center) {
                 Icon(iconVector, null, modifier = Modifier.size(16.dp), tint = iconColor)
             }
-            if (!isLast) {
-                Box(
-                    modifier = Modifier
-                        .width(2.dp)
-                        .height(28.dp)
-                        .background(MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
-                )
-            }
+            if (!isLast) { Box(modifier = Modifier.width(2.dp).height(28.dp).background(MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))) }
         }
-
         Spacer(Modifier.width(12.dp))
-
-        // Contenido
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .padding(bottom = if (isLast) 0.dp else 12.dp)
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    activity.title,
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
-                    modifier = Modifier.weight(1f),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Text(
-                    activity.time,
-                    style = MaterialTheme.typography.labelSmall.copy(
-                        color = MaterialTheme.colorScheme.primary,
-                        fontWeight = FontWeight.Bold
-                    )
-                )
+        Column(modifier = Modifier.weight(1f).padding(bottom = if (isLast) 0.dp else 12.dp)) {
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+                Text(activity.title, style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold), modifier = Modifier.weight(1f), maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Text(activity.time, style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold))
             }
-            Text(
-                activity.subtitle,
-                style = MaterialTheme.typography.bodySmall.copy(
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                ),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+            Text(activity.subtitle, style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant), maxLines = 1, overflow = TextOverflow.Ellipsis)
             if (activity.duration.isNotEmpty() || activity.note.isNotEmpty()) {
                 Spacer(Modifier.height(4.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    if (activity.duration.isNotEmpty()) {
-                        MiniChip(
-                            icon = Icons.Default.Timer,
-                            text = activity.duration,
-                            color = MaterialTheme.colorScheme.tertiary
-                        )
-                    }
-                    if (activity.note.isNotEmpty()) {
-                        MiniChip(
-                            icon = Icons.Default.Info,
-                            text = activity.note,
-                            color = MaterialTheme.colorScheme.secondary
-                        )
-                    }
+                    if (activity.duration.isNotEmpty()) MiniChip(icon = Icons.Default.Timer, text = activity.duration, color = MaterialTheme.colorScheme.tertiary)
+                    if (activity.note.isNotEmpty()) MiniChip(icon = Icons.Default.Info, text = activity.note, color = MaterialTheme.colorScheme.secondary)
                 }
             }
         }
@@ -411,69 +225,19 @@ fun ActivityRow(activity: ItineraryActivity, isLast: Boolean) {
 
 @Composable
 fun MiniChip(icon: ImageVector, text: String, color: Color) {
-    Surface(
-        shape = RoundedCornerShape(8.dp),
-        color = color.copy(alpha = 0.1f)
-    ) {
-        Row(
-            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(3.dp)
-        ) {
+    Surface(shape = RoundedCornerShape(8.dp), color = color.copy(alpha = 0.1f)) {
+        Row(modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(3.dp)) {
             Icon(icon, null, modifier = Modifier.size(10.dp), tint = color)
-            Text(
-                text,
-                style = MaterialTheme.typography.labelSmall.copy(color = color),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+            Text(text, style = MaterialTheme.typography.labelSmall.copy(color = color), maxLines = 1, overflow = TextOverflow.Ellipsis)
         }
     }
 }
 
-// ─── Icono según tipo de actividad ────────────────────────────────────
 @Composable
 fun activityIcon(type: ActivityType): Pair<ImageVector, Color> = when (type) {
-    ActivityType.FLIGHT    -> Icons.Default.Flight      to MaterialTheme.colorScheme.primary
-    ActivityType.HOTEL     -> Icons.Default.Hotel       to MaterialTheme.colorScheme.tertiary
-    ActivityType.ACTIVITY  -> Icons.Default.Explore     to Color(0xFF4CAF50)
-    ActivityType.FOOD      -> Icons.Default.Restaurant  to Color(0xFFFF9800)
+    ActivityType.FLIGHT    -> Icons.Default.Flight        to MaterialTheme.colorScheme.primary
+    ActivityType.HOTEL     -> Icons.Default.Hotel         to MaterialTheme.colorScheme.tertiary
+    ActivityType.ACTIVITY  -> Icons.Default.Explore       to Color(0xFF4CAF50)
+    ActivityType.FOOD      -> Icons.Default.Restaurant    to Color(0xFFFF9800)
     ActivityType.TRANSPORT -> Icons.Default.DirectionsCar to MaterialTheme.colorScheme.secondary
-}
-
-// ─── Bottom Nav ───────────────────────────────────────────────────────
-@Composable
-fun ItineraryBottomNav(navController: NavController) {
-    NavigationBar(
-        containerColor = MaterialTheme.colorScheme.surface,
-        tonalElevation = 8.dp
-    ) {
-        val items = listOf(
-            Triple("Itinerario",  Icons.Default.Book,   false),
-            Triple("Album",  Icons.Default.Bookmark, false),
-            Triple("Configuracion",  Icons.Default.Build, false)
-        )
-        items.forEachIndexed { _, (label, icon, selected) ->
-            NavigationBarItem(
-                selected = selected,
-                onClick = { /* TODO */ },
-                icon = { Icon(icon, label) },
-                label = {
-                    Text(
-                        label,
-                        style = MaterialTheme.typography.labelSmall.copy(
-                            fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal
-                        )
-                    )
-                },
-                colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor   = MaterialTheme.colorScheme.primary,
-                    selectedTextColor   = MaterialTheme.colorScheme.primary,
-                    unselectedIconColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
-                    unselectedTextColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
-                    indicatorColor      = MaterialTheme.colorScheme.primaryContainer
-                )
-            )
-        }
-    }
 }

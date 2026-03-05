@@ -14,29 +14,15 @@ import androidx.navigation.NavController
 fun Configuracion(navController: NavController, themeViewModel: ThemeViewModel) {
     val isDark by themeViewModel.isDarkTheme.collectAsState()
 
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
-    ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top
-        ) {
+    Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+        Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Top) {
             Spacer(modifier = Modifier.padding(50.dp))
             Text(stringResource(R.string.configuracion_titulo), style = MaterialTheme.typography.headlineLarge, textAlign = TextAlign.Center)
             Spacer(modifier = Modifier.padding(25.dp))
 
-            Row(
-                modifier = Modifier.fillMaxWidth(0.8f),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+            Row(modifier = Modifier.fillMaxWidth(0.8f), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                 Text(stringResource(R.string.configuracion_modo_oscuro), style = MaterialTheme.typography.bodyLarge)
-                Switch(
-                    checked = isDark,
-                    onCheckedChange = { themeViewModel.toggleTheme() }
-                )
+                Switch(checked = isDark, onCheckedChange = { themeViewModel.toggleTheme() })
             }
 
             Spacer(modifier = Modifier.padding(10.dp))
@@ -50,10 +36,6 @@ fun Configuracion(navController: NavController, themeViewModel: ThemeViewModel) 
             Spacer(modifier = Modifier.padding(10.dp))
             Button(onClick = { navController.navigate("login") }, modifier = Modifier.fillMaxWidth(0.8f)) {
                 Text(stringResource(R.string.configuracion_cerrar_sesion))
-            }
-            Spacer(modifier = Modifier.padding(10.dp))
-            Button(onClick = { navController.navigate("mis_viajes") }, modifier = Modifier.fillMaxWidth(0.8f)) {
-                Text(stringResource(R.string.btn_volver))
             }
         }
     }

@@ -94,9 +94,9 @@
     <string name="login_nuevo_usuario">¿Eres nuevo por aquí?</string>
     <string name="login_boton_registro">Crear cuenta nueva 🧳</string>
     <string name="login_footer_aceptar">Al continuar aceptas nuestros </string>
-    <string name="login_footer_terminos">Términos y Condiciones</string>
+    <string name="login_footer_terminos"> Términos y Condiciones</string>
     <string name="login_footer_aprender">. Aprende más en </string>
-    <string name="login_footer_sobre">Sobre Nosotros</string>
+    <string name="login_footer_sobre"> Sobre Nosotros</string>
 
     <string name="register_titulo">Crea tu cuenta</string>
     <string name="register_subtitulo">Únete a la comunidad de ratas viajeras</string>
@@ -118,25 +118,114 @@
     <string name="terminos_titulo">Términos y Condiciones</string>
 
     <string name="terminos_contenido">
-    Al utilizar Alcantarilla Trips, el usuario (en adelante "el Roedor") acepta los siguientes términos:
+    Al utilizar Alcantarilla Trips, el usuario (en adelante "el Roedor") acepta los siguientes términos:\n\n
 
-    1. USO DE LA APP
-    Alcantarilla Trips está diseñada exclusivamente para la planificación de viajes subterráneos. Cualquier uso en superficie queda bajo responsabilidad del Roedor.
+    1. USO DE LA APP\n
+    Alcantarilla Trips está diseñada exclusivamente para la planificación de viajes subterráneos. Cualquier uso en superficie queda bajo responsabilidad del Roedor.\n\n
 
-    2. RESPONSABILIDAD
-    No nos hacemos responsables de pérdidas de queso, encuentros con desagradables bípedos, ni de corrientes de agua inesperadas durante los viajes planificados con esta app.
+    2. RESPONSABILIDAD\n
+    No nos hacemos responsables de pérdidas de queso, encuentros con desagradables bípedos,
+    ni de corrientes de agua inesperadas durante los viajes planificados con esta app.\n\n
 
-    3. PRIVACIDAD
-    Los datos de tus rutas de alcantarilla son estrictamente confidenciales y jamás serán compartidos con exteriores, gatos, ni autoridades sanitarias.
+    3. PRIVACIDAD\n
+    Los datos de tus rutas de alcantarilla son estrictamente confidenciales y jamás serán compartidos con exteriores, gatos, ni autoridades sanitarias.\n\n
 
-    4. MODIFICACIONES
-    Alcantarilla Trips se reserva el derecho de modificar estas condiciones en cualquier momento. Los cambios serán comunicados mediante arañazos en las paredes del túnel principal.
+    4. MODIFICACIONES\n
+    Alcantarilla Trips se reserva el derecho de modificar estas condiciones en cualquier momento.
+        Los cambios serán comunicados mediante arañazos en las paredes del túnel principal.\n\n
 
-    5. ACEPTACIÓN
-    El simple hecho de olfatear esta pantalla implica la aceptación total de estos términos.
+    5. ACEPTACIÓN\n
+    El simple hecho de olfatear esta pantalla implica la aceptación total de estos términos.\n\n
     </string>
 
     <string name="volver">Volver</string>
 
+    <string name="nav_itinerario">Itinerario</string>
+    <string name="nav_viajes">Viajes</string>
+    <string name="nav_configuracion">Configuración</string>
+
+    <string name="trips_titulo">Mis Viajes</string>
+    <string name="trips_nuevo_viaje">Nuevo viaje</string>
+    <string name="trips_tab_pendientes">Pendientes</string>
+    <string name="trips_tab_realizados">Realizados</string>
+    <string name="trips_stat_viajes">Viajes</string>
+    <string name="trips_stat_ciudades">Ciudades</string>
+    <string name="trips_stat_total">Total</string>
+    <string name="trips_estado_pendiente">Pendiente</string>
+    <string name="trips_estado_realizado">Realizado</string>
+    <string name="trips_estado_cancelado">Cancelado</string>
+    <string name="trips_btn_cancelar">Cancelar</string>
+    <string name="trips_btn_detalle">Ver detalle</string>
+    <string name="trips_btn_valorar">⭐ Valorar viaje</string>
+    <string name="trips_btn_crear">Crear viaje 🐭</string>
+    <string name="trips_vacio_pendiente_titulo">No tienes viajes pendientes</string>
+    <string name="trips_vacio_pendiente_subtitulo">¡Planifica tu próxima aventura!</string>
+    <string name="trips_vacio_realizado_titulo">Aún no has viajado</string>
+    <string name="trips_vacio_realizado_subtitulo">¡El mundo te está esperando, pequeña rata!</string>
+
+    <string name="itinerary_titulo">Itinerario</string>
+    <string name="itinerary_subtitulo">Nueva York · Nov 2025</string>
+    <string name="itinerary_volver">Volver</string>
+    <string name="itinerary_compartir">Compartir</string>
+    <string name="itinerary_summary_dias">Días</string>
+    <string name="itinerary_summary_ciudad">Ciudad</string>
+    <string name="itinerary_summary_vuelo">Vuelo</string>
+    <string name="itinerary_summary_hotel">Hotel</string>
+    <string name="itinerary_actividades">%1$d actividades</string>
+
+    <string name="album_titulo">Álbum de fotos</string>
+    <string name="album_recuerdos">%1$d recuerdos</string>
+    <string name="album_volver">Volver</string>
+    <string name="album_anterior">Anterior</string>
+    <string name="album_siguiente">Siguiente</string>
+    <string name="album_todas_fotos">Todas las fotos</string>
+
+    <string name="rate_titulo">Valorar viaje</string>
+    <string name="rate_volver">Volver</string>
+    <string name="rate_no_encontrado">Viaje no encontrado</string>
+    <string name="rate_puntuacion">Tu puntuación</string>
+    <string name="rate_desc_1">Muy malo 😤</string>
+    <string name="rate_desc_2">Podría mejorar 😕</string>
+    <string name="rate_desc_3">Estuvo bien 😊</string>
+    <string name="rate_desc_4">Muy bueno 😄</string>
+    <string name="rate_desc_5">¡Increíble! 🤩</string>
+    <string name="rate_desc_0">¿Qué tal el viaje?</string>
+    <string name="rate_error_puntuacion">Selecciona una puntuación para continuar</string>
+    <string name="rate_destacar">¿Qué destacarías?</string>
+    <string name="rate_opcional">Opcional</string>
+    <string name="rate_etiqueta_singular">%1$d etiqueta seleccionada</string>
+    <string name="rate_etiqueta_plural">%1$d etiquetas seleccionadas</string>
+    <string name="rate_opinion">Tu opinión</string>
+    <string name="rate_placeholder">Cuéntanos tu experiencia como rata viajera… ¿Lo recomendarías a otras ratas? 🐭</string>
+    <string name="rate_casi_limite">Casi al límite</string>
+    <string name="rate_publicar">Publicar valoración</string>
+    <string name="rate_exito_titulo">¡Gracias por tu reseña!</string>
+    <string name="rate_exito_texto">Tu opinión sobre %1$s ayudará a otras ratas viajeras 🐭</string>
+    <string name="rate_exito_volver">Volver a mis viajes</string>
+
+    <string name="create_titulo">Nuevo viaje</string>
+    <string name="create_volver">Volver</string>
+    <string name="create_seccion1_titulo">¿De dónde a dónde?</string>
+    <string name="create_origen_label">Ciudad de origen</string>
+    <string name="create_origen_placeholder">Ej: Madrid</string>
+    <string name="create_destino_label">Ciudad de destino</string>
+    <string name="create_destino_placeholder">Ej: París</string>
+    <string name="create_error_origen">Introduce la ciudad de origen</string>
+    <string name="create_error_destino">Introduce la ciudad de destino</string>
+    <string name="create_buscar_vuelos">Buscar vuelos</string>
+    <string name="create_seccion2_titulo">Elige tu vuelo</string>
+    <string name="create_vuelos_disponibles">%1$d vuelos disponibles · %2$s → %3$s</string>
+    <string name="create_seccion3_titulo">Elige tu hotel</string>
+    <string name="create_seccion4_titulo">Resumen del viaje</string>
+    <string name="create_resumen_ruta">Ruta</string>
+    <string name="create_resumen_vuelo">Vuelo · %1$s</string>
+    <string name="create_resumen_hotel">Hotel</string>
+    <string name="create_precio_total">Precio total estimado</string>
+    <string name="create_confirmar">Confirmar viaje 🐭</string>
+    <string name="create_dialogo_titulo">¡Viaje creado!</string>
+    <string name="create_dialogo_texto">Tu viaje a %1$s ha sido guardado correctamente.</string>
+    <string name="create_dialogo_boton">¡Vamos!</string>
+    <string name="create_vuelo_por_rata">por rata</string>
+    <string name="create_hotel_por_noche">por noche</string>
 
 </resources>
