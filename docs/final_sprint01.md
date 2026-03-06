@@ -45,8 +45,8 @@ El objetivo del Sprint era finalizar todas las tareas asignadas satisfactoriamen
 
 ## 3. Desviaciones
 
-
 -Al no estar muy acostumbrados a trabajar en kotlin nos atrasamos un poco de la fecha prevista para la finalización de algunas tareas.
+
 ---
 
 ## 4. Retrospectiva
