@@ -27,7 +27,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.alcantarilla_trips.ui.viewmodels.TripListViewModel
 
 data class TripDraft(
     val destineCity: String = "",
@@ -57,8 +59,10 @@ val mockHotels = listOf(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreateTripScreen(navController: NavController) {
-
+fun CreateTripScreen(
+    navController: NavController,
+    viewModel: TripListViewModel = viewModel()
+) {
     var trip              by remember { mutableStateOf(TripDraft()) }
     var flightsVisible    by remember { mutableStateOf(false) }
     var selectedFlight    by remember { mutableStateOf<FlightResult?>(null) }
@@ -164,7 +168,12 @@ fun CreateTripScreen(navController: NavController) {
                         TripSummaryRow(icon = "🏨", title = stringResource(R.string.create_resumen_hotel), value = h.name)
                     }
 
-                    Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer), border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.primary)) {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(16.dp),
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
+                        border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.primary)
+                    ) {
                         Row(modifier = Modifier.fillMaxWidth().padding(16.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                             Text(stringResource(R.string.create_precio_total), style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold))
                             Text("${totalPrice}€", style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Black, color = MaterialTheme.colorScheme.primary))
@@ -175,7 +184,18 @@ fun CreateTripScreen(navController: NavController) {
 
                     Button(
                         onClick = {
-                            trip = trip.copy(flight = selectedFlight?.code ?: "", price = totalPrice, hotelName = selectedHotel?.name ?: "")
+                            viewModel.addTrip(
+                                title = "${trip.departureCity} → ${trip.destineCity}",
+                                description = "",
+                                startDate = "",
+                                endDate = "",
+                                destineCity = trip.destineCity,
+                                departureCity = trip.departureCity,
+                                flight = selectedFlight?.code ?: "",
+                                price = totalPrice,
+                                hotelName = selectedHotel?.name ?: "",
+                                imageEmoji = "🏙️"
+                            )
                             showSuccessDialog = true
                         },
                         modifier = Modifier.fillMaxWidth().height(56.dp),
@@ -201,7 +221,12 @@ fun CreateTripScreen(navController: NavController) {
             text = { Text(stringResource(R.string.create_dialogo_texto, trip.destineCity), color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center) },
             confirmButton = {
                 Button(
-                    onClick = { showSuccessDialog = false; navController.navigate("mis_viajes") { popUpTo("create_trip") { inclusive = true } } },
+                    onClick = {
+                        showSuccessDialog = false
+                        navController.navigate("mis_viajes") {
+                            popUpTo("create_trip") { inclusive = true }
+                        }
+                    },
                     shape = RoundedCornerShape(12.dp)
                 ) { Text(stringResource(R.string.create_dialogo_boton), fontWeight = FontWeight.Bold) }
             }

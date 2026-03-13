@@ -22,35 +22,20 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-
-enum class TripStatus { PENDING, COMPLETED, CANCELLED }
-
-data class Trip(
-    val tripId: Int,
-    val destineCity: String,
-    val departureCity: String,
-    val flight: String,
-    val price: Int,
-    val hotelName: String,
-    val date: String,
-    val status: TripStatus,
-    val imageEmoji: String = "🏙️"
-)
-
-val sampleTrips = listOf(
-    Trip(1, "París",      "Madrid",    "IB3456", 248, "Hotel Roquefort Palace", "12 Mar 2025", TripStatus.COMPLETED, "🗼"),
-    Trip(2, "Tokio",      "Barcelona", "JL7712", 680, "Madriguera Boutique",    "28 Jun 2025", TripStatus.COMPLETED, "🗾"),
-    Trip(3, "Roma",       "Madrid",    "VY1234", 193, "Cloaca Suites",          "05 Ago 2025", TripStatus.COMPLETED, "🏛️"),
-    Trip(4, "Nueva York", "Valencia",  "IB0091", 590, "Alcantarilla Inn",       "20 Nov 2025", TripStatus.PENDING,   "🗽"),
-    Trip(5, "Londres",    "Sevilla",   "BA2341", 312, "Madriguera Boutique",    "14 Ene 2026", TripStatus.PENDING,   "🎡"),
-    Trip(6, "Ámsterdam",  "Madrid",    "VY5566", 275, "Canal Rat Hotel",        "03 Mar 2026", TripStatus.PENDING,   "🌷"),
-    Trip(7, "Lisboa",     "Barcelona", "TP8823", 130, "Tejo Suites",            "19 Abr 2026", TripStatus.CANCELLED, "🇵🇹"),
-)
+import com.example.alcantarilla_trips.domain.Trip
+import com.example.alcantarilla_trips.domain.TripStatus
+import com.example.alcantarilla_trips.ui.viewmodels.TripListViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TripsScreen(navController: NavController) {
+fun TripsScreen(
+    navController: NavController,
+    viewModel: TripListViewModel = viewModel()
+) {
+    val trips by viewModel.trips.collectAsState()
+    val validationError by viewModel.validationError.collectAsState()
 
     var selectedTab by remember { mutableIntStateOf(0) }
     val tabs = listOf(
@@ -58,14 +43,24 @@ fun TripsScreen(navController: NavController) {
         stringResource(R.string.trips_tab_realizados) to Icons.Default.CheckCircle
     )
 
-    val pendingTrips   = sampleTrips.filter { it.status == TripStatus.PENDING }
-    val completedTrips = sampleTrips.filter { it.status == TripStatus.COMPLETED }
+    val pendingTrips   = trips.filter { it.status == TripStatus.PENDING }
+    val completedTrips = trips.filter { it.status == TripStatus.COMPLETED }
+
+    // Mostrar error de validación si existe
+    validationError?.let { error ->
+        LaunchedEffect(error) {
+            // El error se muestra en el snackbar
+        }
+    }
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(stringResource(R.string.trips_titulo), style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold))
+                    Text(
+                        stringResource(R.string.trips_titulo),
+                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
+                    )
                 },
                 actions = {
                     IconButton(onClick = { navController.navigate("create_trip") }) {
@@ -106,7 +101,10 @@ fun TripsScreen(navController: NavController) {
                             selected = selectedTab == index,
                             onClick = { selectedTab = index },
                             text = {
-                                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                                ) {
                                     Icon(icon, null, modifier = Modifier.size(16.dp))
                                     Text(label, style = MaterialTheme.typography.labelLarge)
                                 }
@@ -127,7 +125,10 @@ fun TripsScreen(navController: NavController) {
                 ) { tab ->
                     val list = if (tab == 0) pendingTrips else completedTrips
                     if (list.isEmpty()) {
-                        EmptyTripsState(isPending = tab == 0, onCreateTrip = { navController.navigate("create_trip") })
+                        EmptyTripsState(
+                            isPending = tab == 0,
+                            onCreateTrip = { navController.navigate("create_trip") }
+                        )
                     } else {
                         LazyColumn(
                             modifier = Modifier.fillMaxSize(),
@@ -136,7 +137,11 @@ fun TripsScreen(navController: NavController) {
                         ) {
                             item { TripStatsRow(trips = list, isPending = tab == 0) }
                             items(list, key = { it.tripId }) { trip ->
-                                TripCard(trip = trip, onClick = { })
+                                TripCard(
+                                    trip = trip,
+                                    onClick = { navController.navigate("valorar/${trip.tripId}") },
+                                    onDelete = { viewModel.deleteTrip(trip.tripId) }
+                                )
                             }
                         }
                     }
@@ -169,7 +174,7 @@ fun StatChip(modifier: Modifier = Modifier, icon: String, label: String, value: 
 }
 
 @Composable
-fun TripCard(trip: Trip, onClick: () -> Unit) {
+fun TripCard(trip: Trip, onClick: () -> Unit, onDelete: () -> Unit) {
     val statusColor = when (trip.status) {
         TripStatus.PENDING   -> MaterialTheme.colorScheme.tertiary
         TripStatus.COMPLETED -> MaterialTheme.colorScheme.primary
@@ -186,28 +191,45 @@ fun TripCard(trip: Trip, onClick: () -> Unit) {
         TripStatus.CANCELLED -> Icons.Default.Cancel
     }
 
-    Card(onClick = onClick, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(20.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface), elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)) {
+    Card(
+        onClick = onClick,
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
+    ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Box(modifier = Modifier.size(56.dp).clip(RoundedCornerShape(14.dp)).background(MaterialTheme.colorScheme.primaryContainer), contentAlignment = Alignment.Center) {
+                Box(
+                    modifier = Modifier.size(56.dp).clip(RoundedCornerShape(14.dp)).background(MaterialTheme.colorScheme.primaryContainer),
+                    contentAlignment = Alignment.Center
+                ) {
                     Text(trip.imageEmoji, fontSize = 28.sp)
                 }
                 Spacer(Modifier.width(12.dp))
                 Column(modifier = Modifier.weight(1f)) {
-                    Text(trip.destineCity, style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold), maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    Text(trip.title, style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold), maxLines = 1, overflow = TextOverflow.Ellipsis)
                     Text("${trip.departureCity} → ${trip.destineCity}", style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant))
                     Spacer(Modifier.height(4.dp))
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Default.CalendarMonth, null, modifier = Modifier.size(12.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
                         Spacer(Modifier.width(3.dp))
-                        Text(trip.date, style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant))
+                        Text("${trip.startDate} → ${trip.endDate}", style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant))
                     }
                 }
                 Column(horizontalAlignment = Alignment.End) {
                     Text("${trip.price}€", style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Black, color = MaterialTheme.colorScheme.primary))
                     Spacer(Modifier.height(4.dp))
-                    Surface(shape = RoundedCornerShape(20.dp), color = statusColor.copy(alpha = 0.15f), border = BorderStroke(1.dp, statusColor.copy(alpha = 0.4f))) {
-                        Row(modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(3.dp)) {
+                    Surface(
+                        shape = RoundedCornerShape(20.dp),
+                        color = statusColor.copy(alpha = 0.15f),
+                        border = BorderStroke(1.dp, statusColor.copy(alpha = 0.4f))
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(3.dp)
+                        ) {
                             Icon(statusIcon, null, modifier = Modifier.size(10.dp), tint = statusColor)
                             Text(statusLabel, style = MaterialTheme.typography.labelSmall.copy(color = statusColor, fontWeight = FontWeight.Bold))
                         }
@@ -227,12 +249,22 @@ fun TripCard(trip: Trip, onClick: () -> Unit) {
             if (trip.status == TripStatus.PENDING) {
                 Spacer(Modifier.height(10.dp))
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    OutlinedButton(onClick = { }, modifier = Modifier.weight(1f).height(38.dp), shape = RoundedCornerShape(10.dp), border = BorderStroke(1.dp, MaterialTheme.colorScheme.error), colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error)) {
+                    OutlinedButton(
+                        onClick = onDelete,
+                        modifier = Modifier.weight(1f).height(38.dp),
+                        shape = RoundedCornerShape(10.dp),
+                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.error),
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                    ) {
                         Icon(Icons.Default.Cancel, null, modifier = Modifier.size(14.dp))
                         Spacer(Modifier.width(4.dp))
                         Text(stringResource(R.string.trips_btn_cancelar), style = MaterialTheme.typography.labelMedium)
                     }
-                    Button(onClick = { }, modifier = Modifier.weight(1f).height(38.dp), shape = RoundedCornerShape(10.dp)) {
+                    Button(
+                        onClick = onClick,
+                        modifier = Modifier.weight(1f).height(38.dp),
+                        shape = RoundedCornerShape(10.dp)
+                    ) {
                         Icon(Icons.Default.Info, null, modifier = Modifier.size(14.dp))
                         Spacer(Modifier.width(4.dp))
                         Text(stringResource(R.string.trips_btn_detalle), style = MaterialTheme.typography.labelMedium)
@@ -242,7 +274,12 @@ fun TripCard(trip: Trip, onClick: () -> Unit) {
 
             if (trip.status == TripStatus.COMPLETED) {
                 Spacer(Modifier.height(10.dp))
-                OutlinedButton(onClick = { }, modifier = Modifier.fillMaxWidth().height(38.dp), shape = RoundedCornerShape(10.dp), border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary)) {
+                OutlinedButton(
+                    onClick = onClick,
+                    modifier = Modifier.fillMaxWidth().height(38.dp),
+                    shape = RoundedCornerShape(10.dp),
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary)
+                ) {
                     Text(stringResource(R.string.trips_btn_valorar), style = MaterialTheme.typography.labelMedium)
                 }
             }

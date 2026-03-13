@@ -205,6 +205,23 @@ fun LoginScreen(navController: NavController) {
                 Text(stringResource(R.string.login_boton_registro), style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.SemiBold))
             }
 
+            // TODO: REMOVE BEFORE RELEASE
+            TextButton(
+                onClick = {
+                    navController.navigate("mis_viajes") {
+                        popUpTo("login") { inclusive = true }
+                    }
+                },
+                modifier = Modifier.fillMaxWidth().height(52.dp)
+            ) {
+                Text(
+                    "⚠️ SKIP LOGIN (DEBUG)",
+                    color = RatTravelColors.ErrorRed,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp
+                )
+            }
+
             Spacer(modifier = Modifier.height(32.dp))
 
             val textoAceptar = stringResource(R.string.login_footer_aceptar)

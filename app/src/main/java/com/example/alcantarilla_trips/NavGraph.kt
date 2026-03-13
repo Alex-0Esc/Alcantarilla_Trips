@@ -5,14 +5,15 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.alcantarilla_trips.ui.viewmodels.TripListViewModel
 
-// Rutas que muestran la barra inferior
 val bottomNavRoutes = setOf("mis_viajes", "itinerario", "configuracion", "album")
 
 @Composable
@@ -20,6 +21,9 @@ fun NavGraph(themeViewModel: ThemeViewModel) {
     val navController = rememberNavController()
     val currentBackStack by navController.currentBackStackEntryAsState()
     val currentRoute = currentBackStack?.destination?.route
+
+    // Una sola instancia compartida por todas las pantallas
+    val tripViewModel: TripListViewModel = viewModel()
 
     Scaffold(
         bottomBar = {
@@ -47,7 +51,7 @@ fun NavGraph(themeViewModel: ThemeViewModel) {
                 RegisterScreen(navController = navController)
             }
             composable("mis_viajes") {
-                TripsScreen(navController = navController)
+                TripsScreen(navController = navController, viewModel = tripViewModel)
             }
             composable("itinerario") {
                 ItineraryScreen(navController = navController)
@@ -71,7 +75,7 @@ fun NavGraph(themeViewModel: ThemeViewModel) {
                 About(navController = navController)
             }
             composable("create_trip") {
-                CreateTripScreen(navController = navController)
+                CreateTripScreen(navController = navController, viewModel = tripViewModel)
             }
             composable(
                 route = "valorar/{tripId}",

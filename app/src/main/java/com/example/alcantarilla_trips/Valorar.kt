@@ -21,6 +21,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.alcantarilla_trips.domain.Trip
+import com.example.alcantarilla_trips.domain.TripStatus
 
 val ratingTags = listOf(
     "🌟 Increíble",      "🍕 Buena comida",    "🏨 Hotel top",
@@ -33,7 +35,7 @@ val ratingTags = listOf(
 @Composable
 fun RateTripScreen(navController: NavController, tripId: Int) {
 
-    val trip = sampleTrips.find { it.tripId == tripId }
+    val trip: Trip? = null
 
     if (trip == null) {
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -133,7 +135,7 @@ fun TripBanner(trip: Trip) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text("${trip.departureCity} → ${trip.destineCity}", style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)))
                 Text("·", color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.5f))
-                Text(trip.date, style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)))
+                Text(trip.startDate, style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)))
             }
         }
     }
