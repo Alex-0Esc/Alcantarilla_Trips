@@ -35,7 +35,6 @@ fun TripsScreen(
     viewModel: TripListViewModel = viewModel()
 ) {
     val trips by viewModel.trips.collectAsState()
-    val validationError by viewModel.validationError.collectAsState()
 
     var selectedTab by remember { mutableIntStateOf(0) }
     val tabs = listOf(
@@ -45,13 +44,6 @@ fun TripsScreen(
 
     val pendingTrips   = trips.filter { it.status == TripStatus.PENDING }
     val completedTrips = trips.filter { it.status == TripStatus.COMPLETED }
-
-    // Mostrar error de validación si existe
-    validationError?.let { error ->
-        LaunchedEffect(error) {
-            // El error se muestra en el snackbar
-        }
-    }
 
     Scaffold(
         topBar = {
@@ -140,7 +132,8 @@ fun TripsScreen(
                                 TripCard(
                                     trip = trip,
                                     onClick = { navController.navigate("valorar/${trip.tripId}") },
-                                    onDelete = { viewModel.deleteTrip(trip.tripId) }
+                                    onDelete = { viewModel.deleteTrip(trip.tripId) },
+                                    onEdit = { navController.navigate("edit_trip/${trip.tripId}") }
                                 )
                             }
                         }
@@ -174,7 +167,7 @@ fun StatChip(modifier: Modifier = Modifier, icon: String, label: String, value: 
 }
 
 @Composable
-fun TripCard(trip: Trip, onClick: () -> Unit, onDelete: () -> Unit) {
+fun TripCard(trip: Trip, onClick: () -> Unit, onDelete: () -> Unit, onEdit: () -> Unit) {
     val statusColor = when (trip.status) {
         TripStatus.PENDING   -> MaterialTheme.colorScheme.tertiary
         TripStatus.COMPLETED -> MaterialTheme.colorScheme.primary
@@ -261,11 +254,11 @@ fun TripCard(trip: Trip, onClick: () -> Unit, onDelete: () -> Unit) {
                         Text(stringResource(R.string.trips_btn_cancelar), style = MaterialTheme.typography.labelMedium)
                     }
                     Button(
-                        onClick = onClick,
+                        onClick = onEdit,
                         modifier = Modifier.weight(1f).height(38.dp),
                         shape = RoundedCornerShape(10.dp)
                     ) {
-                        Icon(Icons.Default.Info, null, modifier = Modifier.size(14.dp))
+                        Icon(Icons.Default.Edit, null, modifier = Modifier.size(14.dp))
                         Spacer(Modifier.width(4.dp))
                         Text(stringResource(R.string.trips_btn_detalle), style = MaterialTheme.typography.labelMedium)
                     }

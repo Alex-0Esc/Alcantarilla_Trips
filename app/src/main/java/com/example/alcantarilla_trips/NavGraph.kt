@@ -78,11 +78,11 @@ fun NavGraph(themeViewModel: ThemeViewModel) {
                 CreateTripScreen(navController = navController, viewModel = tripViewModel)
             }
             composable(
-                route = "valorar/{tripId}",
+                route = "edit_trip/{tripId}",
                 arguments = listOf(navArgument("tripId") { type = NavType.IntType })
             ) { backStackEntry ->
                 val tripId = backStackEntry.arguments?.getInt("tripId") ?: return@composable
-                RateTripScreen(navController = navController, tripId = tripId)
+                EditTripScreen(navController = navController, tripId = tripId, viewModel = tripViewModel)
             }
         }
     }

@@ -155,7 +155,7 @@
     <string name="trips_estado_realizado">Realizado</string>
     <string name="trips_estado_cancelado">Cancelado</string>
     <string name="trips_btn_cancelar">Cancelar</string>
-    <string name="trips_btn_detalle">Ver detalle</string>
+    <string name="trips_btn_detalle">Editar detalles</string>
     <string name="trips_btn_valorar">⭐ Valorar viaje</string>
     <string name="trips_btn_crear">Crear viaje 🐭</string>
     <string name="trips_vacio_pendiente_titulo">No tienes viajes pendientes</string>

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Alcantarilla Trips</string>
+    <string name="about_title">Sobre o app</string>
+    <string name="btn_volver">Voltar</string>
+    <string name="about_body">
+        🐀 Alcantarilla Trips v1.0\n
+        Cansado de centenas de apps desenhadas para humanos planearem as suas viagens,
+        enquanto a tua colónia tem de depender de papel higiénico para tomar notas?\n
+        Chega! Alcantarilla Trips é a primeira app de viagens desenhada exclusivamente
+        para roedores. Planeia as tuas expedições subterrâneas pelos esgotos mais
+        populares, descobre novas rotas de queijo e nunca te percas com a tua ninhada.\n
+        🧀 CARACTERÍSTICAS\n
+        - Planeamento de Itinerários - Organiza as tuas viagens em segundos. 📅\n
+        - Pesquisa de Locais Próximos - Encontra caixotes do lixo, cozinhas e mais. 🧀\n
+        - Armazenamento de Imagens - Guarda memórias das tuas viagens.\n
+        - Filtros de risco avançados - Avalia o risco de humanos mal-humorados. 💀\n
+        - Personalizar preferências de utilizador ⚙️\n
+        - Suporte para múltiplos idiomas 🌎\n
+        👥 EQUIPA\n
+        - Àlex Escofet Presedo\n
+        - Samuel Gomà Atehortua\n
+        📍 VERSÃO\n
+        Alcantarilla Trips 1.0.0\n
+        Este programa utiliza \"THE BEER-WARE LICENSE\" (Revisão 43)
+    </string>
+    <string name="cambiar_idioma_titulo">Seleciona o idioma do app</string>
+    <string name="idioma_espanol">Espanhol</string>
+    <string name="idioma_catalan">Catalão</string>
+    <string name="idioma_ingles">Inglês</string>
+    <string name="btn_volver_configuracion">Voltar às definições</string>
+    <string name="btn_volver_home">Voltar ao início</string>
+
+    <string name="configuracion_titulo">Definições</string>
+    <string name="configuracion_modo_oscuro">Modo escuro</string>
+    <string name="configuracion_cambiar_idioma">Mudar idioma</string>
+    <string name="configuracion_informacion">Informação</string>
+    <string name="configuracion_cerrar_sesion">Terminar sessão</string>
+
+    <string name="create_trip_titulo">Nova Viagem 🗺️</string>
+    <string name="create_trip_volver">Voltar</string>
+    <string name="create_trip_atras">Atrás</string>
+    <string name="create_trip_exito_titulo">Viagem criada!</string>
+    <string name="create_trip_exito_boton">Vamos!</string>
+    <string name="create_trip_exito_texto">A tua aventura para %1$s está pronta.\nBoa viagem, pequeno explorador! 🐭</string>
+    <string name="step_destino">Destino</string>
+    <string name="step_vuelo">Voo</string>
+    <string name="step_hotel">Hotel</string>
+    <string name="step_fin">Fim</string>
+    <string name="destino_de_donde">De onde partimos?</string>
+    <string name="destino_a_donde">Para onde vamos?</string>
+    <string name="destino_ciudad_origen">Cidade de origem</string>
+    <string name="destino_ciudad_origen_placeholder">Ex: Madrid</string>
+    <string name="destino_ciudad_destino">Cidade de destino</string>
+    <string name="destino_ciudad_destino_placeholder">Ex: Paris, Roma, Tóquio…</string>
+    <string name="destino_error_origen">Indica a cidade de origem</string>
+    <string name="destino_error_destino">Indica a cidade de destino</string>
+    <string name="destino_buscar_vuelos">Pesquisar voos 🛫</string>
+    <string name="mapa_titulo">Mapa interativo</string>
+    <string name="mapa_subtitulo">Adiciona maps-compose no build.gradle para ativar</string>
+    <string name="mapa_integrar">Integrar Google Maps</string>
+    <string name="vuelo_titulo">Escolhe o teu voo</string>
+    <string name="vuelo_opciones">%1$d opções encontradas</string>
+    <string name="vuelo_continuar">Continuar com este voo ✈️</string>
+    <string name="vuelo_por_rata">por rato</string>
+    <string name="hotel_titulo">Escolhe o teu hotel</string>
+    <string name="hotel_continuar">Continuar com este hotel 🏨</string>
+    <string name="hotel_por_noche">por noite</string>
+    <string name="resumen_titulo">Resumo da viagem</string>
+    <string name="resumen_ruta">Rota</string>
+    <string name="resumen_hotel">Hotel</string>
+    <string name="resumen_precio">💰 Preço estimado</string>
+    <string name="resumen_confirmar">Confirmar viagem! 🐭✈️</string>
+
+    <string name="home_bienvenido">Bem-vindo, Roedor!</string>
+    <string name="home_que_hacer">O que queres fazer hoje?</string>
+    <string name="home_agendar_viaje">Agendar nova viagem</string>
+    <string name="home_ver_viajes">Ver as minhas viagens</string>
+    <string name="home_configuracion">Definições</string>
+
+    <string name="informacion_titulo">Informação</string>
+    <string name="informacion_terminos">Termos e condições</string>
+    <string name="informacion_about">Sobre o app</string>
+
+    <string name="login_logo_desc">Logo</string>
+    <string name="login_subtitulo">O mundo é teu, pequeno explorador</string>
+    <string name="login_titulo">Iniciar sessão</string>
+    <string name="login_email">Endereço de email</string>
+    <string name="login_password">Palavra-passe</string>
+    <string name="login_mostrar_password">Mostrar/ocultar palavra-passe</string>
+    <string name="login_error_email">Introduz um email válido</string>
+    <string name="login_error_password">Mínimo 6 caracteres</string>
+    <string name="login_boton_entrar">Entrar no mundo 🐾</string>
+    <string name="login_nuevo_usuario">És novo por aqui?</string>
+    <string name="login_boton_registro">Criar nova conta 🧳</string>
+    <string name="login_footer_aceptar">Ao continuar aceitas os nossos </string>
+    <string name="login_footer_terminos"> Termos e Condições</string>
+    <string name="login_footer_aprender">. Sabe mais em </string>
+    <string name="login_footer_sobre"> Sobre Nós</string>
+
+    <string name="register_titulo">Cria a tua conta</string>
+    <string name="register_subtitulo">Junta-te à comunidade de ratos viajantes</string>
+    <string name="register_datos_acceso">Dados de acesso</string>
+    <string name="register_confirmar_password">Confirmar palavra-passe</string>
+    <string name="register_password_debil">Fraca</string>
+    <string name="register_password_media">Média</string>
+    <string name="register_password_fuerte">Forte</string>
+    <string name="register_password_fortaleza">Palavra-passe %1$s</string>
+    <string name="register_acepto">Aceito os </string>
+    <string name="register_error_confirm">As palavras-passe não coincidem</string>
+    <string name="register_error_terminos">Deves aceitar os termos para continuar</string>
+    <string name="register_boton_crear">Criar conta 🐾</string>
+    <string name="register_ya_tengo_cuenta">Já tens conta?</string>
+    <string name="register_iniciar_sesion">Iniciar sessão</string>
+
+    <string name="splash_desc">Splash</string>
+
+    <string name="terminos_titulo">Termos e Condições</string>
+    <string name="terminos_contenido">
+    Ao utilizar Alcantarilla Trips, o utilizador (doravante "o Roedor") aceita os seguintes termos:\n\n
+
+    1. UTILIZAÇÃO DO APP\n
+    Alcantarilla Trips é desenhada exclusivamente para o planeamento de viagens subterrâneas. Qualquer utilização à superfície é da responsabilidade do Roedor.\n\n
+
+    2. RESPONSABILIDADE\n
+    Não nos responsabilizamos por perdas de queijo, encontros com bípedes desagradáveis,
+    nem por correntes de água inesperadas durante as viagens planeadas com este app.\n\n
+
+    3. PRIVACIDADE\n
+    Os dados das tuas rotas de esgoto são estritamente confidenciais e nunca serão partilhados com o exterior, gatos, nem autoridades sanitárias.\n\n
+
+    4. MODIFICAÇÕES\n
+    Alcantarilla Trips reserva-se o direito de modificar estas condições a qualquer momento.
+    As alterações serão comunicadas através de arranhões nas paredes do túnel principal.\n\n
+
+    5. ACEITAÇÃO\n
+    O simples facto de cheirar este ecrã implica a aceitação total destes termos.\n\n
+    </string>
+
+    <string name="volver">Voltar</string>
+
+    <string name="nav_itinerario">Itinerário</string>
+    <string name="nav_viajes">Viagens</string>
+    <string name="nav_configuracion">Definições</string>
+
+    <string name="trips_titulo">As minhas Viagens</string>
+    <string name="trips_nuevo_viaje">Nova viagem</string>
+    <string name="trips_tab_pendientes">Pendentes</string>
+    <string name="trips_tab_realizados">Realizadas</string>
+    <string name="trips_stat_viajes">Viagens</string>
+    <string name="trips_stat_ciudades">Cidades</string>
+    <string name="trips_stat_total">Total</string>
+    <string name="trips_estado_pendiente">Pendente</string>
+    <string name="trips_estado_realizado">Realizada</string>
+    <string name="trips_estado_cancelado">Cancelada</string>
+    <string name="trips_btn_cancelar">Cancelar</string>
+    <string name="trips_btn_detalle">Editar detalhes</string>
+    <string name="trips_btn_valorar">⭐ Avaliar viagem</string>
+    <string name="trips_btn_crear">Criar viagem 🐭</string>
+    <string name="trips_vacio_pendiente_titulo">Não tens viagens pendentes</string>
+    <string name="trips_vacio_pendiente_subtitulo">Planeia a tua próxima aventura!</string>
+    <string name="trips_vacio_realizado_titulo">Ainda não viajaste</string>
+    <string name="trips_vacio_realizado_subtitulo">O mundo está à tua espera, pequeno rato!</string>
+
+    <string name="itinerary_titulo">Itinerário</string>
+    <string name="itinerary_subtitulo">Nova Iorque · Nov 2025</string>
+    <string name="itinerary_volver">Voltar</string>
+    <string name="itinerary_compartir">Partilhar</string>
+    <string name="itinerary_summary_dias">Dias</string>
+    <string name="itinerary_summary_ciudad">Cidade</string>
+    <string name="itinerary_summary_vuelo">Voo</string>
+    <string name="itinerary_summary_hotel">Hotel</string>
+    <string name="itinerary_actividades">%1$d atividades</string>
+
+    <string name="album_titulo">Álbum de fotos</string>
+    <string name="album_recuerdos">%1$d memórias</string>
+    <string name="album_volver">Voltar</string>
+    <string name="album_anterior">Anterior</string>
+    <string name="album_siguiente">Seguinte</string>
+    <string name="album_todas_fotos">Todas as fotos</string>
+
+    <string name="rate_titulo">Avaliar viagem</string>
+    <string name="rate_volver">Voltar</string>
+    <string name="rate_no_encontrado">Viagem não encontrada</string>
+    <string name="rate_puntuacion">A tua pontuação</string>
+    <string name="rate_desc_0">Como foi a viagem?</string>
+    <string name="rate_desc_1">Muito mau 😤</string>
+    <string name="rate_desc_2">Podia melhorar 😕</string>
+    <string name="rate_desc_3">Correu bem 😊</string>
+    <string name="rate_desc_4">Muito bom 😄</string>
+    <string name="rate_desc_5">Incrível! 🤩</string>
+    <string name="rate_error_puntuacion">Seleciona uma pontuação para continuar</string>
+    <string name="rate_destacar">O que destacarias?</string>
+    <string name="rate_opcional">Opcional</string>
+    <string name="rate_etiqueta_singular">%1$d etiqueta selecionada</string>
+    <string name="rate_etiqueta_plural">%1$d etiquetas selecionadas</string>
+    <string name="rate_opinion">A tua opinião</string>
+    <string name="rate_placeholder">Conta-nos a tua experiência como rato viajante… Recomendarias a outros ratos? 🐭</string>
+    <string name="rate_casi_limite">Quase no limite</string>
+    <string name="rate_publicar">Publicar avaliação</string>
+    <string name="rate_exito_titulo">Obrigado pela tua avaliação!</string>
+    <string name="rate_exito_texto">A tua opinião sobre %1$s vai ajudar outros ratos viajantes 🐭</string>
+    <string name="rate_exito_volver">Voltar às minhas viagens</string>
+
+    <string name="create_titulo">Nova viagem</string>
+    <string name="create_volver">Voltar</string>
+    <string name="create_seccion1_titulo">De onde para onde?</string>
+    <string name="create_origen_label">Cidade de origem</string>
+    <string name="create_origen_placeholder">Ex: Madrid</string>
+    <string name="create_destino_label">Cidade de destino</string>
+    <string name="create_destino_placeholder">Ex: Paris</string>
+    <string name="create_error_origen">Introduz a cidade de origem</string>
+    <string name="create_error_destino">Introduz a cidade de destino</string>
+    <string name="create_buscar_vuelos">Pesquisar voos</string>
+    <string name="create_seccion2_titulo">Escolhe o teu voo</string>
+    <string name="create_vuelos_disponibles">%1$d voos disponíveis · %2$s → %3$s</string>
+    <string name="create_seccion3_titulo">Escolhe o teu hotel</string>
+    <string name="create_seccion4_titulo">Resumo da viagem</string>
+    <string name="create_resumen_ruta">Rota</string>
+    <string name="create_resumen_vuelo">Voo · %1$s</string>
+    <string name="create_resumen_hotel">Hotel</string>
+    <string name="create_precio_total">Preço total estimado</string>
+    <string name="create_confirmar">Confirmar viagem 🐭</string>
+    <string name="create_dialogo_titulo">Viagem criada!</string>
+    <string name="create_dialogo_texto">A tua viagem para %1$s foi guardada com sucesso.</string>
+    <string name="create_dialogo_boton">Vamos!</string>
+    <string name="create_vuelo_por_rata">por rato</string>
+    <string name="create_hotel_por_noche">por noite</string>
+</resources>
