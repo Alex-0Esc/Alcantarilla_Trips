@@ -284,5 +284,5 @@
     <string name="create_error_fecha_inicio">Selecciona la data d\'inici</string>
     <string name="create_error_fecha_fin">Selecciona la data de fi</string>
     <string name="create_error_fechas">La data d\'inici ha de ser anterior a la data de fi</string>
-    
+
 </resources>

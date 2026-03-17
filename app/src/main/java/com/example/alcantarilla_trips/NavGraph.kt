@@ -15,8 +15,7 @@ import androidx.navigation.navArgument
 import com.example.alcantarilla_trips.ui.viewmodels.ActivityViewModel
 import com.example.alcantarilla_trips.ui.viewmodels.TripListViewModel
 
-val bottomNavRoutes = setOf("mis_viajes", "itinerario", "configuracion", "album")
-
+val bottomNavRoutes = setOf("mis_viajes", "album", "configuracion")
 @Composable
 fun NavGraph(themeViewModel: ThemeViewModel) {
     val navController = rememberNavController()
