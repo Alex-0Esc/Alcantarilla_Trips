@@ -226,4 +226,63 @@
     <string name="create_dialogo_boton">Anem!</string>
     <string name="create_vuelo_por_rata">per rata</string>
     <string name="create_hotel_por_noche">per nit</string>
+    <!-- Edit Trip -->
+    <string name="edit_trip_titulo">Editar viatge</string>
+    <string name="edit_trip_guardar">Desar canvis</string>
+    <string name="edit_trip_exito_titulo">Viatge actualitzat!</string>
+    <string name="edit_trip_exito_texto">Els canvis s\'han desat correctament.</string>
+    <string name="edit_trip_fecha_inicio">Data d\'inici</string>
+    <string name="edit_trip_fecha_fin">Data de fi</string>
+    <string name="edit_trip_info_vuelo">Informació del vol</string>
+    <string name="edit_trip_error_titulo">El títol no pot estar buit</string>
+    <string name="edit_trip_error_fecha_inicio">Selecciona la data d\'inici</string>
+    <string name="edit_trip_error_fecha_fin">Selecciona la data de fi</string>
+    <string name="edit_trip_error_fechas">La data d\'inici ha de ser anterior a la data de fi</string>
+
+    <!-- Trip Detail -->
+    <string name="trip_detail_actividades">activitats</string>
+    <string name="trip_detail_sin_actividades">No hi ha activitats</string>
+    <string name="trip_detail_sin_actividades_sub">Afegeix la teva primera activitat</string>
+    <string name="trip_detail_nueva_actividad">Nova activitat</string>
+
+    <!-- Add Activity -->
+    <string name="add_activity_titulo">Nova activitat</string>
+    <string name="add_activity_guardar">Afegir activitat</string>
+    <string name="add_activity_exito_titulo">Activitat afegida!</string>
+    <string name="add_activity_exito_texto">L\'activitat s\'ha afegit correctament.</string>
+    <string name="add_activity_fecha">Data</string>
+    <string name="add_activity_hora">Hora</string>
+    <string name="add_activity_error_titulo">El títol no pot estar buit</string>
+    <string name="add_activity_error_fecha">Selecciona una data</string>
+    <string name="add_activity_error_hora">Selecciona una hora</string>
+    <string name="add_activity_error_rango">La data ha d\'estar dins del rang del viatge</string>
+
+    <!-- Edit Activity -->
+    <string name="edit_activity_titulo">Editar activitat</string>
+    <string name="edit_activity_guardar">Desar canvis</string>
+    <string name="edit_activity_exito_titulo">Activitat actualitzada!</string>
+    <string name="edit_activity_exito_texto">Els canvis s\'han desat correctament.</string>
+    <string name="edit_activity_no_encontrada">Activitat no trobada</string>
+
+    <!-- Configuracion perfil -->
+    <string name="configuracion_perfil">Perfil</string>
+    <string name="configuracion_username">Nom d\'usuari</string>
+    <string name="configuracion_fecha_nacimiento">Data de naixement</string>
+    <string name="configuracion_guardar_perfil">Desar perfil</string>
+    <string name="configuracion_apariencia">Aparença</string>
+    <string name="configuracion_preferencias_guardadas">Preferències desades!</string>
+
+    <!-- Compartidos -->
+    <string name="aceptar">Acceptar</string>
+    <string name="cancelar">Cancel·lar</string>
+    <string name="titulo_label">Títol</string>
+    <string name="descripcion_label">Descripció</string>
+    <string name="seleccionar_hora">Selecciona l\'hora</string>
+
+    <string name="create_fecha_inicio">Data d\'inici</string>
+    <string name="create_fecha_fin">Data de fi</string>
+    <string name="create_error_fecha_inicio">Selecciona la data d\'inici</string>
+    <string name="create_error_fecha_fin">Selecciona la data de fi</string>
+    <string name="create_error_fechas">La data d\'inici ha de ser anterior a la data de fi</string>
+    
 </resources>

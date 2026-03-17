@@ -35,10 +35,11 @@ fun Configuracion(
     var showDatePicker by remember { mutableStateOf(false) }
 
     val snackbarHostState = remember { SnackbarHostState() }
+    val strPreferenciasGuardadas = stringResource(R.string.configuracion_preferencias_guardadas)
 
     LaunchedEffect(showSavedSnackbar) {
         if (showSavedSnackbar) {
-            snackbarHostState.showSnackbar("¡Preferencias guardadas!")
+            snackbarHostState.showSnackbar(strPreferenciasGuardadas)
             showSavedSnackbar = false
         }
     }
@@ -57,10 +58,10 @@ fun Configuracion(
                         dateOfBirthInput = date.format(formatter)
                     }
                     showDatePicker = false
-                }) { Text("Aceptar") }
+                }) { Text(stringResource(R.string.aceptar)) }
             },
             dismissButton = {
-                TextButton(onClick = { showDatePicker = false }) { Text("Cancelar") }
+                TextButton(onClick = { showDatePicker = false }) { Text(stringResource(R.string.cancelar)) }
             }
         ) { DatePicker(state = datePickerState) }
     }
@@ -89,23 +90,20 @@ fun Configuracion(
                 )
                 Spacer(modifier = Modifier.height(32.dp))
 
-                // Sección perfil
+                // Perfil
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(16.dp),
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
                     elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
                 ) {
-                    Column(
-                        modifier = Modifier.padding(16.dp),
-                        verticalArrangement = Arrangement.spacedBy(12.dp)
-                    ) {
-                        Text("Perfil", style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold))
+                    Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                        Text(stringResource(R.string.configuracion_perfil), style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold))
 
                         OutlinedTextField(
                             value = usernameInput,
                             onValueChange = { usernameInput = it },
-                            label = { Text("Nombre de usuario") },
+                            label = { Text(stringResource(R.string.configuracion_username)) },
                             leadingIcon = { Icon(Icons.Default.Person, null, tint = MaterialTheme.colorScheme.primary) },
                             singleLine = true,
                             modifier = Modifier.fillMaxWidth(),
@@ -115,7 +113,7 @@ fun Configuracion(
                         OutlinedTextField(
                             value = dateOfBirthInput,
                             onValueChange = {},
-                            label = { Text("Fecha de nacimiento") },
+                            label = { Text(stringResource(R.string.configuracion_fecha_nacimiento)) },
                             leadingIcon = { Icon(Icons.Default.Cake, null, tint = MaterialTheme.colorScheme.primary) },
                             trailingIcon = {
                                 IconButton(onClick = { showDatePicker = true }) {
@@ -138,14 +136,14 @@ fun Configuracion(
                         ) {
                             Icon(Icons.Default.Save, null)
                             Spacer(Modifier.width(8.dp))
-                            Text("Guardar perfil", fontWeight = FontWeight.Bold)
+                            Text(stringResource(R.string.configuracion_guardar_perfil), fontWeight = FontWeight.Bold)
                         }
                     }
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Sección apariencia
+                // Apariencia
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(16.dp),
@@ -153,7 +151,7 @@ fun Configuracion(
                     elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
                 ) {
                     Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                        Text("Apariencia", style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold))
+                        Text(stringResource(R.string.configuracion_apariencia), style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold))
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -181,7 +179,7 @@ fun Configuracion(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Sección información
+                // Información
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(16.dp),
@@ -189,7 +187,7 @@ fun Configuracion(
                     elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
                 ) {
                     Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                        Text("Información", style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold))
+                        Text(stringResource(R.string.informacion_titulo), style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold))
 
                         Button(
                             onClick = { navController.navigate("informacion") },

@@ -11,6 +11,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -42,7 +43,7 @@ fun EditActivityScreen(
 
     if (activity == null) {
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text("Actividad no encontrada")
+            Text(stringResource(R.string.edit_activity_no_encontrada))
         }
         return
     }
@@ -60,6 +61,8 @@ fun EditActivityScreen(
     var showDatePicker by remember { mutableStateOf(false) }
     var showTimePicker by remember { mutableStateOf(false) }
     var showSuccess    by remember { mutableStateOf(false) }
+
+    val strErrorTitulo = stringResource(R.string.add_activity_error_titulo)
 
     val tripStartDate = remember(trip) {
         try { trip?.startDate?.let { LocalDate.parse(it, dateFormatter) } } catch (e: Exception) { null }
@@ -84,14 +87,12 @@ fun EditActivityScreen(
                             .toLocalDate()
                     }
                     showDatePicker = false
-                }) { Text("Aceptar") }
+                }) { Text(stringResource(R.string.aceptar)) }
             },
             dismissButton = {
-                TextButton(onClick = { showDatePicker = false }) { Text("Cancelar") }
+                TextButton(onClick = { showDatePicker = false }) { Text(stringResource(R.string.cancelar)) }
             }
-        ) {
-            DatePicker(state = datePickerState)
-        }
+        ) { DatePicker(state = datePickerState) }
     }
 
     if (showTimePicker) {
@@ -101,7 +102,7 @@ fun EditActivityScreen(
         )
         AlertDialog(
             onDismissRequest = { showTimePicker = false },
-            title = { Text("Selecciona la hora") },
+            title = { Text(stringResource(R.string.seleccionar_hora)) },
             text = {
                 Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                     TimePicker(state = timePickerState)
@@ -111,10 +112,10 @@ fun EditActivityScreen(
                 TextButton(onClick = {
                     selectedTime = LocalTime.of(timePickerState.hour, timePickerState.minute)
                     showTimePicker = false
-                }) { Text("Aceptar") }
+                }) { Text(stringResource(R.string.aceptar)) }
             },
             dismissButton = {
-                TextButton(onClick = { showTimePicker = false }) { Text("Cancelar") }
+                TextButton(onClick = { showTimePicker = false }) { Text(stringResource(R.string.cancelar)) }
             }
         )
     }
@@ -123,16 +124,13 @@ fun EditActivityScreen(
         AlertDialog(
             onDismissRequest = {},
             icon = { Text("✅", style = MaterialTheme.typography.headlineLarge) },
-            title = { Text("¡Actividad actualizada!", fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary) },
-            text = { Text("Los cambios en '$title' se han guardado correctamente.") },
+            title = { Text(stringResource(R.string.edit_activity_exito_titulo), fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary) },
+            text = { Text(stringResource(R.string.edit_activity_exito_texto)) },
             confirmButton = {
                 Button(
-                    onClick = {
-                        showSuccess = false
-                        navController.popBackStack()
-                    },
+                    onClick = { showSuccess = false; navController.popBackStack() },
                     shape = RoundedCornerShape(12.dp)
-                ) { Text("Volver", fontWeight = FontWeight.Bold) }
+                ) { Text(stringResource(R.string.volver), fontWeight = FontWeight.Bold) }
             }
         )
     }
@@ -140,10 +138,10 @@ fun EditActivityScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Editar actividad", fontWeight = FontWeight.Bold) },
+                title = { Text(stringResource(R.string.edit_activity_titulo), fontWeight = FontWeight.Bold) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, "Volver", tint = MaterialTheme.colorScheme.primary)
+                        Icon(Icons.Default.ArrowBack, stringResource(R.string.volver), tint = MaterialTheme.colorScheme.primary)
                     }
                 }
             )
@@ -157,7 +155,6 @@ fun EditActivityScreen(
                 .padding(horizontal = 20.dp, vertical = 16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Info del viaje
             trip?.let {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -173,12 +170,11 @@ fun EditActivityScreen(
                 }
             }
 
-            // Título
             Column {
                 OutlinedTextField(
                     value = title,
                     onValueChange = { title = it; errorTitle = null },
-                    label = { Text("Título") },
+                    label = { Text(stringResource(R.string.titulo_label)) },
                     leadingIcon = { Icon(Icons.Default.Title, null, tint = if (errorTitle != null) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary) },
                     isError = errorTitle != null,
                     singleLine = true,
@@ -190,22 +186,20 @@ fun EditActivityScreen(
                 }
             }
 
-            // Descripción
             OutlinedTextField(
                 value = description,
                 onValueChange = { description = it },
-                label = { Text("Descripción") },
+                label = { Text(stringResource(R.string.descripcion_label)) },
                 leadingIcon = { Icon(Icons.Default.Description, null, tint = MaterialTheme.colorScheme.primary) },
                 modifier = Modifier.fillMaxWidth().heightIn(min = 100.dp),
                 shape = RoundedCornerShape(12.dp),
                 maxLines = 4
             )
 
-            // Fecha
             OutlinedTextField(
                 value = selectedDate.format(dateFormatter),
                 onValueChange = {},
-                label = { Text("Fecha") },
+                label = { Text(stringResource(R.string.add_activity_fecha)) },
                 leadingIcon = { Icon(Icons.Default.CalendarMonth, null, tint = MaterialTheme.colorScheme.primary) },
                 trailingIcon = {
                     IconButton(onClick = { showDatePicker = true }) {
@@ -217,11 +211,10 @@ fun EditActivityScreen(
                 shape = RoundedCornerShape(12.dp)
             )
 
-            // Hora
             OutlinedTextField(
                 value = selectedTime.format(timeFormatter),
                 onValueChange = {},
-                label = { Text("Hora") },
+                label = { Text(stringResource(R.string.add_activity_hora)) },
                 leadingIcon = { Icon(Icons.Default.Schedule, null, tint = MaterialTheme.colorScheme.primary) },
                 trailingIcon = {
                     IconButton(onClick = { showTimePicker = true }) {
@@ -233,7 +226,6 @@ fun EditActivityScreen(
                 shape = RoundedCornerShape(12.dp)
             )
 
-            // Error de validación del ViewModel
             AnimatedVisibility(visible = validationError != null) {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -252,7 +244,7 @@ fun EditActivityScreen(
             Button(
                 onClick = {
                     if (title.isBlank()) {
-                        errorTitle = "El título no puede estar vacío"
+                        errorTitle = strErrorTitulo
                         return@Button
                     }
                     val startDate = tripStartDate ?: LocalDate.MIN
@@ -276,7 +268,7 @@ fun EditActivityScreen(
             ) {
                 Icon(Icons.Default.Save, null)
                 Spacer(Modifier.width(8.dp))
-                Text("Guardar cambios", fontWeight = FontWeight.Bold)
+                Text(stringResource(R.string.edit_activity_guardar), fontWeight = FontWeight.Bold)
             }
 
             Spacer(Modifier.height(16.dp))

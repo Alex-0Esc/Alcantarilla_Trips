@@ -83,6 +83,9 @@ fun CreateTripScreen(
 
     val errorOrigenMsg  = stringResource(R.string.create_error_origen)
     val errorDestinoMsg = stringResource(R.string.create_error_destino)
+    val strErrorFechaInicio = stringResource(R.string.create_error_fecha_inicio)
+    val strErrorFechaFin    = stringResource(R.string.create_error_fecha_fin)
+    val strErrorFechas      = stringResource(R.string.create_error_fechas)
     val totalPrice = (selectedFlight?.price ?: 0) + (selectedHotel?.price ?: 0)
 
     if (showStartPicker) {
@@ -170,7 +173,7 @@ fun CreateTripScreen(
                 OutlinedTextField(
                     value = startDate?.format(dateFormatter) ?: "",
                     onValueChange = {},
-                    label = { Text("Fecha de inicio") },
+                    label = { Text(stringResource(R.string.create_fecha_inicio)) },
                     leadingIcon = { Icon(Icons.Default.CalendarMonth, null, tint = if (errorStartDate != null) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary) },
                     trailingIcon = {
                         IconButton(onClick = { showStartPicker = true }) {
@@ -192,7 +195,7 @@ fun CreateTripScreen(
                 OutlinedTextField(
                     value = endDate?.format(dateFormatter) ?: "",
                     onValueChange = {},
-                    label = { Text("Fecha de fin") },
+                    label = { Text(stringResource(R.string.create_fecha_fin)) },
                     leadingIcon = { Icon(Icons.Default.CalendarMonth, null, tint = if (errorEndDate != null) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary) },
                     trailingIcon = {
                         IconButton(onClick = { showEndPicker = true }) {
@@ -213,11 +216,11 @@ fun CreateTripScreen(
                 onClick = {
                     errorOrigen  = if (trip.departureCity.isBlank()) errorOrigenMsg else null
                     errorDestino = if (trip.destineCity.isBlank()) errorDestinoMsg else null
-                    errorStartDate = if (startDate == null) "Selecciona la fecha de inicio" else null
-                    errorEndDate = if (endDate == null) "Selecciona la fecha de fin" else null
+                    errorStartDate = if (startDate == null) strErrorFechaInicio else null
+                    errorEndDate = if (endDate == null) strErrorFechaFin else null
                     if (errorStartDate == null && errorEndDate == null && startDate != null && endDate != null) {
                         if (!startDate!!.isBefore(endDate!!)) {
-                            errorStartDate = "La fecha de inicio debe ser anterior a la fecha de fin"
+                            errorStartDate = strErrorFechas
                         }
                     }
                     if (errorOrigen == null && errorDestino == null && errorStartDate == null && errorEndDate == null) {

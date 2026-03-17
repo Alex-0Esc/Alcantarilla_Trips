@@ -226,4 +226,63 @@
     <string name="create_dialogo_boton">Vamos!</string>
     <string name="create_vuelo_por_rata">por rato</string>
     <string name="create_hotel_por_noche">por noite</string>
+    <!-- Edit Trip -->
+    <string name="edit_trip_titulo">Editar viagem</string>
+    <string name="edit_trip_guardar">Guardar alterações</string>
+    <string name="edit_trip_exito_titulo">Viagem atualizada!</string>
+    <string name="edit_trip_exito_texto">As alterações foram guardadas correctamente.</string>
+    <string name="edit_trip_fecha_inicio">Data de início</string>
+    <string name="edit_trip_fecha_fin">Data de fim</string>
+    <string name="edit_trip_info_vuelo">Informação do voo</string>
+    <string name="edit_trip_error_titulo">O título não pode estar vazio</string>
+    <string name="edit_trip_error_fecha_inicio">Seleciona a data de início</string>
+    <string name="edit_trip_error_fecha_fin">Seleciona a data de fim</string>
+    <string name="edit_trip_error_fechas">A data de início deve ser anterior à data de fim</string>
+
+    <!-- Trip Detail -->
+    <string name="trip_detail_actividades">atividades</string>
+    <string name="trip_detail_sin_actividades">Não há atividades</string>
+    <string name="trip_detail_sin_actividades_sub">Adiciona a tua primeira atividade</string>
+    <string name="trip_detail_nueva_actividad">Nova atividade</string>
+
+    <!-- Add Activity -->
+    <string name="add_activity_titulo">Nova atividade</string>
+    <string name="add_activity_guardar">Adicionar atividade</string>
+    <string name="add_activity_exito_titulo">Atividade adicionada!</string>
+    <string name="add_activity_exito_texto">A atividade foi adicionada correctamente.</string>
+    <string name="add_activity_fecha">Data</string>
+    <string name="add_activity_hora">Hora</string>
+    <string name="add_activity_error_titulo">O título não pode estar vazio</string>
+    <string name="add_activity_error_fecha">Seleciona uma data</string>
+    <string name="add_activity_error_hora">Seleciona uma hora</string>
+    <string name="add_activity_error_rango">A data deve estar dentro do intervalo da viagem</string>
+
+    <!-- Edit Activity -->
+    <string name="edit_activity_titulo">Editar atividade</string>
+    <string name="edit_activity_guardar">Guardar alterações</string>
+    <string name="edit_activity_exito_titulo">Atividade atualizada!</string>
+    <string name="edit_activity_exito_texto">As alterações foram guardadas correctamente.</string>
+    <string name="edit_activity_no_encontrada">Atividade não encontrada</string>
+
+    <!-- Configuracion perfil -->
+    <string name="configuracion_perfil">Perfil</string>
+    <string name="configuracion_username">Nome de utilizador</string>
+    <string name="configuracion_fecha_nacimiento">Data de nascimento</string>
+    <string name="configuracion_guardar_perfil">Guardar perfil</string>
+    <string name="configuracion_apariencia">Aparência</string>
+    <string name="configuracion_preferencias_guardadas">Preferências guardadas!</string>
+
+    <!-- Compartidos -->
+    <string name="aceptar">Aceitar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="titulo_label">Título</string>
+    <string name="descripcion_label">Descrição</string>
+    <string name="seleccionar_hora">Seleciona a hora</string>
+
+    <string name="create_fecha_inicio">Data de início</string>
+    <string name="create_fecha_fin">Data de fim</string>
+    <string name="create_error_fecha_inicio">Seleciona a data de início</string>
+    <string name="create_error_fecha_fin">Seleciona a data de fim</string>
+    <string name="create_error_fechas">A data de início deve ser anterior à data de fim</string>
+
 </resources>

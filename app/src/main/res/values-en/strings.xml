@@ -226,4 +226,63 @@
     <string name="create_dialogo_boton">Let\'s go!</string>
     <string name="create_vuelo_por_rata">per rat</string>
     <string name="create_hotel_por_noche">per night</string>
+    <!-- Edit Trip -->
+    <string name="edit_trip_titulo">Edit trip</string>
+    <string name="edit_trip_guardar">Save changes</string>
+    <string name="edit_trip_exito_titulo">Trip updated!</string>
+    <string name="edit_trip_exito_texto">Changes have been saved successfully.</string>
+    <string name="edit_trip_fecha_inicio">Start date</string>
+    <string name="edit_trip_fecha_fin">End date</string>
+    <string name="edit_trip_info_vuelo">Flight information</string>
+    <string name="edit_trip_error_titulo">Title cannot be empty</string>
+    <string name="edit_trip_error_fecha_inicio">Select the start date</string>
+    <string name="edit_trip_error_fecha_fin">Select the end date</string>
+    <string name="edit_trip_error_fechas">Start date must be before end date</string>
+
+    <!-- Trip Detail -->
+    <string name="trip_detail_actividades">activities</string>
+    <string name="trip_detail_sin_actividades">No activities</string>
+    <string name="trip_detail_sin_actividades_sub">Add your first activity</string>
+    <string name="trip_detail_nueva_actividad">New activity</string>
+
+    <!-- Add Activity -->
+    <string name="add_activity_titulo">New activity</string>
+    <string name="add_activity_guardar">Add activity</string>
+    <string name="add_activity_exito_titulo">Activity added!</string>
+    <string name="add_activity_exito_texto">The activity has been added successfully.</string>
+    <string name="add_activity_fecha">Date</string>
+    <string name="add_activity_hora">Time</string>
+    <string name="add_activity_error_titulo">Title cannot be empty</string>
+    <string name="add_activity_error_fecha">Select a date</string>
+    <string name="add_activity_error_hora">Select a time</string>
+    <string name="add_activity_error_rango">Date must be within the trip date range</string>
+
+    <!-- Edit Activity -->
+    <string name="edit_activity_titulo">Edit activity</string>
+    <string name="edit_activity_guardar">Save changes</string>
+    <string name="edit_activity_exito_titulo">Activity updated!</string>
+    <string name="edit_activity_exito_texto">Changes have been saved successfully.</string>
+    <string name="edit_activity_no_encontrada">Activity not found</string>
+
+    <!-- Configuracion perfil -->
+    <string name="configuracion_perfil">Profile</string>
+    <string name="configuracion_username">Username</string>
+    <string name="configuracion_fecha_nacimiento">Date of birth</string>
+    <string name="configuracion_guardar_perfil">Save profile</string>
+    <string name="configuracion_apariencia">Appearance</string>
+    <string name="configuracion_preferencias_guardadas">Preferences saved!</string>
+
+    <!-- Compartidos -->
+    <string name="aceptar">Accept</string>
+    <string name="cancelar">Cancel</string>
+    <string name="titulo_label">Title</string>
+    <string name="descripcion_label">Description</string>
+    <string name="seleccionar_hora">Select time</string>
+
+    <string name="create_fecha_inicio">Start date</string>
+    <string name="create_fecha_fin">End date</string>
+    <string name="create_error_fecha_inicio">Select the start date</string>
+    <string name="create_error_fecha_fin">Select the end date</string>
+    <string name="create_error_fechas">Start date must be before end date</string>
+
 </resources>

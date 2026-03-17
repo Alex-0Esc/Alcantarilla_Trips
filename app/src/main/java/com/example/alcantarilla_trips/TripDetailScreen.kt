@@ -10,6 +10,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,7 +37,7 @@ fun TripDetailScreen(
 
     if (trip == null) {
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text("Viaje no encontrado")
+            Text(stringResource(R.string.rate_no_encontrado))
         }
         return
     }
@@ -50,7 +51,7 @@ fun TripDetailScreen(
                 title = { Text(trip.title, fontWeight = FontWeight.Bold) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, "Volver", tint = MaterialTheme.colorScheme.primary)
+                        Icon(Icons.Default.ArrowBack, stringResource(R.string.volver), tint = MaterialTheme.colorScheme.primary)
                     }
                 }
             )
@@ -61,7 +62,7 @@ fun TripDetailScreen(
                 containerColor = MaterialTheme.colorScheme.primary,
                 contentColor = MaterialTheme.colorScheme.onPrimary,
                 icon = { Icon(Icons.Default.Add, null) },
-                text = { Text("Nueva actividad", fontWeight = FontWeight.Bold) }
+                text = { Text(stringResource(R.string.trip_detail_nueva_actividad), fontWeight = FontWeight.Bold) }
             )
         }
     ) { paddingValues ->
@@ -70,7 +71,6 @@ fun TripDetailScreen(
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            // Info del viaje
             item {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -101,22 +101,20 @@ fun TripDetailScreen(
                 }
             }
 
-            // Título actividades
             item {
                 Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
-                    Text("Actividades", style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold))
-                    Text("${activities.size} actividades", style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant))
+                    Text(stringResource(R.string.itinerary_titulo), style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold))
+                    Text("${activities.size} ${stringResource(R.string.trip_detail_actividades)}", style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant))
                 }
             }
 
-            // Lista actividades
             if (activities.isEmpty()) {
                 item {
                     Box(modifier = Modifier.fillMaxWidth().padding(40.dp), contentAlignment = Alignment.Center) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
                             Text("🗓️", fontSize = 48.sp)
-                            Text("No hay actividades", style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold))
-                            Text("Añade tu primera actividad", style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant))
+                            Text(stringResource(R.string.trip_detail_sin_actividades), style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold))
+                            Text(stringResource(R.string.trip_detail_sin_actividades_sub), style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant))
                         }
                     }
                 }

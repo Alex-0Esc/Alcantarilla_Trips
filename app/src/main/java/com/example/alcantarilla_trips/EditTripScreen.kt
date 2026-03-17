@@ -11,6 +11,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -30,7 +31,7 @@ fun EditTripScreen(
 
     if (trip == null) {
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text("Viaje no encontrado")
+            Text(stringResource(R.string.rate_no_encontrado))
         }
         return
     }
@@ -54,6 +55,11 @@ fun EditTripScreen(
     var showEndDatePicker   by remember { mutableStateOf(false) }
     var showSuccessDialog   by remember { mutableStateOf(false) }
 
+    val strErrorTitulo     = stringResource(R.string.edit_trip_error_titulo)
+    val strErrorFechaInicio = stringResource(R.string.edit_trip_error_fecha_inicio)
+    val strErrorFechaFin   = stringResource(R.string.edit_trip_error_fecha_fin)
+    val strErrorFechas     = stringResource(R.string.edit_trip_error_fechas)
+
     if (showStartDatePicker) {
         val datePickerState = rememberDatePickerState(
             initialSelectedDateMillis = startDate
@@ -71,10 +77,10 @@ fun EditTripScreen(
                         errorStartDate = null
                     }
                     showStartDatePicker = false
-                }) { Text("Aceptar") }
+                }) { Text(stringResource(R.string.aceptar)) }
             },
             dismissButton = {
-                TextButton(onClick = { showStartDatePicker = false }) { Text("Cancelar") }
+                TextButton(onClick = { showStartDatePicker = false }) { Text(stringResource(R.string.cancelar)) }
             }
         ) { DatePicker(state = datePickerState) }
     }
@@ -96,10 +102,10 @@ fun EditTripScreen(
                         errorEndDate = null
                     }
                     showEndDatePicker = false
-                }) { Text("Aceptar") }
+                }) { Text(stringResource(R.string.aceptar)) }
             },
             dismissButton = {
-                TextButton(onClick = { showEndDatePicker = false }) { Text("Cancelar") }
+                TextButton(onClick = { showEndDatePicker = false }) { Text(stringResource(R.string.cancelar)) }
             }
         ) { DatePicker(state = datePickerState) }
     }
@@ -108,16 +114,13 @@ fun EditTripScreen(
         AlertDialog(
             onDismissRequest = {},
             icon = { Text("✅", style = MaterialTheme.typography.headlineLarge) },
-            title = { Text("¡Viaje actualizado!", fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary) },
-            text = { Text("Los cambios en '$title' se han guardado correctamente.") },
+            title = { Text(stringResource(R.string.edit_trip_exito_titulo), fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary) },
+            text = { Text(stringResource(R.string.edit_trip_exito_texto)) },
             confirmButton = {
                 Button(
-                    onClick = {
-                        showSuccessDialog = false
-                        navController.popBackStack()
-                    },
+                    onClick = { showSuccessDialog = false; navController.popBackStack() },
                     shape = RoundedCornerShape(12.dp)
-                ) { Text("Volver", fontWeight = FontWeight.Bold) }
+                ) { Text(stringResource(R.string.volver), fontWeight = FontWeight.Bold) }
             }
         )
     }
@@ -125,10 +128,10 @@ fun EditTripScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Editar viaje", fontWeight = FontWeight.Bold) },
+                title = { Text(stringResource(R.string.edit_trip_titulo), fontWeight = FontWeight.Bold) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, "Volver", tint = MaterialTheme.colorScheme.primary)
+                        Icon(Icons.Default.ArrowBack, stringResource(R.string.volver), tint = MaterialTheme.colorScheme.primary)
                     }
                 }
             )
@@ -142,12 +145,11 @@ fun EditTripScreen(
                 .padding(horizontal = 20.dp, vertical = 16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Título
             Column {
                 OutlinedTextField(
                     value = title,
                     onValueChange = { title = it; errorTitle = null },
-                    label = { Text("Título") },
+                    label = { Text(stringResource(R.string.titulo_label)) },
                     leadingIcon = { Icon(Icons.Default.Title, null, tint = if (errorTitle != null) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary) },
                     isError = errorTitle != null,
                     singleLine = true,
@@ -159,23 +161,21 @@ fun EditTripScreen(
                 }
             }
 
-            // Descripción
             OutlinedTextField(
                 value = description,
                 onValueChange = { description = it },
-                label = { Text("Descripción") },
+                label = { Text(stringResource(R.string.descripcion_label)) },
                 leadingIcon = { Icon(Icons.Default.Description, null, tint = MaterialTheme.colorScheme.primary) },
                 modifier = Modifier.fillMaxWidth().heightIn(min = 100.dp),
                 shape = RoundedCornerShape(12.dp),
                 maxLines = 4
             )
 
-            // Fecha inicio
             Column {
                 OutlinedTextField(
                     value = startDate?.format(dateFormatter) ?: "",
                     onValueChange = {},
-                    label = { Text("Fecha de inicio") },
+                    label = { Text(stringResource(R.string.edit_trip_fecha_inicio)) },
                     leadingIcon = { Icon(Icons.Default.CalendarMonth, null, tint = if (errorStartDate != null) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary) },
                     trailingIcon = {
                         IconButton(onClick = { showStartDatePicker = true }) {
@@ -192,12 +192,11 @@ fun EditTripScreen(
                 }
             }
 
-            // Fecha fin
             Column {
                 OutlinedTextField(
                     value = endDate?.format(dateFormatter) ?: "",
                     onValueChange = {},
-                    label = { Text("Fecha de fin") },
+                    label = { Text(stringResource(R.string.edit_trip_fecha_fin)) },
                     leadingIcon = { Icon(Icons.Default.CalendarMonth, null, tint = if (errorEndDate != null) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary) },
                     trailingIcon = {
                         IconButton(onClick = { showEndDatePicker = true }) {
@@ -214,16 +213,15 @@ fun EditTripScreen(
                 }
             }
 
-            // Info del viaje no editable
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(14.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
             ) {
                 Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Text("Información del vuelo", style = MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant))
+                    Text(stringResource(R.string.edit_trip_info_vuelo), style = MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant))
                     Text("${trip.departureCity} → ${trip.destineCity}", fontWeight = FontWeight.Bold)
-                    Text("Vuelo: ${trip.flight}  ·  Hotel: ${trip.hotelName}", style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant))
+                    Text("${stringResource(R.string.itinerary_summary_vuelo)}: ${trip.flight}  ·  ${stringResource(R.string.itinerary_summary_hotel)}: ${trip.hotelName}", style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant))
                 }
             }
 
@@ -232,12 +230,12 @@ fun EditTripScreen(
             Button(
                 onClick = {
                     var valid = true
-                    if (title.isBlank()) { errorTitle = "El título no puede estar vacío"; valid = false }
-                    if (startDate == null) { errorStartDate = "Selecciona la fecha de inicio"; valid = false }
-                    if (endDate == null) { errorEndDate = "Selecciona la fecha de fin"; valid = false }
+                    if (title.isBlank()) { errorTitle = strErrorTitulo; valid = false }
+                    if (startDate == null) { errorStartDate = strErrorFechaInicio; valid = false }
+                    if (endDate == null) { errorEndDate = strErrorFechaFin; valid = false }
                     if (valid && startDate != null && endDate != null) {
                         if (!startDate!!.isBefore(endDate!!)) {
-                            errorStartDate = "La fecha de inicio debe ser anterior a la fecha de fin"
+                            errorStartDate = strErrorFechas
                             valid = false
                         }
                     }
@@ -258,7 +256,7 @@ fun EditTripScreen(
             ) {
                 Icon(Icons.Default.Save, null)
                 Spacer(Modifier.width(8.dp))
-                Text("Guardar cambios", fontWeight = FontWeight.Bold)
+                Text(stringResource(R.string.edit_trip_guardar), fontWeight = FontWeight.Bold)
             }
         }
     }
