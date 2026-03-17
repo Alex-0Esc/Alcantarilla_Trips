@@ -61,15 +61,6 @@ fun TripsScreen(
                 }
             )
         },
-        floatingActionButton = {
-            ExtendedFloatingActionButton(
-                onClick = { navController.navigate("create_trip") },
-                containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary,
-                icon = { Icon(Icons.Default.Add, null) },
-                text = { Text(stringResource(R.string.trips_nuevo_viaje), fontWeight = FontWeight.Bold) }
-            )
-        }
     ) { paddingValues ->
         Surface(
             modifier = Modifier.fillMaxSize().padding(paddingValues),
@@ -255,25 +246,22 @@ fun TripCard(trip: Trip, onClick: () -> Unit, onDelete: () -> Unit, onEdit: () -
                     }
                     Button(
                         onClick = onEdit,
-                        modifier = Modifier.weight(1f).height(38.dp),
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(38.dp),
                         shape = RoundedCornerShape(10.dp)
                     ) {
-                        Icon(Icons.Default.Edit, null, modifier = Modifier.size(14.dp))
+                        Icon(
+                            Icons.Default.Edit,
+                            contentDescription = null,
+                            modifier = Modifier.size(14.dp)
+                        )
                         Spacer(Modifier.width(4.dp))
-                        Text(stringResource(R.string.trips_btn_detalle), style = MaterialTheme.typography.labelMedium)
+                        Text(
+                            text = "Editar",
+                            style = MaterialTheme.typography.labelMedium
+                        )
                     }
-                }
-            }
-
-            if (trip.status == TripStatus.COMPLETED) {
-                Spacer(Modifier.height(10.dp))
-                OutlinedButton(
-                    onClick = onClick,
-                    modifier = Modifier.fillMaxWidth().height(38.dp),
-                    shape = RoundedCornerShape(10.dp),
-                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary)
-                ) {
-                    Text(stringResource(R.string.trips_btn_valorar), style = MaterialTheme.typography.labelMedium)
                 }
             }
         }

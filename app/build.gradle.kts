@@ -40,6 +40,13 @@ android {
 }
 
 dependencies {
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation("io.mockk:mockk:1.13.9")                    // si usas MockK
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")  // si usas Mockito
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.room:room-testing:2.6.1")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.maps.android:maps-compose:4.3.3")
     implementation("androidx.compose.material3:material3")
