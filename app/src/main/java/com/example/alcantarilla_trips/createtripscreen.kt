@@ -30,6 +30,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.alcantarilla_trips.ui.viewmodels.TripListViewModel
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 data class TripDraft(
     val destineCity: String = "",
@@ -63,6 +65,8 @@ fun CreateTripScreen(
     navController: NavController,
     viewModel: TripListViewModel = viewModel()
 ) {
+    val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+
     var trip              by remember { mutableStateOf(TripDraft()) }
     var flightsVisible    by remember { mutableStateOf(false) }
     var selectedFlight    by remember { mutableStateOf<FlightResult?>(null) }
@@ -70,10 +74,58 @@ fun CreateTripScreen(
     var showSuccessDialog by remember { mutableStateOf(false) }
     var errorOrigen       by remember { mutableStateOf<String?>(null) }
     var errorDestino      by remember { mutableStateOf<String?>(null) }
+    var errorStartDate    by remember { mutableStateOf<String?>(null) }
+    var errorEndDate      by remember { mutableStateOf<String?>(null) }
+    var startDate         by remember { mutableStateOf<LocalDate?>(null) }
+    var endDate           by remember { mutableStateOf<LocalDate?>(null) }
+    var showStartPicker   by remember { mutableStateOf(false) }
+    var showEndPicker     by remember { mutableStateOf(false) }
 
     val errorOrigenMsg  = stringResource(R.string.create_error_origen)
     val errorDestinoMsg = stringResource(R.string.create_error_destino)
     val totalPrice = (selectedFlight?.price ?: 0) + (selectedHotel?.price ?: 0)
+
+    if (showStartPicker) {
+        val datePickerState = rememberDatePickerState()
+        DatePickerDialog(
+            onDismissRequest = { showStartPicker = false },
+            confirmButton = {
+                TextButton(onClick = {
+                    datePickerState.selectedDateMillis?.let { millis ->
+                        startDate = java.time.Instant.ofEpochMilli(millis)
+                            .atZone(java.time.ZoneId.systemDefault())
+                            .toLocalDate()
+                        errorStartDate = null
+                    }
+                    showStartPicker = false
+                }) { Text("Aceptar") }
+            },
+            dismissButton = {
+                TextButton(onClick = { showStartPicker = false }) { Text("Cancelar") }
+            }
+        ) { DatePicker(state = datePickerState) }
+    }
+
+    if (showEndPicker) {
+        val datePickerState = rememberDatePickerState()
+        DatePickerDialog(
+            onDismissRequest = { showEndPicker = false },
+            confirmButton = {
+                TextButton(onClick = {
+                    datePickerState.selectedDateMillis?.let { millis ->
+                        endDate = java.time.Instant.ofEpochMilli(millis)
+                            .atZone(java.time.ZoneId.systemDefault())
+                            .toLocalDate()
+                        errorEndDate = null
+                    }
+                    showEndPicker = false
+                }) { Text("Aceptar") }
+            },
+            dismissButton = {
+                TextButton(onClick = { showEndPicker = false }) { Text("Cancelar") }
+            }
+        ) { DatePicker(state = datePickerState) }
+    }
 
     Scaffold(
         topBar = {
@@ -113,11 +165,62 @@ fun CreateTripScreen(
                 errorMessage = errorDestino
             )
 
+            // Fecha inicio
+            Column {
+                OutlinedTextField(
+                    value = startDate?.format(dateFormatter) ?: "",
+                    onValueChange = {},
+                    label = { Text("Fecha de inicio") },
+                    leadingIcon = { Icon(Icons.Default.CalendarMonth, null, tint = if (errorStartDate != null) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary) },
+                    trailingIcon = {
+                        IconButton(onClick = { showStartPicker = true }) {
+                            Icon(Icons.Default.EditCalendar, null, tint = MaterialTheme.colorScheme.primary)
+                        }
+                    },
+                    readOnly = true,
+                    isError = errorStartDate != null,
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(12.dp)
+                )
+                AnimatedVisibility(visible = errorStartDate != null) {
+                    Text(errorStartDate ?: "", color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(start = 12.dp, top = 2.dp))
+                }
+            }
+
+            // Fecha fin
+            Column {
+                OutlinedTextField(
+                    value = endDate?.format(dateFormatter) ?: "",
+                    onValueChange = {},
+                    label = { Text("Fecha de fin") },
+                    leadingIcon = { Icon(Icons.Default.CalendarMonth, null, tint = if (errorEndDate != null) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary) },
+                    trailingIcon = {
+                        IconButton(onClick = { showEndPicker = true }) {
+                            Icon(Icons.Default.EditCalendar, null, tint = MaterialTheme.colorScheme.primary)
+                        }
+                    },
+                    readOnly = true,
+                    isError = errorEndDate != null,
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(12.dp)
+                )
+                AnimatedVisibility(visible = errorEndDate != null) {
+                    Text(errorEndDate ?: "", color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(start = 12.dp, top = 2.dp))
+                }
+            }
+
             Button(
                 onClick = {
                     errorOrigen  = if (trip.departureCity.isBlank()) errorOrigenMsg else null
                     errorDestino = if (trip.destineCity.isBlank()) errorDestinoMsg else null
-                    if (errorOrigen == null && errorDestino == null) {
+                    errorStartDate = if (startDate == null) "Selecciona la fecha de inicio" else null
+                    errorEndDate = if (endDate == null) "Selecciona la fecha de fin" else null
+                    if (errorStartDate == null && errorEndDate == null && startDate != null && endDate != null) {
+                        if (!startDate!!.isBefore(endDate!!)) {
+                            errorStartDate = "La fecha de inicio debe ser anterior a la fecha de fin"
+                        }
+                    }
+                    if (errorOrigen == null && errorDestino == null && errorStartDate == null && errorEndDate == null) {
                         flightsVisible = true
                         selectedFlight = null
                         selectedHotel  = null
@@ -161,6 +264,7 @@ fun CreateTripScreen(
                     SectionHeader(number = "4", icon = Icons.Default.Summarize, title = stringResource(R.string.create_seccion4_titulo))
 
                     TripSummaryRow(icon = "🛫", title = stringResource(R.string.create_resumen_ruta), value = "${trip.departureCity} → ${trip.destineCity}")
+                    TripSummaryRow(icon = "📅", title = "Fechas", value = "${startDate?.format(dateFormatter)} → ${endDate?.format(dateFormatter)}")
                     selectedFlight?.let { f ->
                         TripSummaryRow(icon = "✈️", title = stringResource(R.string.create_resumen_vuelo, f.code), value = "${f.airline} · ${f.duration} · ${f.stops}")
                     }
@@ -187,8 +291,8 @@ fun CreateTripScreen(
                             viewModel.addTrip(
                                 title = "${trip.departureCity} → ${trip.destineCity}",
                                 description = "",
-                                startDate = "",
-                                endDate = "",
+                                startDate = startDate?.format(dateFormatter) ?: "",
+                                endDate = endDate?.format(dateFormatter) ?: "",
                                 destineCity = trip.destineCity,
                                 departureCity = trip.departureCity,
                                 flight = selectedFlight?.code ?: "",

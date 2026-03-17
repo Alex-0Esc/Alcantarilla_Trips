@@ -16,6 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.alcantarilla_trips.ui.viewmodels.TripListViewModel
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,16 +35,92 @@ fun EditTripScreen(
         return
     }
 
+    val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+
     var title       by remember { mutableStateOf(trip.title) }
     var description by remember { mutableStateOf(trip.description) }
-    var startDate   by remember { mutableStateOf(trip.startDate) }
-    var endDate     by remember { mutableStateOf(trip.endDate) }
+    var startDate   by remember { mutableStateOf<LocalDate?>(
+        try { LocalDate.parse(trip.startDate, dateFormatter) } catch (e: Exception) { null }
+    )}
+    var endDate     by remember { mutableStateOf<LocalDate?>(
+        try { LocalDate.parse(trip.endDate, dateFormatter) } catch (e: Exception) { null }
+    )}
 
     var errorTitle     by remember { mutableStateOf<String?>(null) }
     var errorStartDate by remember { mutableStateOf<String?>(null) }
     var errorEndDate   by remember { mutableStateOf<String?>(null) }
 
-    var showSuccessDialog by remember { mutableStateOf(false) }
+    var showStartDatePicker by remember { mutableStateOf(false) }
+    var showEndDatePicker   by remember { mutableStateOf(false) }
+    var showSuccessDialog   by remember { mutableStateOf(false) }
+
+    if (showStartDatePicker) {
+        val datePickerState = rememberDatePickerState(
+            initialSelectedDateMillis = startDate
+                ?.atStartOfDay(java.time.ZoneId.systemDefault())
+                ?.toInstant()?.toEpochMilli()
+        )
+        DatePickerDialog(
+            onDismissRequest = { showStartDatePicker = false },
+            confirmButton = {
+                TextButton(onClick = {
+                    datePickerState.selectedDateMillis?.let { millis ->
+                        startDate = java.time.Instant.ofEpochMilli(millis)
+                            .atZone(java.time.ZoneId.systemDefault())
+                            .toLocalDate()
+                        errorStartDate = null
+                    }
+                    showStartDatePicker = false
+                }) { Text("Aceptar") }
+            },
+            dismissButton = {
+                TextButton(onClick = { showStartDatePicker = false }) { Text("Cancelar") }
+            }
+        ) { DatePicker(state = datePickerState) }
+    }
+
+    if (showEndDatePicker) {
+        val datePickerState = rememberDatePickerState(
+            initialSelectedDateMillis = endDate
+                ?.atStartOfDay(java.time.ZoneId.systemDefault())
+                ?.toInstant()?.toEpochMilli()
+        )
+        DatePickerDialog(
+            onDismissRequest = { showEndDatePicker = false },
+            confirmButton = {
+                TextButton(onClick = {
+                    datePickerState.selectedDateMillis?.let { millis ->
+                        endDate = java.time.Instant.ofEpochMilli(millis)
+                            .atZone(java.time.ZoneId.systemDefault())
+                            .toLocalDate()
+                        errorEndDate = null
+                    }
+                    showEndDatePicker = false
+                }) { Text("Aceptar") }
+            },
+            dismissButton = {
+                TextButton(onClick = { showEndDatePicker = false }) { Text("Cancelar") }
+            }
+        ) { DatePicker(state = datePickerState) }
+    }
+
+    if (showSuccessDialog) {
+        AlertDialog(
+            onDismissRequest = {},
+            icon = { Text("✅", style = MaterialTheme.typography.headlineLarge) },
+            title = { Text("¡Viaje actualizado!", fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary) },
+            text = { Text("Los cambios en '$title' se han guardado correctamente.") },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        showSuccessDialog = false
+                        navController.popBackStack()
+                    },
+                    shape = RoundedCornerShape(12.dp)
+                ) { Text("Volver", fontWeight = FontWeight.Bold) }
+            }
+        )
+    }
 
     Scaffold(
         topBar = {
@@ -95,12 +173,17 @@ fun EditTripScreen(
             // Fecha inicio
             Column {
                 OutlinedTextField(
-                    value = startDate,
-                    onValueChange = { startDate = it; errorStartDate = null },
-                    label = { Text("Fecha de inicio (dd/MM/yyyy)") },
+                    value = startDate?.format(dateFormatter) ?: "",
+                    onValueChange = {},
+                    label = { Text("Fecha de inicio") },
                     leadingIcon = { Icon(Icons.Default.CalendarMonth, null, tint = if (errorStartDate != null) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary) },
+                    trailingIcon = {
+                        IconButton(onClick = { showStartDatePicker = true }) {
+                            Icon(Icons.Default.EditCalendar, null, tint = MaterialTheme.colorScheme.primary)
+                        }
+                    },
+                    readOnly = true,
                     isError = errorStartDate != null,
-                    singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp)
                 )
@@ -112,12 +195,17 @@ fun EditTripScreen(
             // Fecha fin
             Column {
                 OutlinedTextField(
-                    value = endDate,
-                    onValueChange = { endDate = it; errorEndDate = null },
-                    label = { Text("Fecha de fin (dd/MM/yyyy)") },
+                    value = endDate?.format(dateFormatter) ?: "",
+                    onValueChange = {},
+                    label = { Text("Fecha de fin") },
                     leadingIcon = { Icon(Icons.Default.CalendarMonth, null, tint = if (errorEndDate != null) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary) },
+                    trailingIcon = {
+                        IconButton(onClick = { showEndDatePicker = true }) {
+                            Icon(Icons.Default.EditCalendar, null, tint = MaterialTheme.colorScheme.primary)
+                        }
+                    },
+                    readOnly = true,
                     isError = errorEndDate != null,
-                    singleLine = true,
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp)
                 )
@@ -126,9 +214,7 @@ fun EditTripScreen(
                 }
             }
 
-            Spacer(Modifier.height(8.dp))
-
-            // Info del viaje (no editable)
+            // Info del viaje no editable
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(14.dp),
@@ -147,15 +233,21 @@ fun EditTripScreen(
                 onClick = {
                     var valid = true
                     if (title.isBlank()) { errorTitle = "El título no puede estar vacío"; valid = false }
-                    if (startDate.isBlank()) { errorStartDate = "La fecha de inicio es obligatoria"; valid = false }
-                    if (endDate.isBlank()) { errorEndDate = "La fecha de fin es obligatoria"; valid = false }
+                    if (startDate == null) { errorStartDate = "Selecciona la fecha de inicio"; valid = false }
+                    if (endDate == null) { errorEndDate = "Selecciona la fecha de fin"; valid = false }
+                    if (valid && startDate != null && endDate != null) {
+                        if (!startDate!!.isBefore(endDate!!)) {
+                            errorStartDate = "La fecha de inicio debe ser anterior a la fecha de fin"
+                            valid = false
+                        }
+                    }
                     if (valid) {
                         viewModel.editTrip(
                             trip.copy(
                                 title = title,
                                 description = description,
-                                startDate = startDate,
-                                endDate = endDate
+                                startDate = startDate!!.format(dateFormatter),
+                                endDate = endDate!!.format(dateFormatter)
                             )
                         )
                         showSuccessDialog = true
@@ -169,23 +261,5 @@ fun EditTripScreen(
                 Text("Guardar cambios", fontWeight = FontWeight.Bold)
             }
         }
-    }
-
-    if (showSuccessDialog) {
-        AlertDialog(
-            onDismissRequest = {},
-            icon = { Text("✅", style = MaterialTheme.typography.headlineLarge) },
-            title = { Text("¡Viaje actualizado!", fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary) },
-            text = { Text("Los cambios en '$title' se han guardado correctamente.") },
-            confirmButton = {
-                Button(
-                    onClick = {
-                        showSuccessDialog = false
-                        navController.popBackStack()
-                    },
-                    shape = RoundedCornerShape(12.dp)
-                ) { Text("Volver", fontWeight = FontWeight.Bold) }
-            }
-        )
     }
 }
