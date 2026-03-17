@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.alcantarilla_trips.ui.viewmodels.ActivityViewModel
 import com.example.alcantarilla_trips.ui.viewmodels.TripListViewModel
 
 val bottomNavRoutes = setOf("mis_viajes", "itinerario", "configuracion", "album")
@@ -22,8 +23,9 @@ fun NavGraph(themeViewModel: ThemeViewModel) {
     val currentBackStack by navController.currentBackStackEntryAsState()
     val currentRoute = currentBackStack?.destination?.route
 
-    // Una sola instancia compartida por todas las pantallas
+    // Instancias compartidas
     val tripViewModel: TripListViewModel = viewModel()
+    val activityViewModel: ActivityViewModel = viewModel()
 
     Scaffold(
         bottomBar = {
@@ -83,6 +85,54 @@ fun NavGraph(themeViewModel: ThemeViewModel) {
             ) { backStackEntry ->
                 val tripId = backStackEntry.arguments?.getInt("tripId") ?: return@composable
                 EditTripScreen(navController = navController, tripId = tripId, viewModel = tripViewModel)
+            }
+            composable(
+                route = "trip_detail/{tripId}",
+                arguments = listOf(navArgument("tripId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val tripId = backStackEntry.arguments?.getInt("tripId") ?: return@composable
+                TripDetailScreen(
+                    navController = navController,
+                    tripId = tripId,
+                    tripViewModel = tripViewModel,
+                    activityViewModel = activityViewModel
+                )
+            }
+            composable(
+                route = "add_activity/{tripId}",
+                arguments = listOf(navArgument("tripId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val tripId = backStackEntry.arguments?.getInt("tripId") ?: return@composable
+                AddActivityScreen(
+                    navController = navController,
+                    tripId = tripId,
+                    tripViewModel = tripViewModel,
+                    activityViewModel = activityViewModel
+                )
+            }
+            composable(
+                route = "edit_activity/{activityId}/{tripId}",
+                arguments = listOf(
+                    navArgument("activityId") { type = NavType.IntType },
+                    navArgument("tripId") { type = NavType.IntType }
+                )
+            ) { backStackEntry ->
+                val activityId = backStackEntry.arguments?.getInt("activityId") ?: return@composable
+                val tripId = backStackEntry.arguments?.getInt("tripId") ?: return@composable
+                EditActivityScreen(
+                    navController = navController,
+                    activityId = activityId,
+                    tripId = tripId,
+                    tripViewModel = tripViewModel,
+                    activityViewModel = activityViewModel
+                )
+            }
+            composable(
+                route = "valorar/{tripId}",
+                arguments = listOf(navArgument("tripId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val tripId = backStackEntry.arguments?.getInt("tripId") ?: return@composable
+                RateTripScreen(navController = navController, tripId = tripId)
             }
         }
     }

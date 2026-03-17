@@ -131,7 +131,7 @@ fun TripsScreen(
                             items(list, key = { it.tripId }) { trip ->
                                 TripCard(
                                     trip = trip,
-                                    onClick = { navController.navigate("valorar/${trip.tripId}") },
+                                    onClick = { navController.navigate("trip_detail/${trip.tripId}") },
                                     onDelete = { viewModel.deleteTrip(trip.tripId) },
                                     onEdit = { navController.navigate("edit_trip/${trip.tripId}") }
                                 )
