@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Alcantarilla Trips</string>
+    <string name="about_title">Sobre l\'app</string>
+    <string name="btn_volver">Tornar</string>
+    <string name="about_body">
+        🐀 Alcantarilla Trips v1.0\n
+        Cansat de centenars d\'apps dissenyades per a humans per planificar els seus viatges,
+        mentre la teva colònia ha de dependre de paper de vàter per prendre notes?\n
+        Prou! Alcantarilla Trips és la primera app de viatges dissenyada exclusivament
+        per a rosegadors. Planifica les teves expedicions subterrànies pels clavegueram més
+        populars, descobreix noves rutes de formatge i no et perdis mai més amb la teva camada.\n
+        🧀 CARACTERÍSTIQUES\n
+        - Planificació d\'Itineraris - Organitza els teus viatges i visualitza les teves rutes en segons. 📅\n
+        - Cerca de Llocs Propers - Troba contenidors, cuines i més. 🧀\n
+        - Emmagatzematge d\'Imatges - Desa records dels teus viatges.\n
+        - Filtres de risc avançats - Avalua el risc d\'humans malhumorats a les zones. 💀\n
+        - Personalitzar preferències d\'usuari ⚙️\n
+        - Suport per a múltiples idiomes 🌎\n
+        👥 EQUIP\n
+        - Àlex Escofet Presedo\n
+        - Samuel Gomà Atehortua\n
+        📍 VERSIÓ\n
+        Alcantarilla Trips 1.0.0\n
+        Aquest programa utilitza \"THE BEER-WARE LICENSE\" (Revisió 43)
+    </string>
+    <string name="cambiar_idioma_titulo">Selecciona l\'idioma de l\'app</string>
+    <string name="idioma_espanol">Castellà</string>
+    <string name="idioma_catalan">Català</string>
+    <string name="idioma_ingles">Anglès</string>
+    <string name="btn_volver_configuracion">Tornar a la configuració</string>
+    <string name="btn_volver_home">Tornar a la pantalla principal</string>
+
+    <string name="configuracion_titulo">Configuració</string>
+    <string name="configuracion_modo_oscuro">Mode fosc</string>
+    <string name="configuracion_cambiar_idioma">Canviar idioma</string>
+    <string name="configuracion_informacion">Informació</string>
+    <string name="configuracion_cerrar_sesion">Tancar sessió</string>
+
+    <string name="create_trip_titulo">Nou Viatge 🗺️</string>
+    <string name="create_trip_volver">Tornar</string>
+    <string name="create_trip_atras">Enrere</string>
+    <string name="create_trip_exito_titulo">Viatge creat!</string>
+    <string name="create_trip_exito_boton">Anem!</string>
+    <string name="create_trip_exito_texto">La teva aventura a %1$s està llesta.\nQue gaudeixis del viatge, petit explorador! 🐭</string>
+    <string name="step_destino">Destinació</string>
+    <string name="step_vuelo">Vol</string>
+    <string name="step_hotel">Hotel</string>
+    <string name="step_fin">Fi</string>
+    <string name="destino_de_donde">D\'on sortim?</string>
+    <string name="destino_a_donde">On anem?</string>
+    <string name="destino_ciudad_origen">Ciutat d\'origen</string>
+    <string name="destino_ciudad_origen_placeholder">Ex: Madrid</string>
+    <string name="destino_ciudad_destino">Ciutat de destinació</string>
+    <string name="destino_ciudad_destino_placeholder">Ex: París, Roma, Tòquio…</string>
+    <string name="destino_error_origen">Indica la ciutat d\'origen</string>
+    <string name="destino_error_destino">Indica la ciutat de destinació</string>
+    <string name="destino_buscar_vuelos">Cercar vols 🛫</string>
+    <string name="mapa_titulo">Mapa interactiu</string>
+    <string name="mapa_subtitulo">Afegeix maps-compose a build.gradle per activar-lo</string>
+    <string name="mapa_integrar">Integrar Google Maps</string>
+    <string name="vuelo_titulo">Tria el teu vol</string>
+    <string name="vuelo_opciones">%1$d opcions trobades</string>
+    <string name="vuelo_continuar">Continuar amb aquest vol ✈️</string>
+    <string name="vuelo_por_rata">per rata</string>
+    <string name="hotel_titulo">Tria el teu hotel</string>
+    <string name="hotel_continuar">Continuar amb aquest hotel 🏨</string>
+    <string name="hotel_por_noche">per nit</string>
+    <string name="resumen_titulo">Resum del viatge</string>
+    <string name="resumen_ruta">Ruta</string>
+    <string name="resumen_hotel">Hotel</string>
+    <string name="resumen_precio">💰 Preu estimat</string>
+    <string name="resumen_confirmar">Confirmar viatge! 🐭✈️</string>
+
+    <string name="home_bienvenido">Benvingut, Rosegador!</string>
+    <string name="home_que_hacer">Què vols fer avui?</string>
+    <string name="home_agendar_viaje">Programar nou viatge</string>
+    <string name="home_ver_viajes">Veure els meus viatges</string>
+    <string name="home_configuracion">Configuració</string>
+
+    <string name="informacion_titulo">Informació</string>
+    <string name="informacion_terminos">Termes i condicions</string>
+    <string name="informacion_about">Sobre l\'app</string>
+
+    <string name="login_logo_desc">Logo</string>
+    <string name="login_subtitulo">El món és teu, petit explorador</string>
+    <string name="login_titulo">Iniciar sessió</string>
+    <string name="login_email">Correu electrònic</string>
+    <string name="login_password">Contrasenya</string>
+    <string name="login_mostrar_password">Mostrar/amagar contrasenya</string>
+    <string name="login_error_email">Introdueix un email vàlid</string>
+    <string name="login_error_password">Mínim 6 caràcters</string>
+    <string name="login_boton_entrar">Entrar al món 🐾</string>
+    <string name="login_nuevo_usuario">Ets nou per aquí?</string>
+    <string name="login_boton_registro">Crear compte nou 🧳</string>
+    <string name="login_footer_aceptar">En continuar acceptes els nostres </string>
+    <string name="login_footer_terminos"> Termes i Condicions</string>
+    <string name="login_footer_aprender">. Aprèn més a </string>
+    <string name="login_footer_sobre"> Sobre Nosaltres</string>
+
+    <string name="register_titulo">Crea el teu compte</string>
+    <string name="register_subtitulo">Uneix-te a la comunitat de rates viatgeres</string>
+    <string name="register_datos_acceso">Dades d\'accés</string>
+    <string name="register_confirmar_password">Confirmar contrasenya</string>
+    <string name="register_password_debil">Feble</string>
+    <string name="register_password_media">Mitjana</string>
+    <string name="register_password_fuerte">Forta</string>
+    <string name="register_password_fortaleza">Contrasenya %1$s</string>
+    <string name="register_acepto">Accepto els </string>
+    <string name="register_error_confirm">Les contrasenyes no coincideixen</string>
+    <string name="register_error_terminos">Has d\'acceptar els termes per continuar</string>
+    <string name="register_boton_crear">Crear compte 🐾</string>
+    <string name="register_ya_tengo_cuenta">Ja tens compte?</string>
+    <string name="register_iniciar_sesion">Inicia sessió</string>
+
+    <string name="splash_desc">Splash</string>
+
+    <string name="terminos_titulo">Termes i Condicions</string>
+    <string name="terminos_contenido">
+    En utilitzar Alcantarilla Trips, l\'usuari (d\'ara endavant "el Rosegador") accepta els següents termes:\n\n
+
+    1. ÚS DE L\'APP\n
+    Alcantarilla Trips està dissenyada exclusivament per a la planificació de viatges subterranis. Qualsevol ús en superfície queda sota responsabilitat del Rosegador.\n\n
+
+    2. RESPONSABILITAT\n
+    No ens fem responsables de pèrdues de formatge, trobades amb desagradables bípedes,
+    ni de corrents d\'aigua inesperades durant els viatges planificats amb aquesta app.\n\n
+
+    3. PRIVACITAT\n
+    Les dades de les teves rutes de clavegueram són estrictament confidencials i mai seran compartides amb exteriors, gats, ni autoritats sanitàries.\n\n
+
+    4. MODIFICACIONS\n
+    Alcantarilla Trips es reserva el dret de modificar aquestes condicions en qualsevol moment.
+    Els canvis seran comunicats mitjançant rascades a les parets del túnel principal.\n\n
+
+    5. ACCEPTACIÓ\n
+    El simple fet d\'olorar aquesta pantalla implica l\'acceptació total d\'aquests termes.\n\n
+    </string>
+
+    <string name="volver">Tornar</string>
+
+    <string name="nav_itinerario">Itinerari</string>
+    <string name="nav_viajes">Viatges</string>
+    <string name="nav_configuracion">Configuració</string>
+
+    <string name="trips_titulo">Els meus Viatges</string>
+    <string name="trips_nuevo_viaje">Nou viatge</string>
+    <string name="trips_tab_pendientes">Pendents</string>
+    <string name="trips_tab_realizados">Realitzats</string>
+    <string name="trips_stat_viajes">Viatges</string>
+    <string name="trips_stat_ciudades">Ciutats</string>
+    <string name="trips_stat_total">Total</string>
+    <string name="trips_estado_pendiente">Pendent</string>
+    <string name="trips_estado_realizado">Realitzat</string>
+    <string name="trips_estado_cancelado">Cancel·lat</string>
+    <string name="trips_btn_cancelar">Cancel·lar</string>
+    <string name="trips_btn_detalle">Editar detalls</string>
+    <string name="trips_btn_valorar">⭐ Valorar viatge</string>
+    <string name="trips_btn_crear">Crear viatge 🐭</string>
+    <string name="trips_vacio_pendiente_titulo">No tens viatges pendents</string>
+    <string name="trips_vacio_pendiente_subtitulo">Planifica la teva propera aventura!</string>
+    <string name="trips_vacio_realizado_titulo">Encara no has viatjat</string>
+    <string name="trips_vacio_realizado_subtitulo">El món t\'està esperant, petita rata!</string>
+
+    <string name="itinerary_titulo">Itinerari</string>
+    <string name="itinerary_subtitulo">Nova York · Nov 2025</string>
+    <string name="itinerary_volver">Tornar</string>
+    <string name="itinerary_compartir">Compartir</string>
+    <string name="itinerary_summary_dias">Dies</string>
+    <string name="itinerary_summary_ciudad">Ciutat</string>
+    <string name="itinerary_summary_vuelo">Vol</string>
+    <string name="itinerary_summary_hotel">Hotel</string>
+    <string name="itinerary_actividades">%1$d activitats</string>
+
+    <string name="album_titulo">Àlbum de fotos</string>
+    <string name="album_recuerdos">%1$d records</string>
+    <string name="album_volver">Tornar</string>
+    <string name="album_anterior">Anterior</string>
+    <string name="album_siguiente">Següent</string>
+    <string name="album_todas_fotos">Totes les fotos</string>
+
+    <string name="rate_titulo">Valorar viatge</string>
+    <string name="rate_volver">Tornar</string>
+    <string name="rate_no_encontrado">Viatge no trobat</string>
+    <string name="rate_puntuacion">La teva puntuació</string>
+    <string name="rate_desc_0">Com ha anat el viatge?</string>
+    <string name="rate_desc_1">Molt dolent 😤</string>
+    <string name="rate_desc_2">Podria millorar 😕</string>
+    <string name="rate_desc_3">Ha estat bé 😊</string>
+    <string name="rate_desc_4">Molt bo 😄</string>
+    <string name="rate_desc_5">Increïble! 🤩</string>
+    <string name="rate_error_puntuacion">Selecciona una puntuació per continuar</string>
+    <string name="rate_destacar">Què destacaries?</string>
+    <string name="rate_opcional">Opcional</string>
+    <string name="rate_etiqueta_singular">%1$d etiqueta seleccionada</string>
+    <string name="rate_etiqueta_plural">%1$d etiquetes seleccionades</string>
+    <string name="rate_opinion">La teva opinió</string>
+    <string name="rate_placeholder">Explica\'ns la teva experiència com a rata viatgera… Ho recomanaries a altres rates? 🐭</string>
+    <string name="rate_casi_limite">Gairebé al límit</string>
+    <string name="rate_publicar">Publicar valoració</string>
+    <string name="rate_exito_titulo">Gràcies per la teva ressenya!</string>
+    <string name="rate_exito_texto">La teva opinió sobre %1$s ajudarà altres rates viatgeres 🐭</string>
+    <string name="rate_exito_volver">Tornar als meus viatges</string>
+
+    <string name="create_titulo">Nou viatge</string>
+    <string name="create_volver">Tornar</string>
+    <string name="create_seccion1_titulo">D\'on a on?</string>
+    <string name="create_origen_label">Ciutat d\'origen</string>
+    <string name="create_origen_placeholder">Ex: Madrid</string>
+    <string name="create_destino_label">Ciutat de destinació</string>
+    <string name="create_destino_placeholder">Ex: París</string>
+    <string name="create_error_origen">Introdueix la ciutat d\'origen</string>
+    <string name="create_error_destino">Introdueix la ciutat de destinació</string>
+    <string name="create_buscar_vuelos">Cercar vols</string>
+    <string name="create_seccion2_titulo">Tria el teu vol</string>
+    <string name="create_vuelos_disponibles">%1$d vols disponibles · %2$s → %3$s</string>
+    <string name="create_seccion3_titulo">Tria el teu hotel</string>
+    <string name="create_seccion4_titulo">Resum del viatge</string>
+    <string name="create_resumen_ruta">Ruta</string>
+    <string name="create_resumen_vuelo">Vol · %1$s</string>
+    <string name="create_resumen_hotel">Hotel</string>
+    <string name="create_precio_total">Preu total estimat</string>
+    <string name="create_confirmar">Confirmar viatge 🐭</string>
+    <string name="create_dialogo_titulo">Viatge creat!</string>
+    <string name="create_dialogo_texto">El teu viatge a %1$s s\'ha desat correctament.</string>
+    <string name="create_dialogo_boton">Anem!</string>
+    <string name="create_vuelo_por_rata">per rata</string>
+    <string name="create_hotel_por_noche">per nit</string>
+    <!-- Edit Trip -->
+    <string name="edit_trip_titulo">Editar viatge</string>
+    <string name="edit_trip_guardar">Desar canvis</string>
+    <string name="edit_trip_exito_titulo">Viatge actualitzat!</string>
+    <string name="edit_trip_exito_texto">Els canvis s\'han desat correctament.</string>
+    <string name="edit_trip_fecha_inicio">Data d\'inici</string>
+    <string name="edit_trip_fecha_fin">Data de fi</string>
+    <string name="edit_trip_info_vuelo">Informació del vol</string>
+    <string name="edit_trip_error_titulo">El títol no pot estar buit</string>
+    <string name="edit_trip_error_fecha_inicio">Selecciona la data d\'inici</string>
+    <string name="edit_trip_error_fecha_fin">Selecciona la data de fi</string>
+    <string name="edit_trip_error_fechas">La data d\'inici ha de ser anterior a la data de fi</string>
+
+    <!-- Trip Detail -->
+    <string name="trip_detail_actividades">activitats</string>
+    <string name="trip_detail_sin_actividades">No hi ha activitats</string>
+    <string name="trip_detail_sin_actividades_sub">Afegeix la teva primera activitat</string>
+    <string name="trip_detail_nueva_actividad">Nova activitat</string>
+
+    <!-- Add Activity -->
+    <string name="add_activity_titulo">Nova activitat</string>
+    <string name="add_activity_guardar">Afegir activitat</string>
+    <string name="add_activity_exito_titulo">Activitat afegida!</string>
+    <string name="add_activity_exito_texto">L\'activitat s\'ha afegit correctament.</string>
+    <string name="add_activity_fecha">Data</string>
+    <string name="add_activity_hora">Hora</string>
+    <string name="add_activity_error_titulo">El títol no pot estar buit</string>
+    <string name="add_activity_error_fecha">Selecciona una data</string>
+    <string name="add_activity_error_hora">Selecciona una hora</string>
+    <string name="add_activity_error_rango">La data ha d\'estar dins del rang del viatge</string>
+
+    <!-- Edit Activity -->
+    <string name="edit_activity_titulo">Editar activitat</string>
+    <string name="edit_activity_guardar">Desar canvis</string>
+    <string name="edit_activity_exito_titulo">Activitat actualitzada!</string>
+    <string name="edit_activity_exito_texto">Els canvis s\'han desat correctament.</string>
+    <string name="edit_activity_no_encontrada">Activitat no trobada</string>
+
+    <!-- Configuracion perfil -->
+    <string name="configuracion_perfil">Perfil</string>
+    <string name="configuracion_username">Nom d\'usuari</string>
+    <string name="configuracion_fecha_nacimiento">Data de naixement</string>
+    <string name="configuracion_guardar_perfil">Desar perfil</string>
+    <string name="configuracion_apariencia">Aparença</string>
+    <string name="configuracion_preferencias_guardadas">Preferències desades!</string>
+
+    <!-- Compartidos -->
+    <string name="aceptar">Acceptar</string>
+    <string name="cancelar">Cancel·lar</string>
+    <string name="titulo_label">Títol</string>
+    <string name="descripcion_label">Descripció</string>
+    <string name="seleccionar_hora">Selecciona l\'hora</string>
+
+    <string name="create_fecha_inicio">Data d\'inici</string>
+    <string name="create_fecha_fin">Data de fi</string>
+    <string name="create_error_fecha_inicio">Selecciona la data d\'inici</string>
+    <string name="create_error_fecha_fin">Selecciona la data de fi</string>
+    <string name="create_error_fechas">La data d\'inici ha de ser anterior a la data de fi</string>
+
+</resources>

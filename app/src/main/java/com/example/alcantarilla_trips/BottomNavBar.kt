@@ -1,9 +1,10 @@
 package com.example.alcantarilla_trips
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Book
-import androidx.compose.material.icons.filled.Bookmark
-import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Album
+import androidx.compose.material.icons.filled.CalendarMonth
+import androidx.compose.material.icons.filled.Luggage
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -20,9 +21,9 @@ data class BottomNavDestination(
 )
 
 val bottomNavDestinations = listOf(
-    BottomNavDestination("itinerario", Icons.Default.Book,     R.string.nav_itinerario),
-    BottomNavDestination("mis_viajes", Icons.Default.Bookmark, R.string.nav_viajes),
-    BottomNavDestination("configuracion", Icons.Default.Build, R.string.nav_configuracion)
+    BottomNavDestination("mis_viajes",    Icons.Default.Luggage,       R.string.nav_viajes),
+    BottomNavDestination("album",         Icons.Default.Album, R.string.album_titulo),
+    BottomNavDestination("configuracion", Icons.Default.Settings,      R.string.nav_configuracion)
 )
 
 @Composable

@@ -35,7 +35,6 @@ fun TripsScreen(
     viewModel: TripListViewModel = viewModel()
 ) {
     val trips by viewModel.trips.collectAsState()
-    val validationError by viewModel.validationError.collectAsState()
 
     var selectedTab by remember { mutableIntStateOf(0) }
     val tabs = listOf(
@@ -45,13 +44,6 @@ fun TripsScreen(
 
     val pendingTrips   = trips.filter { it.status == TripStatus.PENDING }
     val completedTrips = trips.filter { it.status == TripStatus.COMPLETED }
-
-    // Mostrar error de validación si existe
-    validationError?.let { error ->
-        LaunchedEffect(error) {
-            // El error se muestra en el snackbar
-        }
-    }
 
     Scaffold(
         topBar = {
@@ -69,15 +61,6 @@ fun TripsScreen(
                 }
             )
         },
-        floatingActionButton = {
-            ExtendedFloatingActionButton(
-                onClick = { navController.navigate("create_trip") },
-                containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary,
-                icon = { Icon(Icons.Default.Add, null) },
-                text = { Text(stringResource(R.string.trips_nuevo_viaje), fontWeight = FontWeight.Bold) }
-            )
-        }
     ) { paddingValues ->
         Surface(
             modifier = Modifier.fillMaxSize().padding(paddingValues),
@@ -139,8 +122,9 @@ fun TripsScreen(
                             items(list, key = { it.tripId }) { trip ->
                                 TripCard(
                                     trip = trip,
-                                    onClick = { navController.navigate("valorar/${trip.tripId}") },
-                                    onDelete = { viewModel.deleteTrip(trip.tripId) }
+                                    onClick = { navController.navigate("trip_detail/${trip.tripId}") },
+                                    onDelete = { viewModel.deleteTrip(trip.tripId) },
+                                    onEdit = { navController.navigate("edit_trip/${trip.tripId}") }
                                 )
                             }
                         }
@@ -174,7 +158,7 @@ fun StatChip(modifier: Modifier = Modifier, icon: String, label: String, value: 
 }
 
 @Composable
-fun TripCard(trip: Trip, onClick: () -> Unit, onDelete: () -> Unit) {
+fun TripCard(trip: Trip, onClick: () -> Unit, onDelete: () -> Unit, onEdit: () -> Unit) {
     val statusColor = when (trip.status) {
         TripStatus.PENDING   -> MaterialTheme.colorScheme.tertiary
         TripStatus.COMPLETED -> MaterialTheme.colorScheme.primary
@@ -261,26 +245,23 @@ fun TripCard(trip: Trip, onClick: () -> Unit, onDelete: () -> Unit) {
                         Text(stringResource(R.string.trips_btn_cancelar), style = MaterialTheme.typography.labelMedium)
                     }
                     Button(
-                        onClick = onClick,
-                        modifier = Modifier.weight(1f).height(38.dp),
+                        onClick = onEdit,
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(38.dp),
                         shape = RoundedCornerShape(10.dp)
                     ) {
-                        Icon(Icons.Default.Info, null, modifier = Modifier.size(14.dp))
+                        Icon(
+                            Icons.Default.Edit,
+                            contentDescription = null,
+                            modifier = Modifier.size(14.dp)
+                        )
                         Spacer(Modifier.width(4.dp))
-                        Text(stringResource(R.string.trips_btn_detalle), style = MaterialTheme.typography.labelMedium)
+                        Text(
+                            text = "Editar",
+                            style = MaterialTheme.typography.labelMedium
+                        )
                     }
-                }
-            }
-
-            if (trip.status == TripStatus.COMPLETED) {
-                Spacer(Modifier.height(10.dp))
-                OutlinedButton(
-                    onClick = onClick,
-                    modifier = Modifier.fillMaxWidth().height(38.dp),
-                    shape = RoundedCornerShape(10.dp),
-                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary)
-                ) {
-                    Text(stringResource(R.string.trips_btn_valorar), style = MaterialTheme.typography.labelMedium)
                 }
             }
         }

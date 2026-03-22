@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Alcantarilla Trips</string>
+    <string name="about_title">About the app</string>
+    <string name="btn_volver">Back</string>
+    <string name="about_body">
+        🐀 Alcantarilla Trips v1.0\n
+        Tired of hundreds of apps designed for humans to plan their trips,
+        while your colony has to rely on toilet paper for notes?\n
+        No more! Alcantarilla Trips is the first travel app designed exclusively
+        for rodents. Plan your underground expeditions through the most popular sewers,
+        discover new cheese routes and never get lost with your litter again.\n
+        🧀 FEATURES\n
+        - Itinerary Planning - Organize your trips and visualize your routes in seconds. 📅\n
+        - Nearby Places Search - Find dumpsters, kitchens and more. 🧀\n
+        - Image Storage - Save memories from your trips.\n
+        - Advanced risk filters - Evaluate risk of grumpy humans in the area. 💀\n
+        - Customize user preferences ⚙️\n
+        - Multi-language support 🌎\n
+        👥 TEAM\n
+        - Àlex Escofet Presedo\n
+        - Samuel Gomà Atehortua\n
+        📍 VERSION\n
+        Alcantarilla Trips 1.0.0\n
+        This program uses \"THE BEER-WARE LICENSE\" (Revision 43)
+    </string>
+    <string name="cambiar_idioma_titulo">Select app language</string>
+    <string name="idioma_espanol">Spanish</string>
+    <string name="idioma_catalan">Catalan</string>
+    <string name="idioma_ingles">English</string>
+    <string name="btn_volver_configuracion">Back to settings</string>
+    <string name="btn_volver_home">Back to home</string>
+
+    <string name="configuracion_titulo">Settings</string>
+    <string name="configuracion_modo_oscuro">Dark mode</string>
+    <string name="configuracion_cambiar_idioma">Change language</string>
+    <string name="configuracion_informacion">Information</string>
+    <string name="configuracion_cerrar_sesion">Log out</string>
+
+    <string name="create_trip_titulo">New Trip 🗺️</string>
+    <string name="create_trip_volver">Back</string>
+    <string name="create_trip_atras">Back</string>
+    <string name="create_trip_exito_titulo">Trip created!</string>
+    <string name="create_trip_exito_boton">Let\'s go!</string>
+    <string name="create_trip_exito_texto">Your adventure to %1$s is ready.\nEnjoy the trip, little explorer! 🐭</string>
+    <string name="step_destino">Destination</string>
+    <string name="step_vuelo">Flight</string>
+    <string name="step_hotel">Hotel</string>
+    <string name="step_fin">Done</string>
+    <string name="destino_de_donde">Where are we departing from?</string>
+    <string name="destino_a_donde">Where are we going?</string>
+    <string name="destino_ciudad_origen">Origin city</string>
+    <string name="destino_ciudad_origen_placeholder">E.g.: Madrid</string>
+    <string name="destino_ciudad_destino">Destination city</string>
+    <string name="destino_ciudad_destino_placeholder">E.g.: Paris, Rome, Tokyo…</string>
+    <string name="destino_error_origen">Please enter the origin city</string>
+    <string name="destino_error_destino">Please enter the destination city</string>
+    <string name="destino_buscar_vuelos">Search flights 🛫</string>
+    <string name="mapa_titulo">Interactive map</string>
+    <string name="mapa_subtitulo">Add maps-compose in build.gradle to enable it</string>
+    <string name="mapa_integrar">Integrate Google Maps</string>
+    <string name="vuelo_titulo">Choose your flight</string>
+    <string name="vuelo_opciones">%1$d options found</string>
+    <string name="vuelo_continuar">Continue with this flight ✈️</string>
+    <string name="vuelo_por_rata">per rat</string>
+    <string name="hotel_titulo">Choose your hotel</string>
+    <string name="hotel_continuar">Continue with this hotel 🏨</string>
+    <string name="hotel_por_noche">per night</string>
+    <string name="resumen_titulo">Trip summary</string>
+    <string name="resumen_ruta">Route</string>
+    <string name="resumen_hotel">Hotel</string>
+    <string name="resumen_precio">💰 Estimated price</string>
+    <string name="resumen_confirmar">Confirm trip! 🐭✈️</string>
+
+    <string name="home_bienvenido">Welcome, Rodent!</string>
+    <string name="home_que_hacer">What do you want to do today?</string>
+    <string name="home_agendar_viaje">Schedule new trip</string>
+    <string name="home_ver_viajes">View my trips</string>
+    <string name="home_configuracion">Settings</string>
+
+    <string name="informacion_titulo">Information</string>
+    <string name="informacion_terminos">Terms and conditions</string>
+    <string name="informacion_about">About the app</string>
+
+    <string name="login_logo_desc">Logo</string>
+    <string name="login_subtitulo">The world is yours, little explorer</string>
+    <string name="login_titulo">Sign in</string>
+    <string name="login_email">Email address</string>
+    <string name="login_password">Password</string>
+    <string name="login_mostrar_password">Show/hide password</string>
+    <string name="login_error_email">Enter a valid email</string>
+    <string name="login_error_password">Minimum 6 characters</string>
+    <string name="login_boton_entrar">Enter the world 🐾</string>
+    <string name="login_nuevo_usuario">New here?</string>
+    <string name="login_boton_registro">Create new account 🧳</string>
+    <string name="login_footer_aceptar">By continuing you accept our </string>
+    <string name="login_footer_terminos"> Terms and Conditions</string>
+    <string name="login_footer_aprender">. Learn more at </string>
+    <string name="login_footer_sobre"> About Us</string>
+
+    <string name="register_titulo">Create your account</string>
+    <string name="register_subtitulo">Join the travelling rat community</string>
+    <string name="register_datos_acceso">Access data</string>
+    <string name="register_confirmar_password">Confirm password</string>
+    <string name="register_password_debil">Weak</string>
+    <string name="register_password_media">Medium</string>
+    <string name="register_password_fuerte">Strong</string>
+    <string name="register_password_fortaleza">Password %1$s</string>
+    <string name="register_acepto">I accept the </string>
+    <string name="register_error_confirm">Passwords do not match</string>
+    <string name="register_error_terminos">You must accept the terms to continue</string>
+    <string name="register_boton_crear">Create account 🐾</string>
+    <string name="register_ya_tengo_cuenta">Already have an account?</string>
+    <string name="register_iniciar_sesion">Sign in</string>
+
+    <string name="splash_desc">Splash</string>
+
+    <string name="terminos_titulo">Terms and Conditions</string>
+    <string name="terminos_contenido">
+    By using Alcantarilla Trips, the user (hereinafter "the Rodent") agrees to the following terms:\n\n
+
+    1. APP USAGE\n
+    Alcantarilla Trips is designed exclusively for planning underground trips. Any surface use is under the Rodent\'s own responsibility.\n\n
+
+    2. LIABILITY\n
+    We are not responsible for cheese losses, encounters with unpleasant bipeds,
+    or unexpected water currents during trips planned with this app.\n\n
+
+    3. PRIVACY\n
+    Your sewer route data is strictly confidential and will never be shared with outsiders, cats, or health authorities.\n\n
+
+    4. MODIFICATIONS\n
+    Alcantarilla Trips reserves the right to modify these conditions at any time.
+    Changes will be communicated through scratches on the walls of the main tunnel.\n\n
+
+    5. ACCEPTANCE\n
+    The mere act of sniffing this screen implies full acceptance of these terms.\n\n
+    </string>
+
+    <string name="volver">Back</string>
+
+    <string name="nav_itinerario">Itinerary</string>
+    <string name="nav_viajes">Trips</string>
+    <string name="nav_configuracion">Settings</string>
+
+    <string name="trips_titulo">My Trips</string>
+    <string name="trips_nuevo_viaje">New trip</string>
+    <string name="trips_tab_pendientes">Pending</string>
+    <string name="trips_tab_realizados">Completed</string>
+    <string name="trips_stat_viajes">Trips</string>
+    <string name="trips_stat_ciudades">Cities</string>
+    <string name="trips_stat_total">Total</string>
+    <string name="trips_estado_pendiente">Pending</string>
+    <string name="trips_estado_realizado">Completed</string>
+    <string name="trips_estado_cancelado">Cancelled</string>
+    <string name="trips_btn_cancelar">Cancel</string>
+    <string name="trips_btn_detalle">Edit details</string>
+    <string name="trips_btn_valorar">⭐ Rate trip</string>
+    <string name="trips_btn_crear">Create trip 🐭</string>
+    <string name="trips_vacio_pendiente_titulo">No pending trips</string>
+    <string name="trips_vacio_pendiente_subtitulo">Plan your next adventure!</string>
+    <string name="trips_vacio_realizado_titulo">You haven\'t travelled yet</string>
+    <string name="trips_vacio_realizado_subtitulo">The world is waiting for you, little rat!</string>
+
+    <string name="itinerary_titulo">Itinerary</string>
+    <string name="itinerary_subtitulo">New York · Nov 2025</string>
+    <string name="itinerary_volver">Back</string>
+    <string name="itinerary_compartir">Share</string>
+    <string name="itinerary_summary_dias">Days</string>
+    <string name="itinerary_summary_ciudad">City</string>
+    <string name="itinerary_summary_vuelo">Flight</string>
+    <string name="itinerary_summary_hotel">Hotel</string>
+    <string name="itinerary_actividades">%1$d activities</string>
+
+    <string name="album_titulo">Photo album</string>
+    <string name="album_recuerdos">%1$d memories</string>
+    <string name="album_volver">Back</string>
+    <string name="album_anterior">Previous</string>
+    <string name="album_siguiente">Next</string>
+    <string name="album_todas_fotos">All photos</string>
+
+    <string name="rate_titulo">Rate trip</string>
+    <string name="rate_volver">Back</string>
+    <string name="rate_no_encontrado">Trip not found</string>
+    <string name="rate_puntuacion">Your rating</string>
+    <string name="rate_desc_0">How was the trip?</string>
+    <string name="rate_desc_1">Very bad 😤</string>
+    <string name="rate_desc_2">Could be better 😕</string>
+    <string name="rate_desc_3">It was good 😊</string>
+    <string name="rate_desc_4">Very good 😄</string>
+    <string name="rate_desc_5">Incredible! 🤩</string>
+    <string name="rate_error_puntuacion">Select a rating to continue</string>
+    <string name="rate_destacar">What would you highlight?</string>
+    <string name="rate_opcional">Optional</string>
+    <string name="rate_etiqueta_singular">%1$d tag selected</string>
+    <string name="rate_etiqueta_plural">%1$d tags selected</string>
+    <string name="rate_opinion">Your opinion</string>
+    <string name="rate_placeholder">Tell us about your experience as a travelling rat… Would you recommend it to other rats? 🐭</string>
+    <string name="rate_casi_limite">Almost at the limit</string>
+    <string name="rate_publicar">Publish rating</string>
+    <string name="rate_exito_titulo">Thanks for your review!</string>
+    <string name="rate_exito_texto">Your opinion about %1$s will help other travelling rats 🐭</string>
+    <string name="rate_exito_volver">Back to my trips</string>
+
+    <string name="create_titulo">New trip</string>
+    <string name="create_volver">Back</string>
+    <string name="create_seccion1_titulo">Where to and from?</string>
+    <string name="create_origen_label">Origin city</string>
+    <string name="create_origen_placeholder">E.g.: Madrid</string>
+    <string name="create_destino_label">Destination city</string>
+    <string name="create_destino_placeholder">E.g.: Paris</string>
+    <string name="create_error_origen">Enter the origin city</string>
+    <string name="create_error_destino">Enter the destination city</string>
+    <string name="create_buscar_vuelos">Search flights</string>
+    <string name="create_seccion2_titulo">Choose your flight</string>
+    <string name="create_vuelos_disponibles">%1$d flights available · %2$s → %3$s</string>
+    <string name="create_seccion3_titulo">Choose your hotel</string>
+    <string name="create_seccion4_titulo">Trip summary</string>
+    <string name="create_resumen_ruta">Route</string>
+    <string name="create_resumen_vuelo">Flight · %1$s</string>
+    <string name="create_resumen_hotel">Hotel</string>
+    <string name="create_precio_total">Estimated total price</string>
+    <string name="create_confirmar">Confirm trip 🐭</string>
+    <string name="create_dialogo_titulo">Trip created!</string>
+    <string name="create_dialogo_texto">Your trip to %1$s has been saved successfully.</string>
+    <string name="create_dialogo_boton">Let\'s go!</string>
+    <string name="create_vuelo_por_rata">per rat</string>
+    <string name="create_hotel_por_noche">per night</string>
+    <!-- Edit Trip -->
+    <string name="edit_trip_titulo">Edit trip</string>
+    <string name="edit_trip_guardar">Save changes</string>
+    <string name="edit_trip_exito_titulo">Trip updated!</string>
+    <string name="edit_trip_exito_texto">Changes have been saved successfully.</string>
+    <string name="edit_trip_fecha_inicio">Start date</string>
+    <string name="edit_trip_fecha_fin">End date</string>
+    <string name="edit_trip_info_vuelo">Flight information</string>
+    <string name="edit_trip_error_titulo">Title cannot be empty</string>
+    <string name="edit_trip_error_fecha_inicio">Select the start date</string>
+    <string name="edit_trip_error_fecha_fin">Select the end date</string>
+    <string name="edit_trip_error_fechas">Start date must be before end date</string>
+
+    <!-- Trip Detail -->
+    <string name="trip_detail_actividades">activities</string>
+    <string name="trip_detail_sin_actividades">No activities</string>
+    <string name="trip_detail_sin_actividades_sub">Add your first activity</string>
+    <string name="trip_detail_nueva_actividad">New activity</string>
+
+    <!-- Add Activity -->
+    <string name="add_activity_titulo">New activity</string>
+    <string name="add_activity_guardar">Add activity</string>
+    <string name="add_activity_exito_titulo">Activity added!</string>
+    <string name="add_activity_exito_texto">The activity has been added successfully.</string>
+    <string name="add_activity_fecha">Date</string>
+    <string name="add_activity_hora">Time</string>
+    <string name="add_activity_error_titulo">Title cannot be empty</string>
+    <string name="add_activity_error_fecha">Select a date</string>
+    <string name="add_activity_error_hora">Select a time</string>
+    <string name="add_activity_error_rango">Date must be within the trip date range</string>
+
+    <!-- Edit Activity -->
+    <string name="edit_activity_titulo">Edit activity</string>
+    <string name="edit_activity_guardar">Save changes</string>
+    <string name="edit_activity_exito_titulo">Activity updated!</string>
+    <string name="edit_activity_exito_texto">Changes have been saved successfully.</string>
+    <string name="edit_activity_no_encontrada">Activity not found</string>
+
+    <!-- Configuracion perfil -->
+    <string name="configuracion_perfil">Profile</string>
+    <string name="configuracion_username">Username</string>
+    <string name="configuracion_fecha_nacimiento">Date of birth</string>
+    <string name="configuracion_guardar_perfil">Save profile</string>
+    <string name="configuracion_apariencia">Appearance</string>
+    <string name="configuracion_preferencias_guardadas">Preferences saved!</string>
+
+    <!-- Compartidos -->
+    <string name="aceptar">Accept</string>
+    <string name="cancelar">Cancel</string>
+    <string name="titulo_label">Title</string>
+    <string name="descripcion_label">Description</string>
+    <string name="seleccionar_hora">Select time</string>
+
+    <string name="create_fecha_inicio">Start date</string>
+    <string name="create_fecha_fin">End date</string>
+    <string name="create_error_fecha_inicio">Select the start date</string>
+    <string name="create_error_fecha_fin">Select the end date</string>
+    <string name="create_error_fechas">Start date must be before end date</string>
+
+</resources>

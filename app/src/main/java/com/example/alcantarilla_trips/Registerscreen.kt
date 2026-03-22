@@ -322,7 +322,7 @@ fun RegisterScreen(navController: NavController) {
                                 if (validate()) {
                                     isLoading = true
                                     // TODO: lógica de registro real aquí
-                                    navController.navigate("home") {
+                                    navController.navigate("mis_viajes") {
                                         popUpTo("registro") { inclusive = true }
                                     }
                                 }

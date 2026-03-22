@@ -155,7 +155,7 @@
     <string name="trips_estado_realizado">Realizado</string>
     <string name="trips_estado_cancelado">Cancelado</string>
     <string name="trips_btn_cancelar">Cancelar</string>
-    <string name="trips_btn_detalle">Ver detalle</string>
+    <string name="trips_btn_detalle">Editar detalles</string>
     <string name="trips_btn_valorar">⭐ Valorar viaje</string>
     <string name="trips_btn_crear">Crear viaje 🐭</string>
     <string name="trips_vacio_pendiente_titulo">No tienes viajes pendientes</string>
@@ -227,5 +227,64 @@
     <string name="create_dialogo_boton">¡Vamos!</string>
     <string name="create_vuelo_por_rata">por rata</string>
     <string name="create_hotel_por_noche">por noche</string>
+
+    <!-- Edit Trip -->
+    <string name="edit_trip_titulo">Editar viaje</string>
+    <string name="edit_trip_guardar">Guardar cambios</string>
+    <string name="edit_trip_exito_titulo">¡Viaje actualizado!</string>
+    <string name="edit_trip_exito_texto">Los cambios se han guardado correctamente.</string>
+    <string name="edit_trip_fecha_inicio">Fecha de inicio</string>
+    <string name="edit_trip_fecha_fin">Fecha de fin</string>
+    <string name="edit_trip_info_vuelo">Información del vuelo</string>
+    <string name="edit_trip_error_titulo">El título no puede estar vacío</string>
+    <string name="edit_trip_error_fecha_inicio">Selecciona la fecha de inicio</string>
+    <string name="edit_trip_error_fecha_fin">Selecciona la fecha de fin</string>
+    <string name="edit_trip_error_fechas">La fecha de inicio debe ser anterior a la fecha de fin</string>
+
+    <!-- Trip Detail -->
+    <string name="trip_detail_actividades">actividades</string>
+    <string name="trip_detail_sin_actividades">No hay actividades</string>
+    <string name="trip_detail_sin_actividades_sub">Añade tu primera actividad</string>
+    <string name="trip_detail_nueva_actividad">Nueva actividad</string>
+
+    <!-- Add Activity -->
+    <string name="add_activity_titulo">Nueva actividad</string>
+    <string name="add_activity_guardar">Añadir actividad</string>
+    <string name="add_activity_exito_titulo">¡Actividad añadida!</string>
+    <string name="add_activity_exito_texto">La actividad se ha añadido correctamente.</string>
+    <string name="add_activity_fecha">Fecha</string>
+    <string name="add_activity_hora">Hora</string>
+    <string name="add_activity_error_titulo">El título no puede estar vacío</string>
+    <string name="add_activity_error_fecha">Selecciona una fecha</string>
+    <string name="add_activity_error_hora">Selecciona una hora</string>
+    <string name="add_activity_error_rango">La fecha debe estar dentro del rango del viaje</string>
+
+    <!-- Edit Activity -->
+    <string name="edit_activity_titulo">Editar actividad</string>
+    <string name="edit_activity_guardar">Guardar cambios</string>
+    <string name="edit_activity_exito_titulo">¡Actividad actualizada!</string>
+    <string name="edit_activity_exito_texto">Los cambios se han guardado correctamente.</string>
+    <string name="edit_activity_no_encontrada">Actividad no encontrada</string>
+
+    <!-- Configuracion perfil -->
+    <string name="configuracion_perfil">Perfil</string>
+    <string name="configuracion_username">Nombre de usuario</string>
+    <string name="configuracion_fecha_nacimiento">Fecha de nacimiento</string>
+    <string name="configuracion_guardar_perfil">Guardar perfil</string>
+    <string name="configuracion_apariencia">Apariencia</string>
+    <string name="configuracion_preferencias_guardadas">¡Preferencias guardadas!</string>
+
+    <!-- Compartidos -->
+    <string name="aceptar">Aceptar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="titulo_label">Título</string>
+    <string name="descripcion_label">Descripción</string>
+    <string name="seleccionar_hora">Selecciona la hora</string>
+
+    <string name="create_fecha_inicio">Fecha de inicio</string>
+    <string name="create_fecha_fin">Fecha de fin</string>
+    <string name="create_error_fecha_inicio">Selecciona la fecha de inicio</string>
+    <string name="create_error_fecha_fin">Selecciona la fecha de fin</string>
+    <string name="create_error_fechas">La fecha de inicio debe ser anterior a la fecha de fin</string>
 
 </resources>
