@@ -1,9 +1,11 @@
 package com.example.alcantarilla_trips.domain
 
+import kotlinx.coroutines.flow.Flow
+
 interface TripRepository {
-    fun getTrips(): List<Trip>
-    fun getTripById(tripId: Int): Trip?
-    fun addTrip(trip: Trip)
-    fun editTrip(trip: Trip)
-    fun deleteTrip(tripId: Int)
+    fun getTrips(): Flow<List<Trip>> // Cambiado a Flow
+    suspend fun getTripById(tripId: Int): Trip?
+    suspend fun addTrip(trip: Trip)
+    suspend fun editTrip(trip: Trip)
+    suspend fun deleteTrip(tripId: Int)
 }

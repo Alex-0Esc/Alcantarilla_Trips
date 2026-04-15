@@ -2,36 +2,39 @@ package com.example.alcantarilla_trips.ui.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.alcantarilla_trips.data.fakeDB.FakeTripDataSource
-import com.example.alcantarilla_trips.data.repository.TripRepositoryImpl
+import androidx.lifecycle.viewModelScope
 import com.example.alcantarilla_trips.domain.Trip
+import com.example.alcantarilla_trips.domain.TripRepository
 import com.example.alcantarilla_trips.domain.TripStatus
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TripListViewModel : ViewModel() {
+@HiltViewModel
+class TripListViewModel @Inject constructor(
+    private val repository: TripRepository
+) : ViewModel() {
 
     companion object {
         private const val TAG = "TripListViewModel"
     }
 
-    private val repository = TripRepositoryImpl()
-
-    private val _trips = MutableStateFlow<List<Trip>>(emptyList())
-    val trips: StateFlow<List<Trip>> = _trips.asStateFlow()
+    // Convertimos el Flow del repositorio en un StateFlow para la UI
+    // Esto hace que la UI se actualice sola (T1.6)
+    val trips: StateFlow<List<Trip>> = repository.getTrips()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
 
     private val _validationError = MutableStateFlow<String?>(null)
     val validationError: StateFlow<String?> = _validationError.asStateFlow()
-
-    init {
-        loadTrips()
-    }
-
-    fun loadTrips() {
-        _trips.value = repository.getTrips()
-        Log.d(TAG, "loadTrips: ${_trips.value.size} viajes cargados")
-    }
 
     fun addTrip(
         title: String,
@@ -47,73 +50,50 @@ class TripListViewModel : ViewModel() {
     ) {
         if (title.isBlank()) {
             _validationError.value = "El título no puede estar vacío"
-            Log.e(TAG, "addTrip: título vacío")
-            return
-        }
-        // Validar fechas solo si están rellenas (hasta implementar DatePicker)
-        if (startDate.isNotBlank() && endDate.isNotBlank() && !isStartBeforeEnd(startDate, endDate)) {
-            _validationError.value = "La fecha de inicio debe ser anterior a la fecha de fin"
-            Log.e(TAG, "addTrip: startDate no es anterior a endDate")
             return
         }
 
-        val newTrip = Trip(
-            tripId = FakeTripDataSource.nextId(),
-            title = title,
-            description = description,
-            startDate = startDate,
-            endDate = endDate,
-            destineCity = destineCity,
-            departureCity = departureCity,
-            flight = flight,
-            price = price,
-            hotelName = hotelName,
-            status = TripStatus.PENDING,
-            imageEmoji = imageEmoji
-        )
-
-        repository.addTrip(newTrip)
-        loadTrips()
-        _validationError.value = null
-        Log.i(TAG, "addTrip: viaje '$title' añadido correctamente")
+        viewModelScope.launch {
+            val newTrip = Trip(
+                tripId = 0, // Room autogenerará el ID real
+                title = title,
+                description = description,
+                startDate = startDate,
+                endDate = endDate,
+                destineCity = destineCity,
+                departureCity = departureCity,
+                status = TripStatus.PENDING,
+                flight = flight,
+                price = price,
+                hotelName = hotelName,
+                imageEmoji = imageEmoji
+            )
+            repository.addTrip(newTrip)
+            _validationError.value = null
+            Log.i(TAG, "addTrip: viaje '$title' guardado en Room")
+        }
     }
 
     fun editTrip(trip: Trip) {
         if (trip.title.isBlank()) {
             _validationError.value = "El título no puede estar vacío"
-            Log.e(TAG, "editTrip: título vacío")
             return
         }
-        if (trip.startDate.isNotBlank() && trip.endDate.isNotBlank() && !isStartBeforeEnd(trip.startDate, trip.endDate)) {
-            _validationError.value = "La fecha de inicio debe ser anterior a la fecha de fin"
-            Log.e(TAG, "editTrip: fechas inválidas")
-            return
+        viewModelScope.launch {
+            repository.editTrip(trip)
+            _validationError.value = null
+            Log.i(TAG, "editTrip: viaje '${trip.title}' actualizado")
         }
-        repository.editTrip(trip)
-        loadTrips()
-        _validationError.value = null
-        Log.i(TAG, "editTrip: viaje '${trip.title}' actualizado")
     }
 
     fun deleteTrip(tripId: Int) {
-        repository.deleteTrip(tripId)
-        loadTrips()
-        Log.i(TAG, "deleteTrip: viaje $tripId eliminado")
+        viewModelScope.launch {
+            repository.deleteTrip(tripId)
+            Log.i(TAG, "deleteTrip: viaje $tripId eliminado")
+        }
     }
 
     fun clearValidationError() {
         _validationError.value = null
-    }
-
-    private fun isStartBeforeEnd(startDate: String, endDate: String): Boolean {
-        return try {
-            val formatter = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")
-            val start = java.time.LocalDate.parse(startDate, formatter)
-            val end = java.time.LocalDate.parse(endDate, formatter)
-            start.isBefore(end)
-        } catch (e: Exception) {
-            Log.e(TAG, "isStartBeforeEnd: error parseando fechas - ${e.message}")
-            false
-        }
     }
 }

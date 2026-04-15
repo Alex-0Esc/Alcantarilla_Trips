@@ -2,32 +2,51 @@ package com.example.alcantarilla_trips.ui.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.alcantarilla_trips.data.fakeDB.FakeActivityDataSource
-import com.example.alcantarilla_trips.data.repository.ActivityRepositoryImpl
+import androidx.lifecycle.viewModelScope
 import com.example.alcantarilla_trips.domain.Activity
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import com.example.alcantarilla_trips.domain.ActivityRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalTime
+import javax.inject.Inject
 
-class ActivityViewModel : ViewModel() {
+@HiltViewModel
+class ActivityViewModel @Inject constructor(
+    private val repository: ActivityRepository
+) : ViewModel() {
 
     companion object {
         private const val TAG = "ActivityViewModel"
     }
 
-    private val repository = ActivityRepositoryImpl()
+    // Guardamos el ID del viaje actual para reaccionar a él
+    private val _currentTripId = MutableStateFlow<Int?>(null)
 
-    private val _activities = MutableStateFlow<List<Activity>>(emptyList())
-    val activities: StateFlow<List<Activity>> = _activities.asStateFlow()
+    // Cada vez que cambie el _currentTripId, se genera un nuevo flujo de la BD
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val activities: StateFlow<List<Activity>> = _currentTripId
+        .filterNotNull()
+        .flatMapLatest { tripId ->
+            repository.getActivitiesByTrip(tripId)
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
 
     private val _validationError = MutableStateFlow<String?>(null)
     val validationError: StateFlow<String?> = _validationError.asStateFlow()
 
+    /**
+     * Establece el viaje actual para cargar sus actividades de forma reactiva.
+     */
     fun loadActivities(tripId: Int) {
-        _activities.value = repository.getActivitiesByTrip(tripId)
-        Log.d(TAG, "loadActivities: ${_activities.value.size} actividades cargadas para viaje $tripId")
+        _currentTripId.value = tripId
+        Log.d(TAG, "loadActivities: observando actividades para el viaje $tripId")
     }
 
     fun addActivity(
@@ -41,28 +60,26 @@ class ActivityViewModel : ViewModel() {
     ) {
         if (title.isBlank()) {
             _validationError.value = "El título no puede estar vacío"
-            Log.e(TAG, "addActivity: título vacío")
             return
         }
         if (date.isBefore(tripStartDate) || date.isAfter(tripEndDate)) {
             _validationError.value = "La fecha debe estar dentro del rango del viaje"
-            Log.e(TAG, "addActivity: fecha fuera del rango del viaje")
             return
         }
 
-        val newActivity = Activity(
-            activityId = FakeActivityDataSource.nextId(),
-            tripId = tripId,
-            title = title,
-            description = description,
-            date = date,
-            time = time
-        )
-
-        repository.addActivity(newActivity)
-        loadActivities(tripId)
-        _validationError.value = null
-        Log.i(TAG, "addActivity: actividad '$title' añadida correctamente")
+        viewModelScope.launch {
+            val newActivity = Activity(
+                activityId = 0, // Room se encarga de autogenerarlo
+                tripId = tripId,
+                title = title,
+                description = description,
+                date = date,
+                time = time
+            )
+            repository.addActivity(newActivity)
+            _validationError.value = null
+            Log.i(TAG, "addActivity: actividad '$title' guardada en Room")
+        }
     }
 
     fun updateActivity(
@@ -72,25 +89,25 @@ class ActivityViewModel : ViewModel() {
     ) {
         if (activity.title.isBlank()) {
             _validationError.value = "El título no puede estar vacío"
-            Log.e(TAG, "updateActivity: título vacío")
             return
         }
         if (activity.date.isBefore(tripStartDate) || activity.date.isAfter(tripEndDate)) {
             _validationError.value = "La fecha debe estar dentro del rango del viaje"
-            Log.e(TAG, "updateActivity: fecha fuera del rango del viaje")
             return
         }
 
-        repository.updateActivity(activity)
-        loadActivities(activity.tripId)
-        _validationError.value = null
-        Log.i(TAG, "updateActivity: actividad '${activity.title}' actualizada")
+        viewModelScope.launch {
+            repository.updateActivity(activity)
+            _validationError.value = null
+            Log.i(TAG, "updateActivity: actividad '${activity.title}' actualizada")
+        }
     }
 
-    fun deleteActivity(activityId: Int, tripId: Int) {
-        repository.deleteActivity(activityId)
-        loadActivities(tripId)
-        Log.i(TAG, "deleteActivity: actividad $activityId eliminada")
+    fun deleteActivity(activityId: Int) {
+        viewModelScope.launch {
+            repository.deleteActivity(activityId)
+            Log.i(TAG, "deleteActivity: actividad $activityId eliminada")
+        }
     }
 
     fun clearValidationError() {

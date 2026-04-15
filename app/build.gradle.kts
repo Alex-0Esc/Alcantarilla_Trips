@@ -40,7 +40,7 @@ android {
         compose = true
     }
     androidResources {
-        generateLocaleConfig = true
+        generateLocaleConfig = false
     }
 }
 
@@ -54,6 +54,9 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
+
+    //test
+    testImplementation("junit:junit:4.13.2")
 
     // Existing
     implementation("androidx.appcompat:appcompat:1.7.0")

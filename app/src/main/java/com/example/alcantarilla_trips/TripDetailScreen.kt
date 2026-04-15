@@ -123,7 +123,7 @@ fun TripDetailScreen(
                     ActivityCard(
                         activity = activity,
                         onEdit = { navController.navigate("edit_activity/${activity.activityId}/$tripId") },
-                        onDelete = { activityViewModel.deleteActivity(activity.activityId, tripId) }
+                        onDelete = { activityViewModel.deleteActivity(activity.activityId) }
                     )
                 }
             }

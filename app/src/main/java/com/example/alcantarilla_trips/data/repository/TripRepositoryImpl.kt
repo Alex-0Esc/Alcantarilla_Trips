@@ -1,40 +1,36 @@
 package com.example.alcantarilla_trips.data.repository
 
-import android.util.Log
-import com.example.alcantarilla_trips.data.fakeDB.FakeTripDataSource
+import com.example.alcantarilla_trips.data.local.dao.TripDao
 import com.example.alcantarilla_trips.domain.Trip
 import com.example.alcantarilla_trips.domain.TripRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class TripRepositoryImpl : TripRepository {
+class TripRepositoryImpl @Inject constructor(
+    private val tripDao: TripDao
+) : TripRepository {
 
-    companion object {
-        private const val TAG = "TripRepository"
+    override fun getTrips(): Flow<List<Trip>> {
+        // Convertimos el Flow de TripEntity a Flow de Trip (Dominio)
+        return tripDao.getAllTrips().map { entities ->
+            entities.map { it.toDomain() }
+        }
     }
 
-    override fun getTrips(): List<Trip> {
-        Log.d(TAG, "getTrips: recuperando ${FakeTripDataSource.getTrips().size} viajes")
-        return FakeTripDataSource.getTrips()
+    override suspend fun getTripById(tripId: Int): Trip? {
+        return tripDao.getTripById(tripId)?.toDomain()
     }
 
-    override fun getTripById(tripId: Int): Trip? {
-        val trip = FakeTripDataSource.getTripById(tripId)
-        if (trip == null) Log.e(TAG, "getTripById: viaje $tripId no encontrado")
-        else Log.d(TAG, "getTripById: encontrado ${trip.title}")
-        return trip
+    override suspend fun addTrip(trip: Trip) {
+        tripDao.insertTrip(trip.toEntity())
     }
 
-    override fun addTrip(trip: Trip) {
-        FakeTripDataSource.addTrip(trip)
-        Log.i(TAG, "addTrip: añadido '${trip.title}' con id ${trip.tripId}")
+    override suspend fun editTrip(trip: Trip) {
+        tripDao.updateTrip(trip.toEntity())
     }
 
-    override fun editTrip(trip: Trip) {
-        FakeTripDataSource.editTrip(trip)
-        Log.i(TAG, "editTrip: actualizado '${trip.title}' id ${trip.tripId}")
-    }
-
-    override fun deleteTrip(tripId: Int) {
-        FakeTripDataSource.deleteTrip(tripId)
-        Log.i(TAG, "deleteTrip: eliminado viaje id $tripId")
+    override suspend fun deleteTrip(tripId: Int) {
+        tripDao.deleteTripById(tripId)
     }
 }
