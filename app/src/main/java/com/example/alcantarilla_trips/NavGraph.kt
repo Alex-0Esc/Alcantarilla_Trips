@@ -3,6 +3,7 @@ package com.example.alcantarilla_trips
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -14,8 +15,12 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.alcantarilla_trips.ui.viewmodels.ActivityViewModel
 import com.example.alcantarilla_trips.ui.viewmodels.TripListViewModel
+import com.example.alcantarilla_trips.ui.viewmodels.AuthViewModel
+import com.example.alcantarilla_trips.ui.viewmodels.AuthState
+import androidx.compose.runtime.collectAsState
 
 val bottomNavRoutes = setOf("mis_viajes", "album", "configuracion")
+
 @Composable
 fun NavGraph(themeViewModel: ThemeViewModel) {
     val navController = rememberNavController()
@@ -25,6 +30,10 @@ fun NavGraph(themeViewModel: ThemeViewModel) {
     // Instancias compartidas
     val tripViewModel: TripListViewModel = viewModel()
     val activityViewModel: ActivityViewModel = viewModel()
+    val authViewModel: AuthViewModel = viewModel() // T2.1: Instancia de Auth
+
+    // Observamos el estado global de autenticación
+    val authState by authViewModel.authState.collectAsState()
 
     Scaffold(
         bottomBar = {
@@ -35,49 +44,58 @@ fun NavGraph(themeViewModel: ThemeViewModel) {
     ) { paddingValues ->
         NavHost(
             navController = navController,
-            startDestination = "splash",
+            startDestination = "splash", // El splash decide a dónde ir
             modifier = Modifier.padding(paddingValues)
         ) {
+            // --- SPLASH SCREEN (T2.1: Control de sesión activa) ---
             composable("splash") {
                 SplashScreen(onFinished = {
-                    navController.navigate("login") {
-                        popUpTo("splash") { inclusive = true }
+                    // Verificamos si ya hay un usuario logueado en Firebase
+                    if (authViewModel.currentUser != null) {
+                        navController.navigate("mis_viajes") {
+                            popUpTo("splash") { inclusive = true }
+                        }
+                    } else {
+                        navController.navigate("login") {
+                            popUpTo("splash") { inclusive = true }
+                        }
                     }
                 })
             }
+
+            // --- LOGIN (T2.3: Implementación de acciones) ---
             composable("login") {
-                LoginScreen(navController = navController)
+                LoginScreen(navController = navController, authViewModel = authViewModel)
             }
+
+            // --- REGISTRO ---
             composable("registro") {
-                RegisterScreen(navController = navController)
+                RegisterScreen(navController = navController, authViewModel = authViewModel)
             }
+
+            // --- PANTALLA PRINCIPAL ---
             composable("mis_viajes") {
                 TripsScreen(navController = navController, viewModel = tripViewModel)
             }
-            composable("itinerario") {
-                ItineraryScreen(navController = navController)
-            }
-            composable("album") {
-                PhotoAlbumScreen(navController = navController)
-            }
+
+            // --- CONFIGURACIÓN (T2.4: Logout) ---
             composable("configuracion") {
-                Configuracion(navController = navController, themeViewModel = themeViewModel)
+                Configuracion(
+                    navController = navController,
+                    themeViewModel = themeViewModel,
+                    authViewModel = authViewModel
+                )
             }
-            composable("cambiar_idioma") {
-                CambiarIdioma(navController = navController)
-            }
-            composable("informacion") {
-                Informacion(navController = navController)
-            }
-            composable("terminos") {
-                Terminos(navController = navController)
-            }
-            composable("about") {
-                About(navController = navController)
-            }
-            composable("create_trip") {
-                CreateTripScreen(navController = navController, viewModel = tripViewModel)
-            }
+
+            // --- RESTO DE RUTAS (Se mantienen igual) ---
+            composable("itinerario") { ItineraryScreen(navController = navController) }
+            composable("album") { PhotoAlbumScreen(navController = navController) }
+            composable("cambiar_idioma") { CambiarIdioma(navController = navController) }
+            composable("informacion") { Informacion(navController = navController) }
+            composable("terminos") { Terminos(navController = navController) }
+            composable("about") { About(navController = navController) }
+            composable("create_trip") { CreateTripScreen(navController = navController, viewModel = tripViewModel) }
+
             composable(
                 route = "edit_trip/{tripId}",
                 arguments = listOf(navArgument("tripId") { type = NavType.IntType })
@@ -85,30 +103,23 @@ fun NavGraph(themeViewModel: ThemeViewModel) {
                 val tripId = backStackEntry.arguments?.getInt("tripId") ?: return@composable
                 EditTripScreen(navController = navController, tripId = tripId, viewModel = tripViewModel)
             }
+
             composable(
                 route = "trip_detail/{tripId}",
                 arguments = listOf(navArgument("tripId") { type = NavType.IntType })
             ) { backStackEntry ->
                 val tripId = backStackEntry.arguments?.getInt("tripId") ?: return@composable
-                TripDetailScreen(
-                    navController = navController,
-                    tripId = tripId,
-                    tripViewModel = tripViewModel,
-                    activityViewModel = activityViewModel
-                )
+                TripDetailScreen(navController, tripId, tripViewModel, activityViewModel)
             }
+
             composable(
                 route = "add_activity/{tripId}",
                 arguments = listOf(navArgument("tripId") { type = NavType.IntType })
             ) { backStackEntry ->
                 val tripId = backStackEntry.arguments?.getInt("tripId") ?: return@composable
-                AddActivityScreen(
-                    navController = navController,
-                    tripId = tripId,
-                    tripViewModel = tripViewModel,
-                    activityViewModel = activityViewModel
-                )
+                AddActivityScreen(navController, tripId, tripViewModel, activityViewModel)
             }
+
             composable(
                 route = "edit_activity/{activityId}/{tripId}",
                 arguments = listOf(
@@ -118,13 +129,7 @@ fun NavGraph(themeViewModel: ThemeViewModel) {
             ) { backStackEntry ->
                 val activityId = backStackEntry.arguments?.getInt("activityId") ?: return@composable
                 val tripId = backStackEntry.arguments?.getInt("tripId") ?: return@composable
-                EditActivityScreen(
-                    navController = navController,
-                    activityId = activityId,
-                    tripId = tripId,
-                    tripViewModel = tripViewModel,
-                    activityViewModel = activityViewModel
-                )
+                EditActivityScreen(navController, activityId, tripId, tripViewModel, activityViewModel)
             }
         }
     }

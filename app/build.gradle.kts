@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
+    id("com.google.gms.google-services")  // ← ADD
 }
 
 android {
@@ -55,7 +56,11 @@ dependencies {
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
 
-    //test
+    // Firebase ← ADD
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+    implementation("com.google.firebase:firebase-auth-ktx")
+
+    // Test
     testImplementation("junit:junit:4.13.2")
 
     // Existing

@@ -1,5 +1,6 @@
 package com.example.alcantarilla_trips
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,14 +18,20 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.alcantarilla_trips.ui.viewmodels.SettingsViewModel
+import com.example.alcantarilla_trips.ui.viewmodels.AuthViewModel
+import com.example.alcantarilla_trips.ui.viewmodels.AuthState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Configuracion(
     navController: NavController,
     themeViewModel: ThemeViewModel,
-    settingsViewModel: SettingsViewModel = viewModel()
+    settingsViewModel: SettingsViewModel = viewModel(),
+    authViewModel: AuthViewModel = viewModel() // Hilt inyectará esto automáticamente
 ) {
+    // Observamos el estado de autenticación del ViewModel
+    val authState by authViewModel.authState.collectAsState()
+
     val isDark by themeViewModel.isDarkTheme.collectAsState()
     val username by settingsViewModel.username.collectAsState()
     val dateOfBirth by settingsViewModel.dateOfBirth.collectAsState()
@@ -37,6 +44,15 @@ fun Configuracion(
     val snackbarHostState = remember { SnackbarHostState() }
     val strPreferenciasGuardadas = stringResource(R.string.configuracion_preferencias_guardadas)
 
+    // EFECTO DE NAVEGACIÓN: Si el estado cambia a LoggedOut, salimos de la pantalla
+    LaunchedEffect(authState) {
+        if (authState is AuthState.LoggedOut) {
+            navController.navigate("login") {
+                popUpTo(0) { inclusive = true }
+            }
+        }
+    }
+
     LaunchedEffect(showSavedSnackbar) {
         if (showSavedSnackbar) {
             snackbarHostState.showSnackbar(strPreferenciasGuardadas)
@@ -44,6 +60,7 @@ fun Configuracion(
         }
     }
 
+    // --- DIÁLOGO DE SELECCIÓN DE FECHA ---
     if (showDatePicker) {
         val datePickerState = rememberDatePickerState()
         DatePickerDialog(
@@ -90,7 +107,7 @@ fun Configuracion(
                 )
                 Spacer(modifier = Modifier.height(32.dp))
 
-                // Perfil
+                // --- TARJETA DE PERFIL ---
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(16.dp),
@@ -130,6 +147,7 @@ fun Configuracion(
                                 settingsViewModel.saveUsername(usernameInput)
                                 settingsViewModel.saveDateOfBirth(dateOfBirthInput)
                                 showSavedSnackbar = true
+                                Log.d("Configuracion", "Preferencias de perfil guardadas localmente")
                             },
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(12.dp)
@@ -143,7 +161,7 @@ fun Configuracion(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Apariencia
+                // --- TARJETA DE APARIENCIA ---
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(16.dp),
@@ -179,7 +197,7 @@ fun Configuracion(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Información
+                // --- TARJETA DE INFORMACIÓN Y CIERRE DE SESIÓN ---
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(16.dp),
@@ -199,14 +217,14 @@ fun Configuracion(
                             Text(stringResource(R.string.configuracion_informacion), fontWeight = FontWeight.Bold)
                         }
 
+                        // T2.4 y T2.5: Implementación del Logout usando tu AuthViewModel
                         OutlinedButton(
-                            onClick = {
-                                navController.navigate("login") {
-                                    popUpTo(0) { inclusive = true }
-                                }
-                            },
+                            onClick = { authViewModel.logout() },
                             modifier = Modifier.fillMaxWidth(),
-                            shape = RoundedCornerShape(12.dp)
+                            shape = RoundedCornerShape(12.dp),
+                            colors = ButtonDefaults.outlinedButtonColors(
+                                contentColor = MaterialTheme.colorScheme.error
+                            )
                         ) {
                             Icon(Icons.Default.Logout, null)
                             Spacer(Modifier.width(8.dp))

@@ -1,5 +1,6 @@
 package com.example.alcantarilla_trips
 
+import android.util.Log
 import androidx.compose.animation.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -37,7 +38,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.alcantarilla_trips.ui.viewmodels.AuthViewModel
+import com.example.alcantarilla_trips.ui.viewmodels.AuthState
 
+private const val TAG = "LoginScreen"
+
+// Colores originales solicitados
 object RatTravelColors {
     val YellowPrimary  = Color(0xFFFFC107)
     val YellowLight    = Color(0xFFFFE082)
@@ -52,16 +58,31 @@ object RatTravelColors {
 }
 
 @Composable
-fun LoginScreen(navController: NavController) {
-
+fun LoginScreen(
+    navController: NavController,
+    authViewModel: AuthViewModel
+) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     var emailError by remember { mutableStateOf<String?>(null) }
     var passwordError by remember { mutableStateOf<String?>(null) }
-    var isLoading by remember { mutableStateOf(false) }
 
     val focusManager = LocalFocusManager.current
+
+    // T2.3: Observamos el estado del flujo de autenticación
+    val authState by authViewModel.authState.collectAsState()
+    val isLoading = authState is AuthState.Loading
+
+    // Navegación reactiva al éxito
+    LaunchedEffect(authState) {
+        if (authState is AuthState.Success) {
+            Log.d(TAG, "Navegando a mis_viajes tras login exitoso")
+            navController.navigate("mis_viajes") {
+                popUpTo("login") { inclusive = true }
+            }
+        }
+    }
 
     val errorEmailInvalido = stringResource(R.string.login_error_email)
     val errorPasswordCorta = stringResource(R.string.login_error_password)
@@ -69,25 +90,16 @@ fun LoginScreen(navController: NavController) {
     fun validateAndLogin() {
         emailError    = if (email.isBlank() || !email.contains("@")) errorEmailInvalido else null
         passwordError = if (password.length < 6) errorPasswordCorta else null
+
         if (emailError == null && passwordError == null) {
-            isLoading = true
-            navController.navigate("mis_viajes") {
-                popUpTo("login") { inclusive = true }
-            }
+            authViewModel.login(email, password)
         }
     }
 
-    Box(
-        modifier = Modifier.fillMaxSize().background(RatTravelColors.Background)
-    ) {
-        Box(
-            modifier = Modifier.size(320.dp).offset(x = (-80).dp, y = (-60).dp)
-                .background(brush = Brush.radialGradient(colors = listOf(RatTravelColors.YellowPrimary.copy(alpha = 0.15f), Color.Transparent)), shape = CircleShape)
-        )
-        Box(
-            modifier = Modifier.size(240.dp).align(Alignment.BottomEnd).offset(x = 60.dp, y = 60.dp)
-                .background(brush = Brush.radialGradient(colors = listOf(RatTravelColors.YellowDark.copy(alpha = 0.12f), Color.Transparent)), shape = CircleShape)
-        )
+    Box(modifier = Modifier.fillMaxSize().background(RatTravelColors.Background)) {
+        // --- DECORACIÓN FONDO ---
+        Box(modifier = Modifier.size(320.dp).offset(x = (-80).dp, y = (-60).dp).background(Brush.radialGradient(listOf(RatTravelColors.YellowPrimary.copy(alpha = 0.15f), Color.Transparent)), CircleShape))
+        Box(modifier = Modifier.size(240.dp).align(Alignment.BottomEnd).offset(x = 60.dp, y = 60.dp).background(Brush.radialGradient(listOf(RatTravelColors.YellowDark.copy(alpha = 0.12f), Color.Transparent)), CircleShape))
 
         Column(
             modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 28.dp),
@@ -95,35 +107,21 @@ fun LoginScreen(navController: NavController) {
         ) {
             Spacer(modifier = Modifier.height(64.dp))
 
+            // --- LOGO ---
             Box(
-                modifier = Modifier.size(110.dp)
-                    .shadow(elevation = 16.dp, shape = RoundedCornerShape(28.dp), ambientColor = RatTravelColors.YellowPrimary.copy(alpha = 0.4f), spotColor = RatTravelColors.YellowPrimary.copy(alpha = 0.6f))
-                    .clip(RoundedCornerShape(28.dp))
-                    .background(brush = Brush.linearGradient(colors = listOf(RatTravelColors.YellowLight, RatTravelColors.YellowDark))),
+                modifier = Modifier.size(110.dp).shadow(16.dp, RoundedCornerShape(28.dp), ambientColor = RatTravelColors.YellowPrimary.copy(alpha = 0.4f), spotColor = RatTravelColors.YellowPrimary.copy(alpha = 0.6f)).clip(RoundedCornerShape(28.dp)).background(Brush.linearGradient(listOf(RatTravelColors.YellowLight, RatTravelColors.YellowDark))),
                 contentAlignment = Alignment.Center
             ) {
-                AsyncImage(
-                    model = R.drawable.logo_animation,
-                    contentDescription = stringResource(R.string.login_logo_desc),
-                    modifier = Modifier.size(90.dp).clip(RoundedCornerShape(20.dp)),
-                    contentScale = ContentScale.Fit
-                )
+                AsyncImage(model = R.drawable.logo_animation, contentDescription = null, modifier = Modifier.size(90.dp).clip(RoundedCornerShape(20.dp)), contentScale = ContentScale.Fit)
             }
 
             Spacer(modifier = Modifier.height(20.dp))
-
-            Text(
-                text = stringResource(R.string.app_name),
-                style = TextStyle(fontSize = 38.sp, fontWeight = FontWeight.Black, color = RatTravelColors.YellowPrimary, letterSpacing = (-1).sp)
-            )
-            Text(
-                text = stringResource(R.string.login_subtitulo),
-                style = TextStyle(fontSize = 14.sp, color = RatTravelColors.OnSurfaceMuted),
-                textAlign = TextAlign.Center
-            )
+            Text(text = stringResource(R.string.app_name), style = TextStyle(fontSize = 38.sp, fontWeight = FontWeight.Black, color = RatTravelColors.YellowPrimary, letterSpacing = (-1).sp))
+            Text(text = stringResource(R.string.login_subtitulo), style = TextStyle(fontSize = 14.sp, color = RatTravelColors.OnSurfaceMuted), textAlign = TextAlign.Center)
 
             Spacer(modifier = Modifier.height(40.dp))
 
+            // --- FORMULARIO ---
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(24.dp),
@@ -135,39 +133,37 @@ fun LoginScreen(navController: NavController) {
 
                     RatTravelTextField(
                         value = email,
-                        onValueChange = { email = it; emailError = null },
+                        onValueChange = { email = it; emailError = null; authViewModel.clearError() },
                         label = stringResource(R.string.login_email),
-                        leadingIcon = {
-                            Icon(Icons.Default.Email, contentDescription = null, tint = if (emailError != null) RatTravelColors.ErrorRed else RatTravelColors.YellowPrimary)
-                        },
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email, imeAction = ImeAction.Next),
-                        keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Down) }),
+                        leadingIcon = { Icon(Icons.Default.Email, null, tint = if (emailError != null) RatTravelColors.ErrorRed else RatTravelColors.YellowPrimary) },
                         isError = emailError != null,
                         errorMessage = emailError
                     )
 
                     RatTravelTextField(
                         value = password,
-                        onValueChange = { password = it; passwordError = null },
+                        onValueChange = { password = it; passwordError = null; authViewModel.clearError() },
                         label = stringResource(R.string.login_password),
-                        leadingIcon = {
-                            Icon(Icons.Default.Lock, contentDescription = null, tint = if (passwordError != null) RatTravelColors.ErrorRed else RatTravelColors.YellowPrimary)
-                        },
+                        leadingIcon = { Icon(Icons.Default.Lock, null, tint = if (passwordError != null) RatTravelColors.ErrorRed else RatTravelColors.YellowPrimary) },
                         trailingIcon = {
                             IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                                Icon(
-                                    if (passwordVisible) Icons.Default.VisibilityOff else Icons.Default.Visibility,
-                                    contentDescription = stringResource(R.string.login_mostrar_password),
-                                    tint = RatTravelColors.OnSurfaceMuted
-                                )
+                                Icon(if (passwordVisible) Icons.Default.VisibilityOff else Icons.Default.Visibility, null, tint = RatTravelColors.OnSurfaceMuted)
                             }
                         },
                         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Done),
-                        keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus(); validateAndLogin() }),
                         isError = passwordError != null,
                         errorMessage = passwordError
                     )
+
+                    // Error de Firebase
+                    AnimatedVisibility(visible = authState is AuthState.Error) {
+                        Text(
+                            text = (authState as? AuthState.Error)?.message ?: "Error de autenticación",
+                            color = RatTravelColors.ErrorRed,
+                            fontSize = 12.sp,
+                            modifier = Modifier.padding(start = 4.dp)
+                        )
+                    }
 
                     Button(
                         onClick = { validateAndLogin() },
@@ -187,6 +183,7 @@ fun LoginScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
+            // --- SECCIÓN REGISTRO ---
             Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 HorizontalDivider(modifier = Modifier.weight(1f), color = RatTravelColors.SurfaceVariant)
                 Text("  ${stringResource(R.string.login_nuevo_usuario)}  ", style = TextStyle(fontSize = 13.sp, color = RatTravelColors.OnSurfaceMuted))
@@ -205,50 +202,9 @@ fun LoginScreen(navController: NavController) {
                 Text(stringResource(R.string.login_boton_registro), style = TextStyle(fontSize = 15.sp, fontWeight = FontWeight.SemiBold))
             }
 
-            // TODO: REMOVE BEFORE RELEASE
-            TextButton(
-                onClick = {
-                    navController.navigate("mis_viajes") {
-                        popUpTo("login") { inclusive = true }
-                    }
-                },
-                modifier = Modifier.fillMaxWidth().height(52.dp)
-            ) {
-                Text(
-                    "⚠️ SKIP LOGIN (DEBUG)",
-                    color = RatTravelColors.ErrorRed,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
-                )
-            }
-
             Spacer(modifier = Modifier.height(32.dp))
 
-            val textoAceptar = stringResource(R.string.login_footer_aceptar)
-            val textoTerminos = stringResource(R.string.login_footer_terminos)
-            val textoAprender = stringResource(R.string.login_footer_aprender)
-            val textoSobre = stringResource(R.string.login_footer_sobre)
-
-            val annotatedFooter = buildAnnotatedString {
-                withStyle(SpanStyle(color = RatTravelColors.OnSurfaceMuted, fontSize = 12.sp)) { append(textoAceptar) }
-                pushStringAnnotation(tag = "TERMS", annotation = "terminos")
-                withStyle(SpanStyle(color = RatTravelColors.YellowAccent, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, textDecoration = TextDecoration.Underline)) { append(textoTerminos) }
-                pop()
-                withStyle(SpanStyle(color = RatTravelColors.OnSurfaceMuted, fontSize = 12.sp)) { append(textoAprender) }
-                pushStringAnnotation(tag = "ABOUT", annotation = "informacion")
-                withStyle(SpanStyle(color = RatTravelColors.YellowAccent, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, textDecoration = TextDecoration.Underline)) { append(textoSobre) }
-                pop()
-                withStyle(SpanStyle(color = RatTravelColors.OnSurfaceMuted, fontSize = 12.sp)) { append(".") }
-            }
-
-            ClickableText(
-                text = annotatedFooter,
-                style = TextStyle(textAlign = TextAlign.Center, lineHeight = 20.sp),
-                onClick = { offset ->
-                    annotatedFooter.getStringAnnotations("TERMS", offset, offset).firstOrNull()?.let { navController.navigate("terminos") }
-                    annotatedFooter.getStringAnnotations("ABOUT", offset, offset).firstOrNull()?.let { navController.navigate("about") }
-                }
-            )
+            FooterLegal(navController)
 
             Spacer(modifier = Modifier.height(32.dp))
         }
@@ -283,22 +239,41 @@ fun RatTravelTextField(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(12.dp),
             colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor      = RatTravelColors.YellowPrimary,
-                unfocusedBorderColor    = RatTravelColors.SurfaceVariant,
-                errorBorderColor        = RatTravelColors.ErrorRed,
-                focusedLabelColor       = RatTravelColors.YellowPrimary,
-                unfocusedLabelColor     = RatTravelColors.OnSurfaceMuted,
-                errorLabelColor         = RatTravelColors.ErrorRed,
-                cursorColor             = RatTravelColors.YellowPrimary,
-                focusedTextColor        = RatTravelColors.OnSurface,
-                unfocusedTextColor      = RatTravelColors.OnSurface,
-                focusedContainerColor   = RatTravelColors.SurfaceVariant,
-                unfocusedContainerColor = RatTravelColors.SurfaceVariant,
-                errorContainerColor     = RatTravelColors.ErrorRed.copy(alpha = 0.08f)
+                focusedBorderColor = RatTravelColors.YellowPrimary,
+                unfocusedBorderColor = RatTravelColors.SurfaceVariant,
+                errorBorderColor = RatTravelColors.ErrorRed,
+                focusedLabelColor = RatTravelColors.YellowPrimary,
+                unfocusedLabelColor = RatTravelColors.OnSurfaceMuted,
+                focusedTextColor = RatTravelColors.OnSurface,
+                unfocusedTextColor = RatTravelColors.OnSurface
             )
         )
-        AnimatedVisibility(visible = isError && errorMessage != null) {
-            Text(text = errorMessage ?: "", color = RatTravelColors.ErrorRed, fontSize = 11.sp, modifier = Modifier.padding(start = 12.dp, top = 2.dp))
+        if (isError && errorMessage != null) {
+            Text(text = errorMessage, color = RatTravelColors.ErrorRed, fontSize = 12.sp, modifier = Modifier.padding(start = 8.dp, top = 4.dp))
         }
     }
+}
+
+@Composable
+fun FooterLegal(navController: NavController) {
+    val annotatedFooter = buildAnnotatedString {
+        withStyle(SpanStyle(color = RatTravelColors.OnSurfaceMuted, fontSize = 12.sp)) { append(stringResource(R.string.login_footer_aceptar)) }
+        pushStringAnnotation("TERMS", "terminos")
+        withStyle(SpanStyle(color = RatTravelColors.YellowAccent, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, textDecoration = TextDecoration.Underline)) { append(stringResource(R.string.login_footer_terminos)) }
+        pop()
+        withStyle(SpanStyle(color = RatTravelColors.OnSurfaceMuted, fontSize = 12.sp)) { append(stringResource(R.string.login_footer_aprender)) }
+        pushStringAnnotation("ABOUT", "informacion")
+        withStyle(SpanStyle(color = RatTravelColors.YellowAccent, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, textDecoration = TextDecoration.Underline)) { append(stringResource(R.string.login_footer_sobre)) }
+        pop()
+        append(".")
+    }
+
+    ClickableText(
+        text = annotatedFooter,
+        style = TextStyle(textAlign = TextAlign.Center, lineHeight = 20.sp),
+        onClick = { offset ->
+            annotatedFooter.getStringAnnotations("TERMS", offset, offset).firstOrNull()?.let { navController.navigate("terminos") }
+            annotatedFooter.getStringAnnotations("ABOUT", offset, offset).firstOrNull()?.let { navController.navigate("about") }
+        }
+    )
 }
