@@ -12,17 +12,18 @@ import com.example.alcantarilla_trips.data.local.entity.TripEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
+import com.example.alcantarilla_trips.data.local.entity.UserEntity
+import com.example.alcantarilla_trips.data.local.dao.UserDao
 @Database(
-    entities = [TripEntity::class, ActivityEntity::class],
-    version = 1,
+    entities = [TripEntity::class, ActivityEntity::class, UserEntity::class],
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun tripDao(): TripDao
     abstract fun activityDao(): ActivityDao
-
+    abstract fun userDao(): UserDao
     companion object {
         const val DATABASE_NAME = "alcantarilla_trips_db"
 
@@ -32,6 +33,7 @@ abstract class AppDatabase : RoomDatabase() {
                 AppDatabase::class.java,
                 DATABASE_NAME
             )
+                .fallbackToDestructiveMigration()
                 .addCallback(object : Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)

@@ -178,7 +178,18 @@ fun LoginScreen(
                             Text(stringResource(R.string.login_boton_entrar), style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold))
                         }
                     }
-                }
+
+                    TextButton(
+                        onClick = { navController.navigate("recuperar_password") },
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    ) {
+                        Text(
+                            "¿Olvidaste tu contraseña?",
+                            color = RatTravelColors.OnSurfaceMuted,
+                            fontSize = 13.sp,
+                            textDecoration = TextDecoration.Underline
+                        )
+                    }                }
             }
 
             Spacer(modifier = Modifier.height(24.dp))

@@ -73,6 +73,11 @@ fun NavGraph(themeViewModel: ThemeViewModel) {
                 RegisterScreen(navController = navController, authViewModel = authViewModel)
             }
 
+            // --- RECUPERAR CONTRASEÑA (T3.3) ---
+            composable("recuperar_password") {
+                ForgotPasswordScreen(navController = navController, authViewModel = authViewModel)
+            }
+
             // --- PANTALLA PRINCIPAL ---
             composable("mis_viajes") {
                 TripsScreen(navController = navController, viewModel = tripViewModel)
