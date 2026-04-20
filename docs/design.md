@@ -34,6 +34,32 @@ Rutas definidas:
 
 ---
 
+### Tabla `users`
+| Campo | Tipo | Descripción |
+|---|---|---|
+| userId | TEXT PK | UID de Firebase |
+| login | TEXT UNIQUE | Username único |
+| username | TEXT | Nombre visible |
+| birthdate | TEXT | Fecha dd/MM/yyyy |
+| address | TEXT | Dirección |
+| country | TEXT | País |
+| phoneNumber | TEXT | Teléfono |
+| acceptEmails | INTEGER | 0/1 booleano |
+| email | TEXT | Correo |
+| photoUrl | TEXT? | URL foto perfil |
+
+### Tabla `trips`
+- Añadido campo **userId** (FK → users.userId, CASCADE DELETE)
+- Solo se muestran viajes del usuario logado
+
+### Tabla `access_log`
+| Campo | Tipo | Descripción |
+|---|---|---|
+| logId | INTEGER PK autoincrement | |
+| userId | TEXT | UID del usuario |
+| action | TEXT | "LOGIN" / "LOGOUT" |
+| timestamp | INTEGER | epoch millis |
+
 ## 🎬 Splash Screen
 
 Implementada en Compose mediante `SplashScreen.kt`. Muestra un GIF animado del logo (`logo_animation.gif`) durante 3 segundos usando la librería **Coil** con soporte de GIF (`coil-gif`). Tras el tiempo de espera navega a `home` eliminando la splash del backstack.

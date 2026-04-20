@@ -10,54 +10,58 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 // --- Trip Mappers ---
+
 fun TripEntity.toDomain(): Trip = Trip(
-    tripId = tripId,
-    title = title,
-    description = description,
-    startDate = startDate,
-    endDate = endDate,
-    destineCity = destineCity,
+    tripId        = tripId,
+    userId        = userId,       // T4.2
+    title         = title,
+    description   = description,
+    startDate     = startDate,
+    endDate       = endDate,
+    destineCity   = destineCity,
     departureCity = departureCity,
-    status = try { TripStatus.valueOf(status) } catch (e: Exception) { TripStatus.PENDING },
-    flight = flight,
-    price = price,
-    hotelName = hotelName,
-    imageEmoji = imageEmoji
+    status        = try { TripStatus.valueOf(status) } catch (e: Exception) { TripStatus.PENDING },
+    flight        = flight,
+    price         = price,
+    hotelName     = hotelName,
+    imageEmoji    = imageEmoji
 )
 
 fun Trip.toEntity(): TripEntity = TripEntity(
-    tripId = tripId,
-    title = title,
-    description = description,
-    startDate = startDate,
-    endDate = endDate,
-    destineCity = destineCity,
+    tripId        = tripId,
+    userId        = userId,       // T4.2
+    title         = title,
+    description   = description,
+    startDate     = startDate,
+    endDate       = endDate,
+    destineCity   = destineCity,
     departureCity = departureCity,
-    status = status.name,
-    flight = flight,
-    price = price,
-    hotelName = hotelName,
-    imageEmoji = imageEmoji
+    status        = status.name,
+    flight        = flight,
+    price         = price,
+    hotelName     = hotelName,
+    imageEmoji    = imageEmoji
 )
 
 // --- Activity Mappers ---
+
 private val dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE
 private val timeFormatter = DateTimeFormatter.ISO_LOCAL_TIME
 
 fun ActivityEntity.toDomain(): Activity = Activity(
-    activityId = activityId,
-    tripId = tripId,
-    title = title,
+    activityId  = activityId,
+    tripId      = tripId,
+    title       = title,
     description = description,
-    date = LocalDate.parse(date, dateFormatter),
-    time = LocalTime.parse(time, timeFormatter)
+    date        = LocalDate.parse(date, dateFormatter),
+    time        = LocalTime.parse(time, timeFormatter)
 )
 
 fun Activity.toEntity(): ActivityEntity = ActivityEntity(
-    activityId = activityId,
-    tripId = tripId,
-    title = title,
+    activityId  = activityId,
+    tripId      = tripId,
+    title       = title,
     description = description,
-    date = date.format(dateFormatter),
-    time = time.format(timeFormatter)
+    date        = date.format(dateFormatter),
+    time        = time.format(timeFormatter)
 )

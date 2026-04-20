@@ -7,6 +7,8 @@ import com.example.alcantarilla_trips.domain.exportTripSummary
 import com.example.alcantarilla_trips.domain.isOverBudget
 import org.junit.Assert.*
 import org.junit.Test
+import com.example.alcantarilla_trips.domain.areDatesValid
+import com.example.alcantarilla_trips.domain.isTripNameDuplicate
 
 class TripDomainTest {
 
@@ -94,4 +96,31 @@ class TripDomainTest {
         assertEquals(sampleTrip.destineCity, modified.destineCity)
         assertEquals("Nuevo Titulo", modified.title)
     }
+    @Test
+    fun `isTripNameDuplicate returns true when name exists`() {
+        val trips = listOf(sampleTrip)
+        assertTrue(isTripNameDuplicate("Viaje a Paris", trips))
+    }
+
+    @Test
+    fun `isTripNameDuplicate returns false for new name`() {
+        val trips = listOf(sampleTrip)
+        assertFalse(isTripNameDuplicate("Viaje a Roma", trips))
+    }
+
+    @Test
+    fun `areDatesValid returns false when end before start`() {
+        assertFalse(areDatesValid("10/06/2025", "05/06/2025"))
+    }
+
+    @Test
+    fun `areDatesValid returns true when end after start`() {
+        assertTrue(areDatesValid("01/06/2025", "07/06/2025"))
+    }
+
+    @Test
+    fun `areDatesValid returns true when same day`() {
+        assertTrue(areDatesValid("01/06/2025", "01/06/2025"))
+    }
+
 }

@@ -1,12 +1,17 @@
 package com.example.alcantarilla_trips.data.local.entity
 
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "trips")
+@Entity(
+    tableName = "trips",
+    indices = [Index("userId")]
+)
 data class TripEntity(
     @PrimaryKey(autoGenerate = true)
     val tripId: Int = 0,
+    val userId: String = "",
     val title: String,
     val description: String,
     val startDate: String,

@@ -2,6 +2,8 @@ package com.example.alcantarilla_trips.domain
 
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 /**
  * Valida si un objeto Trip es correcto (T1.5)
@@ -28,7 +30,20 @@ fun validateTrip(trip: Trip): Boolean {
 fun exportTripSummary(trip: Trip): String {
     return "Viaje a ${trip.destineCity}: ${trip.title}. Presupuesto: ${trip.price}€."
 }
+// Prevenir nombres de viaje duplicados
+fun isTripNameDuplicate(name: String, existingTrips: List<Trip>): Boolean {
+    return existingTrips.any { it.title.equals(name, ignoreCase = true) }
+}
 
+// Validar que endDate >= startDate
+fun areDatesValid(startDate: String, endDate: String): Boolean {
+    return try {
+        val fmt = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val start = fmt.parse(startDate)!!
+        val end = fmt.parse(endDate)!!
+        !end.before(start)
+    } catch (e: Exception) { false }
+}
 // Funciones adicionales que pedían tus tests
 fun isOverBudget(totalCost: Double, budget: Double): Boolean = totalCost > budget
 fun getTotalActivityCost(): Double = 0.0 // Implementación dummy para que el test no falle

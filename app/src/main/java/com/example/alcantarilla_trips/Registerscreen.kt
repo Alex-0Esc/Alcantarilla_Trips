@@ -25,6 +25,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.alcantarilla_trips.ui.viewmodels.AuthViewModel
 import com.example.alcantarilla_trips.ui.viewmodels.AuthState
+import androidx.compose.foundation.text.KeyboardOptions
 
 private const val TAG = "RegisterScreen"
 
@@ -33,17 +34,31 @@ fun RegisterScreen(
     navController: NavController,
     authViewModel: AuthViewModel
 ) {
+    // --- Campos de acceso ---
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     var confirmPasswordVisible by remember { mutableStateOf(false) }
+
+    // --- Campos T4.1 ---
+    var loginUsername by remember { mutableStateOf("") }
+    var birthdate by remember { mutableStateOf("") }
+    var address by remember { mutableStateOf("") }
+    var country by remember { mutableStateOf("") }
+    var phoneNumber by remember { mutableStateOf("") }
+    var acceptEmails by remember { mutableStateOf(false) }
     var acceptTerms by remember { mutableStateOf(false) }
 
-    // Validaciones locales
+    // --- Errores de validación local ---
     var emailError by remember { mutableStateOf<String?>(null) }
     var passwordError by remember { mutableStateOf<String?>(null) }
     var confirmPasswordError by remember { mutableStateOf<String?>(null) }
+    var loginError by remember { mutableStateOf<String?>(null) }
+    var birthdateError by remember { mutableStateOf<String?>(null) }
+    var addressError by remember { mutableStateOf<String?>(null) }
+    var countryError by remember { mutableStateOf<String?>(null) }
+    var phoneError by remember { mutableStateOf<String?>(null) }
 
     val authState by authViewModel.authState.collectAsState()
     val isLoading = authState is AuthState.Loading
@@ -62,11 +77,31 @@ fun RegisterScreen(
         return
     }
 
+    // T4.1: Validación de fecha con formato dd/MM/yyyy
+    fun isValidDate(date: String): Boolean {
+        if (!date.matches(Regex("\\d{2}/\\d{2}/\\d{4}"))) return false
+        return try {
+            val parts = date.split("/")
+            val day = parts[0].toInt()
+            val month = parts[1].toInt()
+            val year = parts[2].toInt()
+            day in 1..31 && month in 1..12 && year in 1900..2099
+        } catch (e: Exception) { false }
+    }
+
     fun validate(): Boolean {
-        emailError = if (email.isBlank() || !email.contains("@")) "Correo inválido" else null
-        passwordError = if (password.length < 6) "Mínimo 6 caracteres" else null
+        emailError           = if (email.isBlank() || !email.contains("@")) "Correo inválido" else null
+        passwordError        = if (password.length < 6) "Mínimo 6 caracteres" else null
         confirmPasswordError = if (password != confirmPassword) "Las contraseñas no coinciden" else null
-        return emailError == null && passwordError == null && confirmPasswordError == null
+        loginError           = if (loginUsername.isBlank()) "Campo obligatorio" else null
+        birthdateError       = if (!isValidDate(birthdate)) "Formato dd/MM/yyyy" else null
+        addressError         = if (address.isBlank()) "Campo obligatorio" else null
+        countryError         = if (country.isBlank()) "Campo obligatorio" else null
+        phoneError           = if (phoneNumber.isBlank()) "Campo obligatorio" else null
+        return listOf(
+            emailError, passwordError, confirmPasswordError,
+            loginError, birthdateError, addressError, countryError, phoneError
+        ).all { it == null }
     }
 
     Box(modifier = Modifier.fillMaxSize().background(RatTravelColors.Background)) {
@@ -79,6 +114,7 @@ fun RegisterScreen(
         ) {
             Spacer(modifier = Modifier.height(40.dp))
 
+            // --- Logo ---
             Box(
                 modifier = Modifier
                     .size(100.dp)
@@ -105,15 +141,29 @@ fun RegisterScreen(
                 style = TextStyle(fontSize = 14.sp, color = RatTravelColors.OnSurfaceMuted)
             )
 
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
+            // =============================================
+            // CARD 1: Datos de acceso
+            // =============================================
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(24.dp),
                 colors = CardDefaults.cardColors(containerColor = RatTravelColors.Surface)
             ) {
                 Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+
                     Text("Datos de acceso", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp)
+
+                    // T4.1: Login / Username único
+                    RatTravelTextField(
+                        value = loginUsername,
+                        onValueChange = { loginUsername = it; loginError = null; authViewModel.clearError() },
+                        label = "Nombre de usuario",
+                        leadingIcon = { Icon(Icons.Default.Person, null, tint = if (loginError != null) RatTravelColors.ErrorRed else RatTravelColors.YellowPrimary) },
+                        isError = loginError != null,
+                        errorMessage = loginError
+                    )
 
                     // Email
                     RatTravelTextField(
@@ -121,6 +171,7 @@ fun RegisterScreen(
                         onValueChange = { email = it; emailError = null; authViewModel.clearError() },
                         label = "Correo electrónico",
                         leadingIcon = { Icon(Icons.Default.Email, null, tint = if (emailError != null) RatTravelColors.ErrorRed else RatTravelColors.YellowPrimary) },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                         isError = emailError != null,
                         errorMessage = emailError
                     )
@@ -141,7 +192,7 @@ fun RegisterScreen(
                         errorMessage = passwordError
                     )
 
-                    // Barra de fortaleza
+                    // Barra de fortaleza de contraseña
                     PasswordStrengthBar(password = password)
 
                     // Confirmar contraseña
@@ -159,6 +210,105 @@ fun RegisterScreen(
                         isError = confirmPasswordError != null,
                         errorMessage = confirmPasswordError
                     )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // =============================================
+            // CARD 2: Información personal (T4.1)
+            // =============================================
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(24.dp),
+                colors = CardDefaults.cardColors(containerColor = RatTravelColors.Surface)
+            ) {
+                Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+
+                    Text("Información personal", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp)
+
+                    // T4.1: Fecha de nacimiento (DateField)
+                    RatTravelTextField(
+                        value = birthdate,
+                        onValueChange = { value ->
+                            // Autoformato: inserta "/" automáticamente
+                            val digits = value.filter { it.isDigit() }
+                            birthdate = when {
+                                digits.length <= 2 -> digits
+                                digits.length <= 4 -> "${digits.take(2)}/${digits.drop(2)}"
+                                else               -> "${digits.take(2)}/${digits.drop(2).take(2)}/${digits.drop(4).take(4)}"
+                            }
+                            birthdateError = null
+                        },
+                        label = "Fecha de nacimiento (dd/MM/yyyy)",
+                        leadingIcon = { Icon(Icons.Default.DateRange, null, tint = if (birthdateError != null) RatTravelColors.ErrorRed else RatTravelColors.YellowPrimary) },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        isError = birthdateError != null,
+                        errorMessage = birthdateError
+                    )
+
+                    // T4.1: Dirección
+                    RatTravelTextField(
+                        value = address,
+                        onValueChange = { address = it; addressError = null },
+                        label = "Dirección",
+                        leadingIcon = { Icon(Icons.Default.Home, null, tint = if (addressError != null) RatTravelColors.ErrorRed else RatTravelColors.YellowPrimary) },
+                        isError = addressError != null,
+                        errorMessage = addressError
+                    )
+
+                    // T4.1: País
+                    RatTravelTextField(
+                        value = country,
+                        onValueChange = { country = it; countryError = null },
+                        label = "País",
+                        leadingIcon = { Icon(Icons.Default.Place, null, tint = if (countryError != null) RatTravelColors.ErrorRed else RatTravelColors.YellowPrimary) },
+                        isError = countryError != null,
+                        errorMessage = countryError
+                    )
+
+                    // T4.1: Número de teléfono
+                    RatTravelTextField(
+                        value = phoneNumber,
+                        onValueChange = { phoneNumber = it; phoneError = null },
+                        label = "Número de teléfono",
+                        leadingIcon = { Icon(Icons.Default.Phone, null, tint = if (phoneError != null) RatTravelColors.ErrorRed else RatTravelColors.YellowPrimary) },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+                        isError = phoneError != null,
+                        errorMessage = phoneError
+                    )
+
+                    // T4.1: Aceptar recibir emails
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Checkbox(
+                            checked = acceptEmails,
+                            onCheckedChange = { acceptEmails = it },
+                            colors = CheckboxDefaults.colors(checkedColor = RatTravelColors.YellowPrimary)
+                        )
+                        Spacer(Modifier.width(4.dp))
+                        Text(
+                            text = "Quiero recibir emails con novedades y ofertas",
+                            color = RatTravelColors.OnSurfaceMuted,
+                            fontSize = 13.sp
+                        )
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // =============================================
+            // CARD 3: Términos y botón de registro
+            // =============================================
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(24.dp),
+                colors = CardDefaults.cardColors(containerColor = RatTravelColors.Surface)
+            ) {
+                Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
 
                     // Checkbox términos
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -177,7 +327,7 @@ fun RegisterScreen(
                         )
                     }
 
-                    // Error de Firebase
+                    // Error de Firebase / validación del servidor
                     AnimatedVisibility(visible = authState is AuthState.Error) {
                         Text(
                             text = (authState as? AuthState.Error)?.message ?: "",
@@ -192,7 +342,17 @@ fun RegisterScreen(
                     Button(
                         onClick = {
                             if (validate()) {
-                                authViewModel.register(email, password)
+                                Log.d(TAG, "Iniciando registro con login='$loginUsername', email='$email'")
+                                authViewModel.register(
+                                    email        = email,
+                                    password     = password,
+                                    login        = loginUsername,
+                                    birthdate    = birthdate,
+                                    address      = address,
+                                    country      = country,
+                                    phoneNumber  = phoneNumber,
+                                    acceptEmails = acceptEmails
+                                )
                             }
                         },
                         modifier = Modifier.fillMaxWidth().height(50.dp),
@@ -209,9 +369,13 @@ fun RegisterScreen(
                         }
                     }
 
-                    // Link a recuperar contraseña
+                    // Link a login
                     TextButton(
-                        onClick = { navController.navigate("recuperar_password") },
+                        onClick = {
+                            navController.navigate("login") {
+                                popUpTo("registro") { inclusive = true }
+                            }
+                        },
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                     ) {
                         Text(
@@ -222,7 +386,8 @@ fun RegisterScreen(
                     }
                 }
             }
-            Spacer(modifier = Modifier.height(20.dp))
+
+            Spacer(modifier = Modifier.height(32.dp))
         }
     }
 }

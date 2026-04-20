@@ -2,6 +2,7 @@ package com.example.alcantarilla_trips.domain
 
 data class Trip(
     val tripId: Int,
+    val userId: String = "",          // T4.2: propietario del viaje
     val title: String,
     val description: String,
     val startDate: String,
