@@ -12,6 +12,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
+import com.example.alcantarilla_trips.data.local.dao.BookingDao
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -34,4 +35,10 @@ object DatabaseModule {
 
     @Provides
     fun provideAccessLogDao(database: AppDatabase): AccessLogDao = database.accessLogDao()
+
+    // --- ADD THIS METHOD TO FIX THE ERROR ---
+    @Provides
+    fun provideBookingDao(database: AppDatabase): BookingDao {
+        return database.bookingDao()
+    }
 }

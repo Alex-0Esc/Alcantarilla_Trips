@@ -37,10 +37,7 @@ import java.time.format.DateTimeFormatter
 
 // ── Lista de ciudades ────────────────────────────────────────────────────────
 private val CITIES = listOf(
-    "Madrid", "Barcelona", "Valencia", "Sevilla", "Zaragoza",
-    "Málaga", "Murcia", "Palma", "Las Palmas", "Bilbao",
-    "Alicante", "Córdoba", "Valladolid", "Vigo", "Gijón",
-    "Granada", "Alcantarilla"
+    "London", "Barcelona", "Paris"
 )
 
 // ── Helpers fecha ────────────────────────────────────────────────────────────
