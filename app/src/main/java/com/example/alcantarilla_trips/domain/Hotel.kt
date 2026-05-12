@@ -30,6 +30,7 @@ data class Room(
 // ── Reserva local (T2.3) ──────────────────────────────────────────────────────
 data class Booking(
     val bookingId: Int = 0,
+    val tripId: Int = -1,
     val hotelId: String,
     val hotelName: String,
     val roomKey: String,

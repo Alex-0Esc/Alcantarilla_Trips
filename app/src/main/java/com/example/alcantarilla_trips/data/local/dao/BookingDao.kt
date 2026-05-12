@@ -21,4 +21,7 @@ interface BookingDao {
 
     @Query("DELETE FROM bookings WHERE bookingId = :id")
     suspend fun deleteBooking(id: Int)
+
+    @Query("SELECT * FROM bookings WHERE tripId = :tripId ORDER BY createdAt DESC")
+    fun getBookingsByTrip(tripId: Int): Flow<List<BookingEntity>>
 }

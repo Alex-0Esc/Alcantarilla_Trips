@@ -41,4 +41,7 @@ object DatabaseModule {
     fun provideBookingDao(database: AppDatabase): BookingDao {
         return database.bookingDao()
     }
+
+    @Provides
+    fun provideTripImageDao(database: AppDatabase): TripImageDao = database.tripImageDao()
 }

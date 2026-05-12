@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.alcantarilla_trips.data.local.dao.*
 import com.example.alcantarilla_trips.data.local.entity.*
+import com.example.alcantarilla_trips.data.local.entity.TripImageEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,9 +18,10 @@ import kotlinx.coroutines.launch
         ActivityEntity::class,
         UserEntity::class,
         BookingEntity::class,
-        AccessLogEntity::class
+        AccessLogEntity::class,
+        TripImageEntity::class
     ],
-    version = 4,
+    version = 5,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -29,6 +31,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun bookingDao(): BookingDao
     abstract fun accessLogDao(): AccessLogDao
+    abstract fun tripImageDao(): TripImageDao
 
     companion object {
         const val DATABASE_NAME = "alcantarilla_trips_db"

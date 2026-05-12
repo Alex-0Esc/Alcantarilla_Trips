@@ -7,8 +7,10 @@ import com.example.alcantarilla_trips.domain.HotelRepository
 import com.example.alcantarilla_trips.domain.model.Hotel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -60,4 +62,14 @@ class HotelViewModel @Inject constructor(
     fun resetState() {
         _uiState.value = HotelUiState.Idle
     }
+
+    // T4: All bookings
+    val allBookings = hotelRepository.getAllBookings()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
+    fun deleteBooking(bookingId: Int) {
+        viewModelScope.launch { hotelRepository.deleteBooking(bookingId) }
+    }
+
+    fun getBookingsByTrip(tripId: Int) = hotelRepository.getBookingsByTrip(tripId)
 }

@@ -55,6 +55,9 @@ fun TripsScreen(
                     )
                 },
                 actions = {
+                    IconButton(onClick = { navController.navigate("reservations") }) {
+                        Icon(Icons.Default.BookOnline, "Reservas", tint = MaterialTheme.colorScheme.primary)
+                    }
                     IconButton(onClick = { navController.navigate("create_trip") }) {
                         Icon(Icons.Default.Add, stringResource(R.string.trips_nuevo_viaje), tint = MaterialTheme.colorScheme.primary)
                     }
@@ -228,6 +231,28 @@ fun TripCard(trip: Trip, onClick: () -> Unit, onDelete: () -> Unit, onEdit: () -
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 TripDetailChip(icon = Icons.Default.Flight, text = trip.flight,    modifier = Modifier.weight(1f))
                 TripDetailChip(icon = Icons.Default.Hotel,  text = trip.hotelName, modifier = Modifier.weight(1f))
+            }
+            if (trip.hotelName.isNotBlank()) {
+                Spacer(Modifier.height(6.dp))
+                Surface(
+                    shape = RoundedCornerShape(8.dp),
+                    color = MaterialTheme.colorScheme.tertiaryContainer
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        Icon(Icons.Default.BookOnline, null, modifier = Modifier.size(11.dp), tint = MaterialTheme.colorScheme.onTertiaryContainer)
+                        Text(
+                            "Reserva activa",
+                            style = MaterialTheme.typography.labelSmall.copy(
+                                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                                fontWeight = FontWeight.Bold
+                            )
+                        )
+                    }
+                }
             }
 
             if (trip.status == TripStatus.PENDING) {

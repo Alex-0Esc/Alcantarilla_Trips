@@ -17,6 +17,7 @@ import com.example.alcantarilla_trips.ui.viewmodels.ActivityViewModel
 import com.example.alcantarilla_trips.ui.viewmodels.TripListViewModel
 import com.example.alcantarilla_trips.ui.viewmodels.AuthViewModel
 import com.example.alcantarilla_trips.ui.viewmodels.AuthState
+import com.example.alcantarilla_trips.ui.viewmodels.TripImageViewModel
 import androidx.compose.runtime.collectAsState
 
 val bottomNavRoutes = setOf("mis_viajes", "album", "configuracion")
@@ -30,7 +31,8 @@ fun NavGraph(themeViewModel: ThemeViewModel) {
     // Instancias compartidas
     val tripViewModel: TripListViewModel = viewModel()
     val activityViewModel: ActivityViewModel = viewModel()
-    val authViewModel: AuthViewModel = viewModel() // T2.1: Instancia de Auth
+    val authViewModel: AuthViewModel = viewModel()
+    val imageViewModel: TripImageViewModel = viewModel()
 
     // Observamos el estado global de autenticación
     val authState by authViewModel.authState.collectAsState()
@@ -94,13 +96,25 @@ fun NavGraph(themeViewModel: ThemeViewModel) {
 
             // --- RESTO DE RUTAS (Se mantienen igual) ---
             composable("itinerario") { ItineraryScreen(navController = navController) }
-            composable("album") { PhotoAlbumScreen(navController = navController) }
+            composable("album") {
+                // Default album tab: navigate to first trip or show empty
+                val trips = tripViewModel.trips.collectAsState().value
+                val firstId = trips.firstOrNull()?.tripId ?: -1
+                PhotoAlbumScreen(navController = navController, tripId = firstId, imageViewModel = imageViewModel, tripViewModel = tripViewModel)
+            }
+            composable(
+                route = "album/{tripId}",
+                arguments = listOf(navArgument("tripId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val tripId = backStackEntry.arguments?.getInt("tripId") ?: return@composable
+                PhotoAlbumScreen(navController = navController, tripId = tripId, imageViewModel = imageViewModel, tripViewModel = tripViewModel)
+            }
             composable("cambiar_idioma") { CambiarIdioma(navController = navController) }
             composable("informacion") { Informacion(navController = navController) }
             composable("terminos") { Terminos(navController = navController) }
             composable("about") { About(navController = navController) }
             composable("create_trip") { CreateTripScreen(navController = navController, viewModel = tripViewModel) }
-
+            composable("reservations") { ReservationsScreen(navController = navController, tripViewModel = tripViewModel) }
             composable(
                 route = "edit_trip/{tripId}",
                 arguments = listOf(navArgument("tripId") { type = NavType.IntType })

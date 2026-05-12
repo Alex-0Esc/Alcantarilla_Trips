@@ -57,13 +57,22 @@ fun TripDetailScreen(
             )
         },
         floatingActionButton = {
-            ExtendedFloatingActionButton(
-                onClick = { navController.navigate("add_activity/$tripId") },
-                containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.onPrimary,
-                icon = { Icon(Icons.Default.Add, null) },
-                text = { Text(stringResource(R.string.trip_detail_nueva_actividad), fontWeight = FontWeight.Bold) }
-            )
+            Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                SmallFloatingActionButton(
+                    onClick = { navController.navigate("album/$tripId") },
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                ) {
+                    Icon(Icons.Default.PhotoLibrary, "Álbum de fotos")
+                }
+                ExtendedFloatingActionButton(
+                    onClick = { navController.navigate("add_activity/$tripId") },
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary,
+                    icon = { Icon(Icons.Default.Add, null) },
+                    text = { Text(stringResource(R.string.trip_detail_nueva_actividad), fontWeight = FontWeight.Bold) }
+                )
+            }
         }
     ) { paddingValues ->
         LazyColumn(

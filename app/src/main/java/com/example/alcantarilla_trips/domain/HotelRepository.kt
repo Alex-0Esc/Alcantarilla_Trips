@@ -17,4 +17,10 @@ interface HotelRepository {
 
     // T2.3: Obtener todas las reservas
     fun getAllBookings(): Flow<List<Booking>>
+
+    // T4: Eliminar reserva
+    suspend fun deleteBooking(bookingId: Int)
+
+    // T4: Reservas de un viaje concreto
+    fun getBookingsByTrip(tripId: Int): Flow<List<Booking>>
 }

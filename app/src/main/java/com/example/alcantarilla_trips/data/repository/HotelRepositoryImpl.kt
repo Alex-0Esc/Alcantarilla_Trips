@@ -118,21 +118,29 @@ class HotelRepositoryImpl @Inject constructor(
 
     // T2.3: Listar todas las reservas
     override fun getAllBookings(): Flow<List<Booking>> =
-        bookingDao.getAllBookings().map { list ->
-            list.map {
-                Booking(
-                    bookingId    = it.bookingId,
-                    hotelId      = it.hotelId,
-                    hotelName    = it.hotelName,
-                    roomKey      = it.roomKey,
-                    roomName     = it.roomName,
-                    city         = it.city,
-                    checkIn      = it.checkIn,
-                    checkOut     = it.checkOut,
-                    pricePerNight = it.pricePerNight,
-                    totalPrice   = it.totalPrice,
-                    thumbnailUrl = it.thumbnailUrl
-                )
-            }
-        }
+        bookingDao.getAllBookings().map { list -> list.map { it.toDomain() } }
+
+    // T4: Eliminar reserva
+    override suspend fun deleteBooking(bookingId: Int) {
+        bookingDao.deleteBooking(bookingId)
+    }
+
+    // T4: Reservas de un viaje
+    override fun getBookingsByTrip(tripId: Int): Flow<List<Booking>> =
+        bookingDao.getBookingsByTrip(tripId).map { list -> list.map { it.toDomain() } }
 }
+
+private fun com.example.alcantarilla_trips.data.local.entity.BookingEntity.toDomain() = Booking(
+    bookingId    = bookingId,
+    tripId       = tripId,
+    hotelId      = hotelId,
+    hotelName    = hotelName,
+    roomKey      = roomKey,
+    roomName     = roomName,
+    city         = city,
+    checkIn      = checkIn,
+    checkOut     = checkOut,
+    pricePerNight = pricePerNight,
+    totalPrice   = totalPrice,
+    thumbnailUrl = thumbnailUrl
+)
