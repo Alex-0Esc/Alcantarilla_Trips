@@ -16,7 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.alcantarilla_trips.domain.model.Booking
@@ -28,8 +28,8 @@ import com.example.alcantarilla_trips.ui.viewmodels.TripListViewModel
 @Composable
 fun ReservationsScreen(
     navController: NavController,
-    hotelViewModel: HotelViewModel = viewModel(),
-    tripViewModel: TripListViewModel = viewModel()
+    hotelViewModel: HotelViewModel = hiltViewModel(),
+    tripViewModel: TripListViewModel = hiltViewModel()
 ) {
     val bookings by hotelViewModel.allBookings.collectAsState()
     val trips by tripViewModel.trips.collectAsState()
@@ -44,7 +44,7 @@ fun ReservationsScreen(
             confirmButton = {
                 Button(
                     onClick = {
-                        hotelViewModel.deleteBooking(booking.bookingId)
+                        hotelViewModel.deleteBooking(booking.bookingId, booking.tripId)
                         deleteTarget = null
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
@@ -204,15 +204,15 @@ fun BookingCard(
                 // Dates
                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                        Icon(Icons.Default.FlightLand, null, modifier = Modifier.size(13.dp), tint = MaterialTheme.colorScheme.primary)
+                        Icon(Icons.Default.CalendarMonth, null, modifier = Modifier.size(13.dp), tint = MaterialTheme.colorScheme.primary)
                         Text(booking.checkIn, style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant))
                     }
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                        Icon(Icons.Default.FlightTakeoff, null, modifier = Modifier.size(13.dp), tint = MaterialTheme.colorScheme.primary)
+                        Icon(Icons.Default.CalendarMonth, null, modifier = Modifier.size(13.dp), tint = MaterialTheme.colorScheme.primary)
                         Text(booking.checkOut, style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant))
                     }
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                        Icon(Icons.Default.Payments, null, modifier = Modifier.size(13.dp), tint = MaterialTheme.colorScheme.primary)
+                        Icon(Icons.Default.Euro, null, modifier = Modifier.size(13.dp), tint = MaterialTheme.colorScheme.primary)
                         Text("%.0f€/noche".format(booking.pricePerNight), style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant))
                     }
                 }
@@ -237,8 +237,7 @@ fun BookingCard(
                                     fontWeight = FontWeight.Bold
                                 )
                             )
-                            Icon(Icons.Default.OpenInNew, null, modifier = Modifier.size(10.dp), tint = MaterialTheme.colorScheme.onPrimaryContainer)
-                        }
+                            Icon(Icons.Default.Launch, null, modifier = Modifier.size(10.dp), tint = MaterialTheme.colorScheme.onPrimaryContainer)                        }
                     }
                 }
 

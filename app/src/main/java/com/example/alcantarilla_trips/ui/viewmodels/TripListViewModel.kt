@@ -3,9 +3,11 @@ package com.example.alcantarilla_trips.ui.viewmodels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.alcantarilla_trips.domain.HotelRepository
 import com.example.alcantarilla_trips.domain.Trip
 import com.example.alcantarilla_trips.domain.TripRepository
 import com.example.alcantarilla_trips.domain.TripStatus
+import com.example.alcantarilla_trips.domain.model.Booking
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,7 +24,8 @@ import javax.inject.Inject
 @HiltViewModel
 class TripListViewModel @Inject constructor(
     private val repository: TripRepository,
-    private val auth: FirebaseAuth           // T4.2: necesitamos el UID del usuario
+    private val hotelRepository: HotelRepository,
+    private val auth: FirebaseAuth
 ) : ViewModel() {
 
     companion object {
@@ -58,7 +61,9 @@ class TripListViewModel @Inject constructor(
         flight: String = "",
         price: Int = 0,
         hotelName: String = "",
-        imageEmoji: String = "🏙️"
+        imageEmoji: String = "🏙️",
+        selectedHotel: com.example.alcantarilla_trips.HotelResult? = null,
+        selectedFlight: com.example.alcantarilla_trips.FlightResult? = null
     ) {
         if (title.isBlank()) {
             _validationError.value = "El título no puede estar vacío"
@@ -76,8 +81,8 @@ class TripListViewModel @Inject constructor(
 
         viewModelScope.launch {
             val newTrip = Trip(
-                tripId        = 0,       // Room autogenerará el ID
-                userId        = uid,     // T4.2: asociar al usuario logado
+                tripId        = 0,
+                userId        = uid,
                 title         = title,
                 description   = description,
                 startDate     = startDate,
@@ -90,9 +95,29 @@ class TripListViewModel @Inject constructor(
                 hotelName     = hotelName,
                 imageEmoji    = imageEmoji
             )
-            repository.addTrip(newTrip)
+            val tripId = repository.addTripReturningId(newTrip)
+            Log.i(TAG, "addTrip: viaje '$title' guardado para UID: $uid, tripId=$tripId")
+
+            // Insert BookingEntity if a hotel was selected
+            if (selectedHotel != null && tripId > 0) {
+                hotelRepository.bookRoom(
+                    Booking(
+                        tripId        = tripId,
+                        hotelId       = selectedHotel.name,
+                        hotelName     = selectedHotel.name,
+                        roomKey       = "",
+                        roomName      = selectedHotel.name,
+                        city          = destineCity,
+                        checkIn       = startDate,
+                        checkOut      = endDate,
+                        pricePerNight = selectedHotel.price.toDouble(),
+                        totalPrice    = (selectedFlight?.price ?: 0).toDouble() + selectedHotel.price.toDouble(),
+                        thumbnailUrl  = ""
+                    )
+                )
+                Log.i(TAG, "addTrip: reserva insertada para tripId=$tripId")
+            }
             _validationError.value = null
-            Log.i(TAG, "addTrip: viaje '$title' guardado para UID: $uid")
         }
     }
 

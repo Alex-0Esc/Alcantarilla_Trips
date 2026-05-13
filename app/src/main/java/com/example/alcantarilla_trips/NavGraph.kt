@@ -17,6 +17,8 @@ import com.example.alcantarilla_trips.ui.viewmodels.ActivityViewModel
 import com.example.alcantarilla_trips.ui.viewmodels.TripListViewModel
 import com.example.alcantarilla_trips.ui.viewmodels.AuthViewModel
 import com.example.alcantarilla_trips.ui.viewmodels.AuthState
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.alcantarilla_trips.ui.viewmodels.HotelViewModel
 import com.example.alcantarilla_trips.ui.viewmodels.TripImageViewModel
 import androidx.compose.runtime.collectAsState
 
@@ -114,7 +116,10 @@ fun NavGraph(themeViewModel: ThemeViewModel) {
             composable("terminos") { Terminos(navController = navController) }
             composable("about") { About(navController = navController) }
             composable("create_trip") { CreateTripScreen(navController = navController, viewModel = tripViewModel) }
-            composable("reservations") { ReservationsScreen(navController = navController, tripViewModel = tripViewModel) }
+            composable("reservations") {
+                val hotelViewModel: HotelViewModel = hiltViewModel()
+                ReservationsScreen(navController = navController, hotelViewModel = hotelViewModel, tripViewModel = tripViewModel)
+            }
             composable(
                 route = "edit_trip/{tripId}",
                 arguments = listOf(navArgument("tripId") { type = NavType.IntType })

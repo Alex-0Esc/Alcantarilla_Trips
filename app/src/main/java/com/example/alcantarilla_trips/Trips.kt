@@ -56,7 +56,7 @@ fun TripsScreen(
                 },
                 actions = {
                     IconButton(onClick = { navController.navigate("reservations") }) {
-                        Icon(Icons.Default.BookOnline, "Reservas", tint = MaterialTheme.colorScheme.primary)
+                        Icon(Icons.Default.EventAvailable, "Reservas", tint = MaterialTheme.colorScheme.primary)
                     }
                     IconButton(onClick = { navController.navigate("create_trip") }) {
                         Icon(Icons.Default.Add, stringResource(R.string.trips_nuevo_viaje), tint = MaterialTheme.colorScheme.primary)
@@ -243,7 +243,7 @@ fun TripCard(trip: Trip, onClick: () -> Unit, onDelete: () -> Unit, onEdit: () -
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
-                        Icon(Icons.Default.BookOnline, null, modifier = Modifier.size(11.dp), tint = MaterialTheme.colorScheme.onTertiaryContainer)
+                        Icon(Icons.Default.EventAvailable, null, modifier = Modifier.size(11.dp), tint = MaterialTheme.colorScheme.onTertiaryContainer)
                         Text(
                             "Reserva activa",
                             style = MaterialTheme.typography.labelSmall.copy(

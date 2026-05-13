@@ -49,9 +49,27 @@ class TripRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun addTripReturningId(trip: Trip): Int {
+        Log.d(TAG, "Insertando viaje (con id): '${trip.title}' userId=${trip.userId}")
+        return try {
+            val id = tripDao.insertTrip(trip.toEntity()).toInt()
+            Log.i(TAG, "Viaje insertado con id=$id")
+            id
+        } catch (e: Exception) {
+            Log.e(TAG, "Error insertando viaje '${trip.title}'", e)
+            throw e
+        }
+    }
+
     override suspend fun deleteTrip(tripId: Int) {
         Log.d(TAG, "Eliminando viaje id=$tripId")
         tripDao.deleteTripById(tripId)
         Log.i(TAG, "Viaje $tripId eliminado")
+    }
+
+    override suspend fun clearHotelName(tripId: Int) {
+        val trip = tripDao.getTripById(tripId) ?: return
+        tripDao.updateTrip(trip.copy(hotelName = ""))
+        Log.i(TAG, "clearHotelName: tripId=$tripId")
     }
 }

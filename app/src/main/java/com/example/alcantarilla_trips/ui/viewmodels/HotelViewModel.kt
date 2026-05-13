@@ -25,7 +25,8 @@ sealed class HotelUiState {
 
 @HiltViewModel
 class HotelViewModel @Inject constructor(
-    private val hotelRepository: HotelRepository
+    private val hotelRepository: HotelRepository,
+    private val tripRepository: com.example.alcantarilla_trips.domain.TripRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<HotelUiState>(HotelUiState.Idle)
@@ -67,8 +68,11 @@ class HotelViewModel @Inject constructor(
     val allBookings = hotelRepository.getAllBookings()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    fun deleteBooking(bookingId: Int) {
-        viewModelScope.launch { hotelRepository.deleteBooking(bookingId) }
+    fun deleteBooking(bookingId: Int, tripId: Int = -1) {
+        viewModelScope.launch {
+            hotelRepository.deleteBooking(bookingId)
+            if (tripId > 0) tripRepository.clearHotelName(tripId)
+        }
     }
 
     fun getBookingsByTrip(tripId: Int) = hotelRepository.getBookingsByTrip(tripId)

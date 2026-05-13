@@ -63,10 +63,30 @@ fun PhotoAlbumScreen(
         }
     }
 
+    var showNoTripError by remember { mutableStateOf(false) }
+
     val imagePicker = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
+        if (tripId <= 0) { showNoTripError = true; return@rememberLauncherForActivityResult }
         uri?.let { imageViewModel.addImage(tripId, it.toString()) }
+    }
+
+    if (showNoTripError) {
+        AlertDialog(
+            onDismissRequest = { showNoTripError = false },
+            icon = { Icon(Icons.Default.Warning, null, tint = MaterialTheme.colorScheme.error) },
+            title = { Text("Sin viaje seleccionado") },
+            text = { Text("Crea un viaje primero para poder añadir fotos al álbum.") },
+            confirmButton = {
+                Button(onClick = { showNoTripError = false; navController.navigate("create_trip") }) {
+                    Text("Crear viaje")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showNoTripError = false }) { Text("Cancelar") }
+            }
+        )
     }
 
     showDeleteDialog?.let { img ->
@@ -109,7 +129,10 @@ fun PhotoAlbumScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = { imagePicker.launch("image/*") }) {
+                    IconButton(onClick = {
+                        if (tripId <= 0) showNoTripError = true
+                        else imagePicker.launch("image/*")
+                    }) {
                         Icon(Icons.Default.AddPhotoAlternate, "Añadir foto", tint = MaterialTheme.colorScheme.primary)
                     }
                 }
@@ -140,7 +163,10 @@ fun PhotoAlbumScreen(
                         textAlign = TextAlign.Center
                     )
                     Button(
-                        onClick = { imagePicker.launch("image/*") },
+                        onClick = {
+                            if (tripId <= 0) { showNoTripError = true }
+                            else imagePicker.launch("image/*")
+                        },
                         shape = RoundedCornerShape(14.dp)
                     ) {
                         Icon(Icons.Default.AddPhotoAlternate, null)

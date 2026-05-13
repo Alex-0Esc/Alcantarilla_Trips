@@ -344,7 +344,9 @@ fun CreateTripScreen(
                                 flight        = selectedFlight?.code ?: "",
                                 price         = totalPrice,
                                 hotelName     = selectedHotel?.name ?: "",
-                                imageEmoji    = "🏙️"
+                                imageEmoji    = "🏙️",
+                                selectedHotel = selectedHotel,
+                                selectedFlight = selectedFlight
                             )
                             showSuccessDialog = true
                         },
