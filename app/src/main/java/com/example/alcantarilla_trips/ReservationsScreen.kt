@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.alcantarilla_trips.domain.Booking
+import com.example.alcantarilla_trips.domain.model.Booking
 import com.example.alcantarilla_trips.domain.Trip
 import com.example.alcantarilla_trips.ui.viewmodels.HotelViewModel
 import com.example.alcantarilla_trips.ui.viewmodels.TripListViewModel

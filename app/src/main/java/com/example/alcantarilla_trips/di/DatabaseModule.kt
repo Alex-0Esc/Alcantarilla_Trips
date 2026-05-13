@@ -5,6 +5,7 @@ import com.example.alcantarilla_trips.data.local.AppDatabase
 import com.example.alcantarilla_trips.data.local.dao.AccessLogDao
 import com.example.alcantarilla_trips.data.local.dao.ActivityDao
 import com.example.alcantarilla_trips.data.local.dao.TripDao
+import com.example.alcantarilla_trips.data.local.dao.TripImageDao
 import com.example.alcantarilla_trips.data.local.dao.UserDao
 import dagger.Module
 import dagger.Provides
